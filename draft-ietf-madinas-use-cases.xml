@@ -15,7 +15,7 @@
 <rfc
       xmlns:xi="http://www.w3.org/2001/XInclude"
       category="info"
-      docName="draft-ietf-madinas-use-cases-02"
+      docName="draft-ietf-madinas-use-cases-03"
       ipr="trust200902"
       obsoletes=""
       updates=""
@@ -40,7 +40,7 @@
         full title is longer than 39 characters -->
 
    <title abbrev="RCM Use Cases">Randomized and Changing MAC Address Use Cases</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-latest"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-03"/>
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
    <!-- Another author who claims to be an editor -->
@@ -96,15 +96,10 @@
         keywords will be used for the search engine. -->
 
    <abstract>
-      <t>To limit the association between a device, its traffic, its location and its user,
+	   <t>To limit the privacy and security issues created by the association between a device, its traffic, its location and its user,
       client vendors have started implementing MAC address rotation. When such rotation
-      happens, some in-network states may break, which may affect network efficiency and the user
-      experience. At the same time, devices may continue sending other stable identifiers, defeating
-      the MAC rotation purposes.
-      This document lists various network environments and a set of network services that may
-      be affected by such rotation. This document then examines settings and use cases where the user experience
-      may be affected by in-network state disruption, and settings where other machine identifiers may
-      expose the user privacy. Last, this document examines
+      happens, some in-network states may break, which may affect network efficiency and the user experience. At the same time, devices may continue sending other stable identifiers, defeating the MAC rotation purposes.
+      This document lists various network environments and a set of functional network services that may be affected by such rotation. This document then examines settings where the user experience may be affected by in-network state disruption, and settings where other machine identifiers may help re-identify the user or recover the identity of the user, and locate the device and its associated user. Last, this document examines
       solutions to maintain user privacy while preserving user quality of experience and network
       operation efficiency.</t>
     </abstract>
@@ -113,12 +108,15 @@
   <middle>
     <section numbered="true" toc="default">
       <name>Introduction</name>
-      <t>WiFi technology has revolutionized communication and become the preferred technology and sometimes the only
-      technology used by devices such as smartphones, tablets and Internet-of-Thing (IoT) devices. WiFi is an over-the-air technology,
-      Attackers who are equiped with surveillance equipment can "monitor" WiFi packets and track the activity of WiFi devices.
-      Once the association between
-      a device and its user is made, identifying the device and its activity is sufficient
-      to deduce information about what the user is doing, without the user consent.</t>
+      <t>WiFi technology has revolutionized communication and become the
+   preferred technology and sometimes the only technology used by
+   devices such as smartphones, tablets and Internet-of-Thing (IoT)
+   devices.  WiFi is an over-the-air technology, Attackers who are
+   equiped with surveillance equipment can "monitor" WiFi packets and
+   track the activity of WiFi devices.  Once the association between a
+   device and its user is made, identifying the device and its activity
+   is sufficient to deduce information about what the user is doing,
+   without the user consent.</t>
 
       <t>To reduce the risks of correlation between a device activity and its owner, multiple
       vendors have started to implement Randomized and Changing MAC addresses (RCM). With this
@@ -127,19 +125,17 @@
       traffic flow and a single device is made more difficult, assuming no other visible unique identifiers are in use.</t>
 
 	    <t>However, such address change may affect the user experience and the efficiency of legitimate
-      network operations. For a long time, network designers and implementers relied on the assumption that a given machine,
-      in a network implementing IEEE 802 technologies, would be represented by a unique network MAC address that would not change
-      over time, despite the existence of tools to flush out the MAC address to bypass
-      some network policies. When this assumption is broken, elements of network communication may also break.
+      network operations. For a long time, network designers and implementers relied on the assumption that a given machine, in a  network implementing IEEE 802 technologies, would be represented by a unique network MAC address that would not change over time, despite the existence of tools to flush out the MAC address to bypass 
+      some network policies. When this assumption is broken, elements of network communication may also break. 
       For example, sessions established between the end-device and network services may be lost and
-      packets in translation may suddenly be without clear source or destination. As multiple clients implement
+      packets in translation may suddenly be without clear source or destination. If multiple clients implement 
       fast-paced RCM rotations, network
 		  services may be over-solicited by a small number of stations that appear as many clients.</t>
 
-	    <t>At the same time, some network services rely on the client station providing an identifier, which can be
-      the MAC address or another value. If the client implements MAC rotation but continues sending the same static
-      identifier, then the association between a stable identifier identifier and the station continues despite the RCM scheme.
-      There may be environements where such continued association is desirable, but others where the user privacy has
+	    <t>At the same time, some network services rely on the client station providing an identifier, which can be 
+      the MAC address or another value. If the client implements MAC rotation but continues sending the same static 
+      identifier, then the association between a stable identifier and the station continues despite the RCM scheme. 
+      There may be environments where such continued association is desirable, but others where the user privacy has 
       more value than any continuity of network service state. </t>
 
       <t>There is a need to enumerate services that may be
@@ -162,14 +158,13 @@
 
     <section numbered="true" toc="default">
       <name>MAC Address as an Identity: User vs. Device</name>
-      <t>Any device member of a network implementing IEEE 802 technologies <xref target="IEEE.802-2014"/>
+      <t>Any device member of a network implementing IEEE 802 technologies 
       includes several operating layers. Among them, the Media
       Access Control (MAC) layer defines rules to control how the device accesses the shared medium. In a
       network where a machine can communicate with one or more other machines, one such rule is that each
       machine needs to be identified, either as the target destination of a message, or as the source of a
       message (and thus the target destination of the answer). Initially intended as a 48-bit (6 octets)
-      value in the first versions of the IEEE 802 Standard, other Standards under the IEEE 802 umbrella
-      <xref target="IEEE.802.15.4P_2014"/> then allowed this address to take an extended
+      value in the first versions of the IEEE 802 Standard, other Standards under the IEEE 802 umbrella then allowed this address to take an extended
       format of 64 bits (8 octets), thus enabling a larger number of MAC addresses to coexist as the
       802 technologies became widely adopted.</t>
 
@@ -179,12 +174,11 @@
       second bit, called the Universally or Locally Administered (U/L) Address Bit, indicates whether the address
       has been assigned by a local or universal administrator. Universally administered addresses have this
       bit set to 0. If this bit is set to 1, the entire address (i.e., 48 bits) has been locally administered
-      <xref target="IEEE.802-2014"/> Section 8.4.</t>
+      (IEEE 802-2014 Section 8.4).</t>
 
       <t>The intent of this provision is important for the present document. The IEEE 802 Standard recognized
       that some devices may never travel and thus, always attaching to the same network, would not need a
-      globally unique MAC address to would prevent address collision against any other device in any other network.
-      To accommodate for this relaxed requirement, the second bit of the MAC
+      globally unique MAC address to prevent address collision against any other device in any other network. To accommodate for this relaxed requirement, the second bit of the MAC
       address first octet was designed to express whether the address was intended
       to be globally unique, or if significance was only local. The address allocation method was not
       defined in the Standard in this later case, but the same clause
@@ -194,8 +188,7 @@
       to avoid collisions and confusion, as any machine could connect to any network, and each machine needs
       to determine if it is the intended destination of a message or its response. The same clause 8.4
       reminds network designers and operators that all potential members of a network need to have a unique
-      identifier in that network (if they are going to coexist in the network without confusion on which machine is the source
-      or destination or any message). The advantage of a universal address is
+      identifier in that network (if they are going to coexist in the network without confusion on which machine is the source or destination or any message). The advantage of a universal address is
       that a node with such an address can be attached to any Local Area Network (LAN) in the world with an assurance that its
       address is unique in that network.</t>
 
@@ -208,7 +201,7 @@
       functions are used by a number of people large enough that the device itself, its functions or its
       traffic cannot be associated with a single or small group of people. Examples of such devices include
       switches in a dense network, IEEE 802.11 (WLAN) access points in a crowded airport, task-specific
-      (e.g. barcode scanners) devices, etc. Another type is a personal device, which is a machine, a node,
+      (e.g., barcode scanners) devices, etc. Another type is a personal device, which is a machine, a node,
       primarily used by a single person or small group of people, and so that any identification of the
       device or its traffic can also be associated to the identification of the primary user or their traffic.
       Quite naturally, the identification of the device is trivial if the device expresses a
@@ -229,17 +222,14 @@
       802 MAC address. A logical solution to remove this association is to use a locally administered
       address instead, and change the address in a fashion that prevents a continuous association between
       one MAC address and some PII. However, other network devices on the
-      same LAN implementing a MAC layer also expect each device to be associated to a MAC address that would persist over
-      time. When a device changes
+      same LAN implementing a MAC layer also expect each device to be associated to a MAC address that would persist over time. When a device changes
       its MAC address, other devices on the same LAN may fail to recognize that the same machine is attempting
       to communicate with them. Additionally, multiple layers implemented at upper OSI layers have been designed
-      with the assumption that each node on the LAN, using these services, would have a MAC address that would stay
-      the same over time, and that this document calls a 'persistent' MAC address. This
-      assumption sometimes adds to the PII confusion, for example in the case of Authentication, Association
+      with the assumption that each node on the LAN, using these services, would have a MAC address that would stay the same over time, and that this document calls a 'persistent' MAC address. This
+      assumption sometimes adds to the PII confusion, for example in the case of Authentication, Association 
       and Accounting (AAA) services authenticating
       the user of a machine and associating the authenticated user to the device MAC address. Other services
-      solely focus on the machine (e.g. DHCP), but still expect each device to use a persistent MAC address, for example
-      to re-assign the same IP address to a returning device.
+      solely focus on the machine (e.g., DHCP), but still expect each device to use a persistent MAC address, for example to re-assign the same IP address to a returning device.
       Changing the MAC address may disrupt these services.</t>
 
     </section>
@@ -248,20 +238,18 @@
       <name>The Actors: Network Functional Entities and Human Entities</name>
       <t>The risk of service disruption is thus weighted against the privacy benefits. However, the plurality
       of actors involved in the exchanges tends to blur the boundaries of what privacy should be
-      protected against. It might therefore be useful to list the actors associated to the network exchanges, either
-      because they actively participate to these exchanges, or because they can observe them.
+      protected against. It might therefore be useful to list the actors associated to the network exchanges, either because they actively participate to these exchanges, or because they can observe them.
       Some actors are functional entities, some others are humans (or related) entities.</t>
 
       <section numbered="true" toc="default">
 	      <name>Network Functional Entities</name>
-	      <t>Network communications based on IEEE 802 technologies commonly rely on station identifiers based on a  MAC
-        address. This MAC address is utilized by several types of network functional entitities.</t>
-        <t>Wireless access network infrastructure devices (e.g. WLAN access points or controllers): these
+	      <t>Network communications based on IEEE 802 technologies commonly rely on station identifiers based on a  MAC address. This MAC address is utilized by several types of network functional entitities.</t>
+        <t>Wireless access network infrastructure devices (e.g., WLAN access points or controllers): these
         devices participate in IEEE 802 LAN operations. As such, they need to identify each machine as a source
         or destination so as to successfully continue exchanging frames. Part of the identification includes
-        recording, and adapting to, devices communication capabilities (e.g. support for specific protocols).
+        recording, and adapting to, devices communication capabilities (e.g., support for specific protocols).
         As a device changes its network attachment (roams) from one access point to another, the access points can
-        exchange contextual information (e.g. device MAC, keying material) allowing the device session to
+        exchange contextual information (e.g., device MAC, keying material) allowing the device session to
         continue seamlessly. These access points can also inform devices further in the wired network about
         the roam, to ensure that OSI model Layer 2 frames are redirected to the new device access point.</t>
 
@@ -274,7 +262,7 @@
         and bridges associate MAC addresses to individual ports (so as to know which port to send a frame
         intended for a particular MAC address). Similarly, authentication, authorization and accounting
         (AAA) services can validate the identity of a device and use the device MAC address as a first pointer
-        to the device identity (before operating further verification). Similarly, some networking devices offer
+        to the device identity (before operating further verification). Similarly, some networking devices offer 
         Layer-2 filtering policies that may rely on the connected MAC addresses. 802.1X-enabled devices may also selectively
         block the data portion of a port until a connecting device is authenticated. These services then use the
         MAC address as a first pointer to the device identity to allow or block data traffic. This list is not
@@ -298,8 +286,7 @@
 
       <section numbered="true" toc="default">
 	      <name>Human-related Entities</name>
-	      <t>Networks do no operate without humans actively involved. Humans may actively participate to the network
-        structure and operations, or be observers. </t>
+	      <t>Networks do no operate without humans actively involved at one or more points of the network lifecycle. Humans may actively participate to the network structure and operations, or be observers. </t>
         <t>Over the air (OTA) observers: as the transmitting or receiving MAC address is usually not encrypted
         in wireless 802-technologies exchanges, and as any protocol-compatible device in range of the signal
         can read the frame header, OTA observers are able to read individual transmissions MAC addresses. Some
@@ -324,65 +311,63 @@
         MAC address to represent an identified device.</t>
 
         <t>Over the wire internal (OTWi) observers: because the device wireless MAC address continues to be
-        present over the wire if the infrastructure connection device (e.g. access point) functions as a Layer
+        present over the wire if the infrastructure connection device (e.g., access point) functions as a Layer
         2 bridge, observers may be positioned over the wire and read transmission MAC addresses. Such capability
         supposes that the observer has access to the wired segment of the broadcast domain where the frames
         are exchanged. In most networks, such capability requires physical access to an infrastructure wired
-        device in the broadcast domain (e.g. switch closet), and is therefore not accessible to all.</t>
+        device in the broadcast domain (e.g., switch closet), and is therefore not accessible to all.</t>
 
         <t>Over the wired external (OTWe) observers: beyond the broadcast domain, frames headers are removed
         by a routing device, and a new Layer 2 header is added before the frame is transmitted to the next
         segment. The personal device MAC address is not visible anymore, unless a mechanism copies the MAC
-        address into a field that can be read while the packet travels onto the next segment (e.g. pre- <xref target="RFC4941"/>
+        address into a field that can be read while the packet travels onto the next segment (e.g., pre- <xref target="RFC4941"/>
         and pre- <xref target="RFC7217"/> IPv6 addresses built from the MAC address). Therefore, unless this last condition exists,
         OTWe observers are not able to see the device MAC address.</t>
       </section>
+ </section>
 
 
       <section numbered="true" toc="default">
-        <name>The Trust and the Environments</name>
-        <t>The surface of PII exposures that can drive MAC address randomization depends on the
-        environment where the device operates, on the presence and nature of other devices in the
-        environment, and on the type of network the device is communicating through. Therefore, a device
-        can express an identity (such as a MAC address) that can persist over time if trust with the
-        environment is established, or that can be temporal if an identity is required
-        for a service in an environment where trust has not been established. Trust is not a binary currency.
-        Thus it is useful to distinguish what trust a personal device may establish with the different entities
+        <name>Trust Degrees</name>
+        <t>The surface of PII exposures that can drive MAC address randomization depends on the 
+        environment where the device operates, on the presence and nature of other devices in the 
+        environment, and on the type of network the device is communicating through. Therefore, a device 
+        can express an identity (such as a MAC address) that can persist over time if trust with the 
+        environment is established, or that can be temporal if an identity is required 
+        for a service in an environment where trust has not been established. Trust is not a binary currency. 
+        Thus it is useful to distinguish what trust a personal device may establish with the different entities 
         at play in a L2 domain:</t>
-
+        
         <ol spacing="normal" type="1">
 
-          <li>Full trust: there are environments where a personal device establishes a trust relationship and can share a
-          persistent
+          <li>Full trust: there are environments where a personal device establishes a trust relationship and can share a persistent
             device identity with the access network devices (e.g., access point and WLC), the services beyond the
-            access point in the L2 broadcast domain (e.g. DHCP, AAA), without fear that observers or network actors may access
-            PII that would not be shared willingly. The personal device (or its user) also has confidence that its
+            access point in the L2 broadcast domain (e.g., DHCP, AAA), without fear that observers or network actors may access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
             identity is not shared beyond the L2 broadcast domain boundary.</li>
           <li>Selective trust: in other environments, the device may not be willing to share a persistent identity with some
             elements of the Layer 2 broadcast domain, but may be willing to share a persistent identity with other
-            elements. For example, a device may want to change the MAC address it uses to communicate with the
-            access point while maintaining the same IP address across the MAC address rotation (thus expressing
-            a temporal identity to the access point, but a persistent identity to the DHCP server). That persistent
-            identity may or may not be the same for different
+            elements. That persistent identity may or may not be the same for different
             services.</li>
-          <li>Zero trust: in other environments, the device may not be willing to share any persistent identity with any entity
-            reachable through the Layer 2 broadcast domain, and may express a temporal identity to each of them. That temporal
+          <li>Zero trust: in other environments, the device may not be willing to share any persistent identity with any local entity
+            reachable through the AP, and may express a temporal identity to each of them. That temporal
             identity may or not be the same for different services.</li>
 
           </ol>
+
+ </section>
+
+  <section numbered="true" toc="default">
+        <name>Environments</name>
+
 
         <t> This trust relationship naturally depends on the relationship between the user of the personal device
         and the operator of the service. Thus, it is useful to observe the typical trust structure of common environments:</t>
 
         <ol spacing="normal" type="A">
           <li>Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
-          Internet connection. In this environment, traffic over the Internet does not expose the MAC adddress if it is not
-          copied to another field before routing happens. The wire segment within the broadcast domain is under the control of the user,
+          Internet connection. In this environment, traffic over the Internet does not expose the MAC adddress if it is not copied to another field before routing happens. The wire segment within the broadcast domain is under the control of the user,
           and is therefore usually not at risk of hosting an eavesdropper. Full trust is typically established at
-	        this level among users and with the network elements. The device trusts the access point and all L2 domain entities
-          beyond the access point. However, unless the user has full access control over the physical space where the Wi-Fi
-          transmissions can be detected, there is no guarantee that an eavesdropper would not be observing the communications.
-          As such, it is common to assume that, even in this environement, full trust cannot be achieved.</li>
+	        this level among users and with the network elements. The device trusts the access point and all L2 domain entities beyond the access point. However, unless the user has full access control over the physical space where the Wi-Fi transmissions can be detected, there is no guarantee that an eavesdropper would not be observing the communications. As such, it is common to assume that, even in this environment, full trust cannot be achieved.</li>
 
           <li>Managed residential settings: examples of this type of environment include shared living facilities
           and other collective environments where an operator manages the network for the residents. The OTA
@@ -391,27 +376,30 @@
           operator may need to identify a device activity in real time, but may also need to analyze logs so
           as to understand a past reported issue. For both activities, a device identification associated to the
           session is needed. Full trust is often established in this environment, at the scale of a series of a few
-          sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a
-          common condition for the managed operations.</li>
+          sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common condition for the managed operations.</li>
 
           <li>Public guest networks: public hotspots, such as in shopping malls, hotels, stores, trains stations
           and airports are typical of this environment. The guest network operator may be legally mandated to
           identify devices or users or may have the option to leave all devices and users untracked. In this
           environment, trust is commonly not established with any element of the L2 broadcast domain (Zero trust model by default).</li>
-
-          <li>Enterprises (with BYOD): users may be provided corporate devices or
+          
+          <li>Enterprises (with BYOD): users may be provided with corporate devices or
           may bring their own devices. The devices are not directly under the control of a corporate IT
-          team. Trust may be established as the device joins the network. Some enterprise models will mandate full trust, others,
-          considering the BYOD nature of the device, will allow selective trust.</li>
-
+          team. Trust may be established as the device joins the network. Some enterprise models will mandate full trust, others, considering the BYOD nature of the device, will allow selective trust.</li>
+          
           <li>Managed enterprises: in this environment, users are typically provided with corporate devices,
           and all connected devices are managed, for example through a Mobile Device Management (MDM) profile
           installed on the device. Full trust is created as the MDM profile is installed.</li>
         </ol>
 
-    </section>
+</section>
 
-    <section anchor="dev_id" numbered="true" toc="default">
+ <section numbered="true" toc="default">
+        <name>Network Services</name>
+        <t>Different network environments provide different levels of network services, from simple to complex. At its simplest level, a network can provide to a wireless conencting device basic address service (DHCP) and an ability to connect to the Internet (i.e. DNS service or relay, and routing in and out through a local gateway). The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more complex networks can also incorporate a multipliticty of more advanced services, from authentication (AAA), to quality of experience (QoE) monitoring and management. These services are often accompanied with network performance management services. Different levels of services may call for different relationships with the device, or its user, identity. For example, there is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a conencting station. However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an IoT endpoint).  </t>
+
+
+    <section anchor="DevID" numbered="true" toc="default">
         <name>The Purpose of Device Identification and Associated Problems</name>
         <t>Many network functional devices offering a service to a personal
         device use the device MAC address to maintain service continuity.</t>
@@ -426,7 +414,7 @@
         anymore (causing the access point to fail decrypting the device traffic, and fail selecting the
         right key to send encrypted traffic to the device). In short, the entire context needs to be
         rebuilt, and a new session restarted. The time consumed by this procedure breaks any flow that
-        needs continuity or short delay between packets on the device (e.g. real-time audio, video,
+        needs continuity or short delay between packets on the device (e.g., real-time audio, video,
         AR/VR etc.) The 802.11i Standard recognizes that a device may leave the network and come back
         after a short time window. As such, the standard suggests that the infrastructure should keep the
         context for a device for a while after the device was last seen. MAC address rotation in this
@@ -461,7 +449,7 @@
         address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
 
         <t>In residential settings (environments type A), policies can be in place to control the
-        traffic of some devices (e.g. parental control, block-list devices). These policies are often based on the device
+        traffic of some devices (e.g., parental control, block-list devices). These policies are often based on the device
         MAC address. Rotation of the MAC address removes the possibility for such control.</t>
 
         <t>In residential settings (environments type A) and in enterprises (environments types D and E),
@@ -474,18 +462,15 @@
         MAC address rotation, real time support is only possible if the user is able to provide the
         current MAC address. Service improvement support is not possible if the MAC address that
         the device had at the (past) time of the reported issue is not known at the time the issue
-		    is reported.</t>
-
-	      <t>In industrial environements, polocies are associated to each group of objects, including IoT. MAC
-        address roation may prevent an IoT device from being identified properly, thus leading to network
-        quarantine and disruption of operations.</t>
+		is reported.</t>
+	<t>In industrial environments, policies are associated to each group of objects, including IoT. MAC address roation may prevent an IoT device from being identified properly, thus leading to network quarantine and disruption of operations. </t>
 
       </section>
 
 <section numbered="true" toc="default">
   <name>Scenario Mapping Table</name>
 
-  <t><xref target="dev_id" /> discusses different environments, different settings, and the expectations of
+  <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of 
   users and network operators. <xref target="scenario_table" /> summarizes the expected degree of trust, network
   admin responsibility, complexity of supported network services and network support expectation from the user.</t>
 
@@ -493,7 +478,7 @@
   <name>Scenario Mapping Table</name>
   <thead>
     <tr>
-      <th align="center">Network Location</th>
+      <th align="center">Environment</th>
       <th align="center">Trust Degree</th>
       <th align="center">Network Admin </th>
       <th align="center">Network Services</th>
@@ -547,20 +532,13 @@
 </table>
 
 
-<t>For example: a Home network is sometimes considered to be trusted and safe, where users are not worried about
-other users (or the home network admin) seeing their MAC address. Users expect a simple procedure to connect
-to their home network. All devices in the home network often trust each other. The Home network can also include many
-IoT devices, which need to be simple to onboard
-and manage. The home user commonly expects the network operator to protect the home network from external
-threats (attacks from the Internet). The home user also commonly expects simple policy features (e.g., Parental Control).
-Most home users do not expect to need networking skills to manage their home network. Such environemenst may lead to
-full-trust conditions. However, if the trust commonly exists between allowed actors, there is no guarantee that an
-eavesdropper would not be observing the Wi-Fi traffic from outside, thus practically limiting the applicability of
-the trust in most home scenarios.</t>
+<t>For example: a Home network is sometimes considered to be trusted and safe, where users are not worried about other users (or the home network admin) seeing their MAC address. Users expect a simple procedure to connect
+to their home network. All devices in the home network often trust each other. The Home network can also include many IoT devices, which need to be simple to onboard 
+and manage. The home user commonly expects the network operator to protect the home network from external 
+threats (attacks from the Internet). The home user also commonly expects simple policy features (e.g., Parental Control). 
+Most home users do not expect to need networking skills to manage their home network. Such environments may lead to full-trust conditions. However, if the trust commonly exists between allowed actors, there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside, thus practically limiting the applicability of the trust in most home scenarios.</t>
 
-<t>On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted, where a user has
- no expectation of being able to trust other users or any actor inside or outside of the Layer 2 domain.
- Privacy is the number
+<t>On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted, where a user has no expectation of being able to trust other users or any actor inside or outside of the Layer 2 domain. Privacy is the number 
 one concern for the user. Most users connecting to Public Wi-Fi only require
 simple Internet connectivity service, and expect only limited to no technical support.</t>
 
@@ -572,105 +550,80 @@ simple Internet connectivity service, and expect only limited to no technical su
         <t>The section describes the requirements for Randomized and Changing MAC-addresses: </t>
 
         <ol spacing="normal" type="REQ%d">
-		      <li>The network must not make any assumption about client MAC address persistence.
-          MAC address change must happen while allowing for service continuity.  If a service
-          is interrupted during the RCM process, there must be a formal mechanism for the
+		      <li>The network must not make any assumption about client MAC address persistence.  
+          MAC address change must happen while allowing for service continuity.  If a service 
+          is interrupted during the RCM process, there must be a formal mechanism for the 
           client and the network to exchange about the interruption.</li>
 
-	      	<li>During duration of the services, the device should not change its identity.
+	      	<li>During duration of the services, the device should not change its identity.  
           Any change of identity may result in re-authentication and interruption of the current network services.</li>
 
-	      	<li>Survey the current standards that use MAC address as a device identifier in the protocol.  Make
+	      	<li>Survey the current standards that use MAC address as a device identifier in the protocol.  Make 
           recommendation to the working groups to remove the dependency.</li>
 
-	      	<li>Work as liaison with external standard bodies such as IEEE, BBF and WBA to align with use cases and
+	      	<li>Work as liaison with external standard bodies such as IEEE, BBF and WBA to align with use cases and 
           requirements.</li>
 
           <li> Identify a secure mechanism to authenticate and exchange network identity to the device. </li>
 
-          <li>Identify a secure mechanism to inform the device about the type of network the device is connecting
-          to (e.g. public Wi-Fi, enterprise, home), allowing the user to select the device identity (or identities) accordingly.</li>
+          <li>Identify a secure mechanism to inform the device about the type of network the device is connecting 
+          to (e.g., public Wi-Fi, enterprise, home), allowing the user to select the device identity (or identities) accordingly.</li>
 
-          <li> Identify a secure mechanism for the network to request device identity.  Upon successful
+          <li> Identify a secure mechanism for the network to request device identity.  Upon successful 
           authentication, the network may provide the device a temporary network-based marker to use the network services.</li>
 
           <li>Identify a secure mechanism for the device to notify the network prior to changing its MAC address.</li>
         </ol>
 
       </section>
+</section>
 
-  </section>
-
-  <section anchor="solutions" numbered="true" toc="default">
-  <name>Existing Solutions</name>
-      <t>Technical solutions exist that may address some of the requirements listed in the previous section for environements
-      described in section <xref target="dev_id"/> </t>
-
-
-      <section anchor="wpa" numbered="true" toc="default">
+	  
+  <section anchor="Solutions" numbered="true" toc="default">
+      <name>Existing solutions</name>
+      <t>Technical solutions exist that may address some of the requirements listed in the previous section for environments described in section <xref target="DevID" />.</t>
+      
+	     <section numbered="true" toc="default">
 	      <name>802.1X with WPA2 / WPA3</name>
-        <t> At the time of association to a Wi-Fi access point, 802.1X authentication coupled with
-        WPA2 or WPA3 encryption schemes allows for the mutual identification of the client device or of the user of the device
-        and an authentication authority. The authentication exchange is protected from eavesdropping. In this scenario, the user or the
-        device identity can be obfuscated from external observers. However, the authentication authority is in most cases under the control
-        of the same entity as the network access provider, thus making the user or device identity visible to the network owner. </t>
-
-	      <t>This scheme is therefore well-adapted to enterprise environements, where a level of trust is established between the user
-        and the enterprise network operator. In this scheme, rotation of MAC address can occur through brief disconnections and
-        reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service
-        disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a continuous
-        MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise environement by
-        the requirement to install an authentication profile on the end device, that would be recognized and accepted by a local authentication
-        authority and its authentication server. Such server is uncommon in a home environement, and the procedure to install a profile
-        cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 500 million Wi-Fi hotspots on the
-        planet, the likelihood that a user or device profile would match a profile recognized by a public Wi-Fi authentication authority
-        is also fairly limited, thus restricting the adoption of this scheme for public Wi-Fi as well. Similar limitations are
-        found in hospitality environments.</t>
-
-      <section anchor="OpenRoaming" numbered="true" toc="default">
-	      <name>OpenRoaming</name>
-        <t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming Standard
-        introduces an intermediate trusted relay between local venues and sources of identity <xref target="WBA-RCM"/>.
-        The federation structure also extends the
-        type of authorities that can be used as identity sources (compared to traditional enterprise-based 802.1X scheme for Wi-Fi), and also
-        facilitates the establishment of trust between a local venue and an identity provider. Such procedure drammatically increases the
-        likelihood that one or more identity profiles for the user or the device will be recognized by a local venue. At the same time,
-        authentication does not occur to the local venue, thus offering the possibility for the user or the device to keep their identity obfuscated
-        from the local network operator, unless that operator specifically expresses the requirement to disclose such identity (in which case
-        the user has the option to accept or decline the connection and associated identity exposure).</t>
-
-        <t>The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environements, allowing for the obfuscation
-        of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user and a trusted
-        identity provider. Just like with standard 802.1X scheme for Wi-Fi, authentication allows the establishment of WPA2 or WPA3 keys that
-        can then be used to encrypt the communication between the device and the access point, thus obfuscating the traffic from observers.</t>
-
-	      <t> Just like in the enterprise case, rotation of MAC address can occur through brief disconnections and reconnections
-        (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional
-        load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to
-        external observers. Limitations of this scheme include the requirement to first install one or more profiles on the client device. This
-        scheme also requires the local venue network to support RADSEC and the relay function, which may not be common in small hotspot networks
-        and in home environments.</t>
-	    </section>
-
+	      
+	      <t> At the time of association to a Wi-Fi access point, 802.1X authentication coupled with WPA2 or WPA3 encryption schemes allows for the mutual identification of the client device or of the user of the device and an authentication authority. The authentication exchange is protected from eavesdropping. In this scenario, the user or the device identity can be obfuscated from external observers. However, the authentication authority is in most cases under the control of the same entity as the network access provider, thus making the user or device identity visible to the network owner. </t>
+	      
+	      <t>This scheme is therefore well-adapted to enterprise environments, where a level of trust is established between the user and the enterprise network operator. In this scheme, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the procedure to install a profile cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public Wi-Fi as well. Similar limitations are found in hospitality environments.
+	    </t>
+	
 		</section>
+	     <section anchor="OpenRoaming" numbered="true" toc="default">
+	      <name>OpenRoaming</name>
+<t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming Standard introduces an intermediate trusted relay between local venues and sources of identity. The federation structure also extends the type of authorities that can be used as identity sources (compared to traditional enterprise-based 802.1X scheme for Wi-Fi), and also facilitates the establishment of trust between a local venue and an identity provider. Such procedure drammatically increases the likelihood that one or more identity profiles for the user or the device will be recognized by a local venue. At the same time, authentication does not occur to the local venue, thus offering the possibility for the user or the device to keep their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).
+</t>
 
-  </section>
+<t> The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environments, allowing for the obfuscation of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user and a trusted identity provider. Just like with standard 802.1X scheme for Wi-Fi, authentication allows the establishment of WPA2 or WPA3 keys that can then be used to encrypt the communication between the device and the access point, thus obfuscating the traffic from observers. </t>
+	
+	<t> Just like in the enterprise case, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. Limitations of this scheme include the requirement to first install one or more profiles on the client device. This scheme also requires the local venue network to support RADSEC and the relay function, which may not be common in small hotspot networks and in home environments.</t>
+	
+	      
+	 </section>
+	
+	<section anchor="Proprietary" numbered="true" toc="default">
+	      <name>Proprietary RCM schemes</name>
+	<t> Most client device operating system vendors offer RCM schemes, enabled by default (or easy to enable) on client devices. With these schemes, the device changes its MAC address, when not associated, after having used a given MAC address for a semi-random duration window. These schemes also allow for the device to manifest a different MAC address in different SSIDs.</t>
+	<t> Such randomization scheme enables the device to limit the duration of exposure of a single MAC address to observers. In 802.11-2020, MAC address rotation is not allowed during a given association session, and thus rotation of MAC address can only occur through disconnection and reconnection. Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the venue and identity provider infrastructure, directly proportional to the frequency of the rotation. The scheme is also not intended to protect from the exposure of other identifiers to the venue network (e.g., DHCP option 012 [host name] visible to the network between the AP and the DHCP server). </t>
+		
+	 </section>	
+	  
+   <section anchor="IANA" numbered="true" toc="default">
+      <name>IANA Considerations</name>
+      <t>This memo includes no request to IANA.</t>
 
-	<section anchor="IANA" numbered="true" toc="default">
-    <name>IANA Considerations</name>
-    <t>This memo includes no request to IANA.</t>
-  </section>
-
-  <section anchor="Security" numbered="true" toc="default">
-    <name>Security Considerations</name>
-    <t>Privacy considerations are discussed throughout this document.</t>
-  </section>
+    </section>
+    <section anchor="Security" numbered="true" toc="default">
+      <name>Security Considerations</name>
+      <t>Privacy considerations are discussed throughout this document.</t>
+    </section>
+ </section>
 
 
-</middle>
-
-
-  <!--  *****BACK MATTER ***** -->
+ </middle>
  <back>
     <!-- References split into informative and normative -->
 
@@ -695,39 +648,14 @@ simple Internet connectivity service, and expect only limited to no technical su
       <?rfc include="reference.RFC.5176.xml" ?>
       <?rfc include="reference.RFC.7217.xml" ?>
       <?rfc include="reference.RFC.8174.xml" ?>
-      <?rfc include="reference.IEEE.802.15.4P_2014.xml" ?>
-
-      <reference anchor="IEEE.802-2014" target="https://ieeexplore.ieee.org/document/6847097">
-	      <front>
-		      <title>IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture</title>
-		      <author>
-			      <organization>IEEE</organization>
-          </author>
-		        <date year="2014"></date>
-	      </front>
-      </reference>
-
-        <reference anchor="WBA-RCM">
-	      <front>
-		      <title>Wi-Fi Device Identification</title>
-		      <author>
-			      <organization>Wireless Broadband Alliance</organization>
-          </author>
-		        <date month="March" year="2022"></date>
-	      </front>
-      </reference>
-
+      <?rfc include="https://xml2rfc.tools.ietf.org/public/rfc/bibxml-ieee/reference.IEEE.802.15.4P_2014.xml" ?>
    </references>
-
 
 
 <!-- Change Log
 
-v00 2021-01-31 Initial WG version
-v01	2021-03-10 Updated by Jerome for IETF113's meeting
-v02 2021-07-09 Updated by Jerome for IETF114's meeting
+v03 2022-10-XX Update after comments received since July F2F by members of the MADINAS group
 
 -->
  </back>
-
 </rfc>
