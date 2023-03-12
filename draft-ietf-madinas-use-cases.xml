@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?> 
 <!-- This template is for creating an Internet Draft using xml2rfc,
     which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent"[
@@ -545,40 +545,7 @@ simple Internet connectivity service, and expect only limited to no technical su
 </section>
 
 
-      <section numbered="true" toc="default">
-        <name>Requirements Formulation</name>
-        <t>The section describes the requirements for Randomized and Changing MAC-addresses: </t>
-
-        <ol spacing="normal" type="REQ%d">
-		      <li>The network must not make any assumption about client MAC address persistence.  
-          MAC address change must happen while allowing for service continuity.  If a service 
-          is interrupted during the RCM process, there must be a formal mechanism for the 
-          client and the network to exchange about the interruption.</li>
-
-	      	<li>During duration of the services, the device should not change its identity.  
-          Any change of identity may result in re-authentication and interruption of the current network services.</li>
-
-	      	<li>Survey the current standards that use MAC address as a device identifier in the protocol.  Make 
-          recommendation to the working groups to remove the dependency.</li>
-
-	      	<li>Work as liaison with external standard bodies such as IEEE, BBF and WBA to align with use cases and 
-          requirements.</li>
-
-          <li> Identify a secure mechanism to authenticate and exchange network identity to the device. </li>
-
-          <li>Identify a secure mechanism to inform the device about the type of network the device is connecting 
-          to (e.g., public Wi-Fi, enterprise, home), allowing the user to select the device identity (or identities) accordingly.</li>
-
-          <li> Identify a secure mechanism for the network to request device identity.  Upon successful 
-          authentication, the network may provide the device a temporary network-based marker to use the network services.</li>
-
-          <li>Identify a secure mechanism for the device to notify the network prior to changing its MAC address.</li>
-        </ol>
-
-      </section>
-</section>
-
-	  
+  
   <section anchor="Solutions" numbered="true" toc="default">
       <name>Existing solutions</name>
       <t>Technical solutions exist that may address some of the requirements listed in the previous section for environments described in section <xref target="DevID" />.</t>
