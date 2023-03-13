@@ -15,7 +15,7 @@
 <rfc
       xmlns:xi="http://www.w3.org/2001/XInclude"
       category="info"
-      docName="draft-ietf-madinas-use-cases-03"
+      docName="draft-ietf-madinas-use-cases-04"
       ipr="trust200902"
       obsoletes=""
       updates=""
@@ -40,7 +40,7 @@
         full title is longer than 39 characters -->
 
    <title abbrev="RCM Use Cases">Randomized and Changing MAC Address Use Cases</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-03"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-04"/>
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
    <!-- Another author who claims to be an editor -->
