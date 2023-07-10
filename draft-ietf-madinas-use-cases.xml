@@ -15,7 +15,7 @@
 <rfc
       xmlns:xi="http://www.w3.org/2001/XInclude"
       category="info"
-      docName="draft-ietf-madinas-use-cases-03"
+      docName="draft-ietf-madinas-use-cases-06"
       ipr="trust200902"
       obsoletes=""
       updates=""
@@ -39,8 +39,8 @@
     <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
-   <title abbrev="RCM Use Cases">Randomized and Changing MAC Address Use Cases</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-03"/>
+   <title abbrev="RCM Use Cases">Randomized and Changing MAC Address Use Cases and Requirements</title>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-06"/>
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
    <!-- Another author who claims to be an editor -->
@@ -72,7 +72,7 @@
     </author>
 
 
-    <date year="2022"/>
+    <date year="2023"/>
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
         in the current day for you. If only the current year is specified, xml2rfc will fill
 	 in the current day and month for you. If the year is not the current one, it is
@@ -396,7 +396,8 @@
 
  <section numbered="true" toc="default">
         <name>Network Services</name>
-        <t>Different network environments provide different levels of network services, from simple to complex. At its simplest level, a network can provide to a wireless conencting device basic address service (DHCP) and an ability to connect to the Internet (i.e. DNS service or relay, and routing in and out through a local gateway). The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more complex networks can also incorporate a multipliticty of more advanced services, from authentication (AAA), to quality of experience (QoE) monitoring and management. These services are often accompanied with network performance management services. Different levels of services may call for different relationships with the device, or its user, identity. For example, there is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a conencting station. However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an IoT endpoint).  </t>
+	<t>Different network environments provide different levels of network services, from simple to complex. At its simplest level, a network can provide to a wireless connecting device basic address service (DHCP) and an ability to connect to the Internet (i.e. DNS service or relay, and routing in and out through a local gateway). The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more complex networks can also incorporate a multiplicity of more advanced services, from authentication (AAA), to quality of experience (QoE) monitoring and management. These services are often accompanied with network performance management services. Different levels of services may call for different relationships with the device, or its user, identity. For example, there is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a connecting station, or accept a station using its self-generated IP address (e.g., using SLAAC  <xref target="RFC4862"/>). However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through mechanisms like SAVI <xref target="RFC6620"/>.  </t>
+
 
 
     <section anchor="DevID" numbered="true" toc="default">
@@ -443,7 +444,10 @@
         the rotation occurs, the DHCP server typically holds the released IP address for a certain duration,
         in case the leaving MAC would return. As the DHCP server cannot know if the release is due to a
         temporal disconnection or a MAC rotation, the risk of scope address exhaustion exists even in cases
-        where the IP address is released.</t>
+		where the IP address is released.</t>
+
+		<t>Network devices using self-assigned IPv6 addresses (e.g., with SLAAC defined in <xref target="RFC6620"/>) use mechanisms like DAD to and ND to establish the association between a target IP address and a MAC address, and may cache this association in memory. Changing the MAC address, even through a disconnection-reconnection phase, without changing the IP address, may disrupt the stability of these mappings, if the change occurs within the caching period.</t>
+
 
         <t>Routers keep track of which MAC address is on which interface. MAC rotation can cause MAC
         address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
@@ -468,17 +472,17 @@
       </section>
 
 <section numbered="true" toc="default">
-  <name>Scenario Mapping Table</name>
+  <name>Use Cases</name>
 
   <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of 
   users and network operators. <xref target="scenario_table" /> summarizes the expected degree of trust, network
-  admin responsibility, complexity of supported network services and network support expectation from the user.</t>
+  admin responsibility, complexity of supported network services and network support expectation from the user for the different use cases.</t>
 
 <table anchor="scenario_table" align="center">
-  <name>Scenario Mapping Table</name>
+  <name>Use Cases and their Requirements</name>
   <thead>
     <tr>
-      <th align="center">Environment</th>
+      <th align="center">Use Cases</th>
       <th align="center">Trust Degree</th>
       <th align="center">Network Admin </th>
       <th align="center">Network Services</th>
@@ -544,6 +548,27 @@ simple Internet connectivity service, and expect only limited to no technical su
 
 </section>
 
+
+
+      <section numbered="true" toc="default">
+        <name>Use Cases and Requirements</name>
+        <t>This section describes the requirements for Randomized and Changing MAC-addresses: </t>
+
+        <ol spacing="normal" type="REQ%d">
+		      <li>The network must not make any assumption about client MAC address persistence.  
+          MAC address change must happen while allowing for service continuity.  If a service 
+          is interrupted during the RCM process, there must be a formal mechanism for the 
+          client and the network to exchange about the interruption.</li>
+
+	      	<li>During duration of the services, the device should not change its identity.  
+          Any change of identity may result in re-authentication and interruption of the current network services.</li>
+
+		<li>Different use cases may result in different identity requirements.</li>
+
+        </ol>
+
+      </section>
+</section>
 
   
   <section anchor="Solutions" numbered="true" toc="default">
@@ -611,7 +636,10 @@ simple Internet connectivity service, and expect only limited to no technical su
    </references>
 
    <references title="Informative References">
-      <?rfc include="reference.RFC.4941.xml" ?>
+	   <?rfc include="reference.RFC.4941.xml" ?>
+	 <?rfc include="reference.RFC.4862.xml" ?>
+	 <?rfc include="reference.RFC.6620.xml" ?>
+
       <?rfc include="reference.RFC.5176.xml" ?>
       <?rfc include="reference.RFC.7217.xml" ?>
       <?rfc include="reference.RFC.8174.xml" ?>
