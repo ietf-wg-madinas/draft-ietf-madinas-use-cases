@@ -15,7 +15,7 @@
 <rfc
       xmlns:xi="http://www.w3.org/2001/XInclude"
       category="info"
-      docName="draft-ietf-madinas-use-cases-06"
+      docName="draft-ietf-madinas-use-cases-07"
       ipr="trust200902"
       obsoletes=""
       updates=""
@@ -40,7 +40,7 @@
         full title is longer than 39 characters -->
 
    <title abbrev="RCM Use Cases">Randomized and Changing MAC Address Use Cases and Requirements</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-06"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-07"/>
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
    <!-- Another author who claims to be an editor -->
@@ -72,7 +72,7 @@
     </author>
 
 
-    <date year="2023"/>
+    <date year="2024"/>
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
         in the current day for you. If only the current year is specified, xml2rfc will fill
 	 in the current day and month for you. If the year is not the current one, it is
@@ -563,7 +563,7 @@ simple Internet connectivity service, and expect only limited to no technical su
 	      	<li>During duration of the services, the device should not change its identity.  
           Any change of identity may result in re-authentication and interruption of the current network services.</li>
 
-		<li>Different use cases may result in different identity requirements.</li>
+		<li>Different use cases may result in different constraints, and therefore different solutions.</li>
 
         </ol>
 
@@ -571,37 +571,9 @@ simple Internet connectivity service, and expect only limited to no technical su
 </section>
 
   
-  <section anchor="Solutions" numbered="true" toc="default">
-      <name>Existing solutions</name>
-      <t>Technical solutions exist that may address some of the requirements listed in the previous section for environments described in section <xref target="DevID" />.</t>
-      
-	     <section numbered="true" toc="default">
-	      <name>802.1X with WPA2 / WPA3</name>
-	      
-	      <t> At the time of association to a Wi-Fi access point, 802.1X authentication coupled with WPA2 or WPA3 encryption schemes allows for the mutual identification of the client device or of the user of the device and an authentication authority. The authentication exchange is protected from eavesdropping. In this scenario, the user or the device identity can be obfuscated from external observers. However, the authentication authority is in most cases under the control of the same entity as the network access provider, thus making the user or device identity visible to the network owner. </t>
-	      
-	      <t>This scheme is therefore well-adapted to enterprise environments, where a level of trust is established between the user and the enterprise network operator. In this scheme, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the procedure to install a profile cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public Wi-Fi as well. Similar limitations are found in hospitality environments.
-	    </t>
-	
-		</section>
-	     <section anchor="OpenRoaming" numbered="true" toc="default">
-	      <name>OpenRoaming</name>
-<t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming Standard introduces an intermediate trusted relay between local venues and sources of identity. The federation structure also extends the type of authorities that can be used as identity sources (compared to traditional enterprise-based 802.1X scheme for Wi-Fi), and also facilitates the establishment of trust between a local venue and an identity provider. Such procedure drammatically increases the likelihood that one or more identity profiles for the user or the device will be recognized by a local venue. At the same time, authentication does not occur to the local venue, thus offering the possibility for the user or the device to keep their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).
-</t>
+  <section anchor="Considerations" numbered="true" toc="default">
+	   <name>Considerations</name>
 
-<t> The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environments, allowing for the obfuscation of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user and a trusted identity provider. Just like with standard 802.1X scheme for Wi-Fi, authentication allows the establishment of WPA2 or WPA3 keys that can then be used to encrypt the communication between the device and the access point, thus obfuscating the traffic from observers. </t>
-	
-	<t> Just like in the enterprise case, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. Limitations of this scheme include the requirement to first install one or more profiles on the client device. This scheme also requires the local venue network to support RADSEC and the relay function, which may not be common in small hotspot networks and in home environments.</t>
-	
-	      
-	 </section>
-	
-	<section anchor="Proprietary" numbered="true" toc="default">
-	      <name>Proprietary RCM schemes</name>
-	<t> Most client device operating system vendors offer RCM schemes, enabled by default (or easy to enable) on client devices. With these schemes, the device changes its MAC address, when not associated, after having used a given MAC address for a semi-random duration window. These schemes also allow for the device to manifest a different MAC address in different SSIDs.</t>
-	<t> Such randomization scheme enables the device to limit the duration of exposure of a single MAC address to observers. In 802.11-2020, MAC address rotation is not allowed during a given association session, and thus rotation of MAC address can only occur through disconnection and reconnection. Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the venue and identity provider infrastructure, directly proportional to the frequency of the rotation. The scheme is also not intended to protect from the exposure of other identifiers to the venue network (e.g., DHCP option 012 [host name] visible to the network between the AP and the DHCP server). </t>
-		
-	 </section>	
 	  
    <section anchor="IANA" numbered="true" toc="default">
       <name>IANA Considerations</name>
@@ -650,6 +622,7 @@ simple Internet connectivity service, and expect only limited to no technical su
 <!-- Change Log
 
 v03 2022-10-XX Update after comments received since July F2F by members of the MADINAS group
+v04 2024-01 after comments in IETF 118
 
 -->
  </back>
