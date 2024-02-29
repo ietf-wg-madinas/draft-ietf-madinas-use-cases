@@ -9,21 +9,21 @@
 <meta content="Yiu L. Lee" name="author">
 <meta content="
        To limit the privacy issues created by the association between a device, its traffic, its location and its user,
-      client vendors have started implementing MAC address rotation. When such a rotation
-      happens, some in-network states may break, which may affect network connectivity and user experience. 
-      At the same time, devices may continue sending other stable identifiers, defeating the MAC rotation purposes.
-      This document lists various network environments and a set of network services that may be affected 
-      by such rotation. This document then examines settings where the user experience may be affected by in-network 
+      client and client OS vendors have started implementing MAC address rotation. When such a rotation
+      happens, some in-network states may break, which may affect network connectivity and user experience.
+      At the same time, devices may continue using other stable identifiers, defeating the MAC rotation purposes.
+      This document lists various network environments and a set of network services that may be affected
+      by such rotation. This document then examines settings where the user experience may be affected by in-network
       state disruption. Last, this document examines
       solutions to maintain user privacy while preserving user quality of experience and network
       operation efficiency. 
     " name="description">
 <meta content="xml2rfc 3.20.0" name="generator">
 <meta content="template" name="keyword">
-<meta content="draft-ietf-madinas-use-cases-08" name="ietf.draft">
+<meta content="draft-ietf-madinas-use-cases-09" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.20.0
-    Python 3.11.5
+    Python 3.9.18
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
@@ -33,273 +33,125 @@
     pycountry 23.12.11
     PyYAML 6.0.1
     requests 2.31.0
-    setuptools 69.1.0
+    setuptools 58.1.0
     six 1.16.0
     wcwidth 0.2.13
+    weasyprint 61.0
 -->
-<link href="draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
+<link href="/a/www/www6s/staging/draft-ietf-madinas-use-cases-09.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
-<style type="text/css">@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
+<style type="text/css">/*
 
-@font-face {
-  font-family: 'Lora';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
 
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
-  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Lora';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
 
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+*/
 
-@font-face {
-  font-family: 'Oxygen Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Oxygen Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
 
 :root {
-  color-scheme: light dark;
-  --background-color: #fff;
-  --text-color: #222;
-  --title-color: #191919;
-  --link-color: #2a6496;
-  --highlight-color: #f9f9f9;
-  --line-color: #eee;
-  --pilcrow-weak: #ddd;
-  --pilcrow-strong: #bbb;
-  --small-font-size: 14.5px;
-  --font-mono: 'Oxygen Mono', monospace;
-  scrollbar-color: #bbb #eee;
-}
-body {
-  max-width: 600px;
-  margin: 75px auto;
-  padding: 0 5px;
-  color: var(--text-color);
-  background-color: var(--background-color);
-  font: 16px/22px "Lora", serif;
-  scroll-behavior: smooth;
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
 }
 
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+}
 .ears {
   display: none;
 }
 
 /* headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
-  margin: 0.8em 0 0.3em;
-  font-size-adjust: 0.5;
-  color: var(--title-color);
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
+#title {
   clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
 }
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
-}
-
-h1, h2, h3 {
-  font-size: 22px;
-  line-height: 27px;
-}
-h4, h5, h6 {
-  font-size: 20px;
-  line-height: 24px;
-}
-
-/* general structure */
 .author {
-  padding-bottom: 0.3em;
+  padding-bottom: 4px;
 }
-#abstract+p {
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
   font-size: 18px;
-  line-height: 24px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
 }
-#abstract+p code, #abstract+p samp, #abstract+p tt {
+h4 {
   font-size: 16px;
-  line-height: 0;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
 }
-
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
 p {
   padding: 0;
-  margin: 0.5em 0;
+  margin: 0 0 1em 0;
   text-align: left;
+}
+div, span {
+  position: relative;
 }
 div {
   margin: 0;
 }
 .alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
   border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
 }
 .alignRight.art-text pre {
   padding: 0;
-  width: auto;
 }
 .alignRight {
   margin: 1em 0;
@@ -318,39 +170,40 @@ div {
 svg {
   display: block;
 }
-/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
 svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
   font-family: var(--font-mono);
 }
 .alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
   border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
 }
 .alignCenter.art-text pre {
   padding: 0;
-  width: auto;
 }
 .alignCenter {
   margin: 1em 0;
 }
 .alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
   display: table;
+  border: none;
   margin: 0 auto;
 }
 
 /* lists */
 ol, ul {
   padding: 0;
-  margin: 0 0 0.5em 2em;
+  margin: 0 0 1em 2em;
 }
-:is(ol, ul) :is(ol, ul) {
+ol ol, ul ul, ol ul, ul ol {
   margin-left: 1em;
 }
 li {
@@ -365,7 +218,11 @@ ul.empty, .ulEmpty {
 ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
-:is(ul, ol).compact, .ulCompact, .olCompact {
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
   line-height: 100%;
   margin: 0 0 0 2em;
 }
@@ -377,122 +234,88 @@ dl > dt {
   float: left;
   margin-right: 1em;
 }
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
 dl > dd {
   margin-bottom: .8em;
   min-height: 1.3em;
 }
-:is(dl.compact, .dlCompact) > dd {
+dl.compact > dd, .dlCompact > dd {
   margin-bottom: 0em;
 }
 dl > dd > dl {
   margin-top: 0.5em;
   margin-bottom: 0em;
 }
-dd.break {
-  display: none;
-}
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
 }
-a[href].selfRef {
-  color: var(--text-color);
-}
 a[href] {
-  color: var(--link-color);
+  color: #22e; /* Arlen: WCAG 2019 */
 }
 a[href]:hover {
-  text-decoration: underline;
+  background-color: #f2f2f2;
 }
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
 }
-a.xref {
-  white-space: nowrap;
-}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
 
 /* Figures */
 tt, code, pre {
-  background-color: var(--highlight-color);
-  font: 14px/22px var(--font-mono);
-}
-tt, code {
-  /* changing the font for inline elements leads to different ascender
-     and descender heights; as we want to retain baseline alignment,
-     remove leading to avoid altering the final height of lines */
-  line-height: 0;
-}
-:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
-  font-size: 84%;
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
 }
 pre {
-  border: 1px solid var(--line-color);
-  font-size: 13.5px;
-  line-height: 16px;
-  letter-spacing: -0.2px;
-  margin: 5px;
-  padding: 5px;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
 }
 img {
   max-width: 100%;
 }
 figure {
-  margin: 0.5em 0;
-  padding: 0;
+  margin: 0;
 }
 figure blockquote {
   margin: 0.8em 0.4em 0.4em;
 }
-figcaption, caption {
+figcaption {
   font-style: italic;
-  margin: 0.5em 1.5em;
-  text-align: left;
+  margin: 0 0 1em 0;
 }
 @media screen {
-  /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
-  }
-  pre, svg {
-    display: inline-block;
-    overflow-x: auto;
-  }
   pre {
+    overflow-x: auto;
     max-width: 100%;
-    width: calc(100% - 22px - 1em);
-  }
-  svg {
-    max-width: calc(100% - 22px - 1em);
-  }
-  figure pre {
-    display: block;
-    width: calc(100% - 25px);
-  }
-  :is(pre, svg) + .pilcrow {
-    display: inline-block;
-    vertical-align: text-bottom;
-    padding-bottom: 8px;
+    max-width: calc(100% - 22px);
   }
 }
 
 /* aside, blockquote */
 aside, blockquote {
   margin-left: 0;
-  padding: 0 2em;
-  font-style: italic;
+  padding: 1.2em 2em;
 }
 blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
   margin: 1em 0;
+}
+blockquote > *:last-child {
+  margin-bottom: 0;
 }
 cite {
   display: block;
@@ -502,78 +325,71 @@ cite {
 
 /* tables */
 table {
-  max-width: 100%;
+  width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-thead, tbody {
-  border: 1px solid var(--line-color);
+  border: 1px solid #eee;
 }
 th, td {
   text-align: left;
   vertical-align: top;
-  padding: 5px 10px;
+  padding: 0.5em 0.75em;
 }
 th {
-  background-color: var(--line-color);
+  text-align: left;
+  background-color: #e9e9e9;
 }
-:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
-  background-color: var(--background-color);
-}
-:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
-  background-color: var(--highlight-color);
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
 }
 table caption {
+  font-style: italic;
   margin: 0;
-  padding: 3px 0 3px 1em;
+  padding: 0;
+  text-align: left;
 }
 table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
   margin: 0;
 }
 
 /* pilcrow */
 a.pilcrow {
-  margin-left: 3px;
-  opacity: 0.2;
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
   user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
-@media not print {
-  :hover > a.pilcrow {
-    opacity: 1;
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
+  a.pilcrow:hover {
     background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
-    display: none;
   }
 }
 
 /* misc */
 hr {
   border: 0;
-  border-top: 1px solid var(--line-color);
+  border-top: 1px solid #eee;
 }
 .bcp14 {
   font-variant: small-caps;
-  font-weight: 600;
-  font-size: 14.5px;
 }
+
 .role {
   font-variant: all-small-caps;
 }
@@ -581,20 +397,21 @@ hr {
 /* info block */
 #identifiers {
   margin: 0;
-  font-size: var(--small-font-size);
-  line-height: 18px;
-  --identifier-width: 8em;
+  font-size: 0.9em;
 }
 #identifiers dt {
-  width: var(--identifier-width);
-  margin: 0;
+  width: 3em;
   clear: left;
-  float: left;
-  text-align: right;
 }
 #identifiers dd {
-  margin: 0 0 0 calc(1em + var(--identifier-width));
-  min-width: 5em;
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
 }
 #identifiers .authors .author {
   display: inline-block;
@@ -606,7 +423,7 @@ hr {
 
 /* The prepared/rendered info at the very bottom of the page */
 .docInfo {
-  color: #999;
+  color: #666; /* Arlen: WCAG 2019 */
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
@@ -619,34 +436,26 @@ hr {
 }
 
 /* table of contents */
-#toc {
+#toc  {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
 }
-#toc nav ul {
+nav.toc ul {
   margin: 0 0.5em 0 0;
   padding: 0;
   list-style: none;
 }
-#toc nav li {
+nav.toc li {
   line-height: 1.3em;
   margin: 0.75em 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
 }
 /* references */
 .references dt {
   text-align: right;
   font-weight: bold;
   min-width: 7em;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
 }
 .references dd {
   margin-left: 8em;
@@ -657,13 +466,45 @@ hr {
   margin-bottom: 1.25em;
 }
 
+.refSubseries {
+  margin-bottom: 1.25em;
+}
+
 .references .ascii {
   margin-bottom: 0.25em;
 }
 
 /* index */
-#rfc\.index\.index + ul {
-  margin-left: 0;
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
 }
 
 /* authors */
@@ -671,11 +512,13 @@ address.vcard {
   font-style: normal;
   margin: 1em 0;
 }
+
 address.vcard .nameRole {
   font-weight: 700;
   margin-left: 0;
 }
 address.vcard .label {
+  font-family: var(--font-sans);
   margin: 0.5em 0;
 }
 address.vcard .type {
@@ -690,33 +533,49 @@ hr.addr {
   color: #ddd;
   max-width: calc(100% - 16px);
 }
-@media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
-  }
-}
 
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
 }
 .cref {
-  background-color: rgba(249, 232, 105, 0.3);
+  background-color: #ffd; /* Arlen: WCAG 2019 */
   padding: 2px 4px;
 }
 .crefSource {
   font-style: italic;
 }
 /* alternative layout for smaller screens */
-@media screen and (max-width: 929px) {
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
   #toc {
     position: fixed;
     z-index: 2;
@@ -724,19 +583,15 @@ hr.addr {
     right: 0;
     padding: 0;
     margin: 0;
+    background-color: inherit;
     border-bottom: 1px solid #ccc;
-    opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
     padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
     min-width: 190px;
+    font-size: 1.1em;
     text-align: right;
     background-color: #444;
     color: white;
@@ -748,56 +603,42 @@ hr.addr {
     width: 1em;
     height: 1px;
     left: -164px;
-    margin: 8px 0 0 0;
+    margin: 6px 0 0 0;
     background: white none repeat scroll 0 0;
     box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
     content: "";
   }
   #toc nav {
     display: none;
-    background-color: var(--background-color);
     padding: 0.5em 1em 1em;
     overflow: auto;
-    overscroll-behavior: contain;
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
-  }
-  #toc.active nav {
-    display: block;
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin-top: 2px;
   }
 }
 
 /* alternative layout for wide screens */
-@media screen and (min-width: 930px) {
+@media screen and (min-width: 1024px) {
   body {
-    padding-right: 360px;
-    padding-right: calc(min(180px + 20%, 500px));
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
   }
   #toc {
     position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 480px);
-    width: 312px;
+    top: 42px;
+    right: 42px;
+    width: 25%;
     margin: 0;
-    padding: 0;
+    padding: 0 1em;
     z-index: 1;
   }
   #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
     margin: 0;
     padding: 0.25em 1em 1em 0;
   }
@@ -805,21 +646,8 @@ hr.addr {
     display: block;
     height: calc(90vh - 84px);
     bottom: 0;
-    padding: 0.5em 0 2em;
+    padding: 0.5em 0 0;
     overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-  }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
   }
   img { /* future proofing */
     max-width: 100%;
@@ -852,6 +680,9 @@ hr.addr {
   figure {
     overflow: scroll;
   }
+  .breakable pre {
+    break-inside: auto;
+  }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
@@ -870,6 +701,34 @@ hr.addr {
     border-top: 1px solid #ddd;
   }
 }
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
 
 @page :first {
   padding-top: 0;
@@ -891,18 +750,98 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
 }
 
 /* Changes introduced to fix issues found during implementation */
-
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
 /* Separate body from document info even without intervening H1 */
 section {
   clear: both;
 }
 
+
 /* Top align author divs, to avoid names without organization dropping level with org names */
 .author {
   vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
 }
 
 /* Style section numbers with more space between number and title */
@@ -910,10 +849,22 @@ section {
   padding-right: 0.5em;
 }
 
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
 /* Add styling for a link in the ToC that points to the top of the document */
 a.toplink {
   float: right;
-  margin: 8px 0.5em 0;
+  margin-right: 0.5em;
 }
 
 /* Fix the dl styling to match the RFC 7992 attributes */
@@ -927,13 +878,16 @@ dl.dlNewline > dt {
 }
 
 /* Provide styling for table cell text alignment */
-table .text-left {
+table td.text-left,
+table th.text-left {
   text-align: left;
 }
-table .text-center {
+table td.text-center,
+table th.text-center {
   text-align: center;
 }
-table .text-right {
+table td.text-right,
+table th.text-right {
   text-align: right;
 }
 
@@ -967,7 +921,7 @@ caption {
    script don't end up on the other side of the page. */
 
 address.vcard {
-  max-width: 20em;
+  max-width: 30em;
   margin-right: auto;
 }
 
@@ -979,7 +933,25 @@ address div.right {
   text-align: right;
 }
 
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
 /* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
 
 @media print {
   .toplink {
@@ -992,47 +964,256 @@ address div.right {
   }
 
   /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
   .vcard {
     page-break-inside: avoid;
   }
 
 }
-
-/* Dark mode. */
-@media (prefers-color-scheme: dark) {
-:root {
-  --background-color: #121212;
-  --text-color: #f0f0f0;
-  --title-color: #fff;
-  --link-color: #4da4f0;
-  --highlight-color: #282828;
-  --line-color: #444;
-  --pilcrow-weak: #444;
-  --pilcrow-strong: #666;
-  scrollbar-color: #777 #333;
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
 }
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
 }
-
-/* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
 }
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
 }
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
 }
-svg :is([stroke="fill"], [fill^="#fff"]) {
-  fill: var(--background-color);
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
 }
 </style>
-
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
 </head>
 <body class="xml2rfc">
+<script src="metadata.min.js"></script>
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
@@ -1041,7 +1222,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Henry &amp; Lee</td>
-<td class="center">Expires 25 August 2024</td>
+<td class="center">Expires 1 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,15 +1232,15 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Internet Engineering Task Force</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-madinas-use-cases-08</dd>
+<dd class="internet-draft">draft-ietf-madinas-use-cases-09</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-02-22" class="published">22 February 2024</time>
+<time datetime="2024-02-29" class="published">29 February 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-08-25">25 August 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-01">1 September 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1077,11 +1258,11 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">To limit the privacy issues created by the association between a device, its traffic, its location and its user,
-      client vendors have started implementing MAC address rotation. When such a rotation
-      happens, some in-network states may break, which may affect network connectivity and user experience. 
-      At the same time, devices may continue sending other stable identifiers, defeating the MAC rotation purposes.
-      This document lists various network environments and a set of network services that may be affected 
-      by such rotation. This document then examines settings where the user experience may be affected by in-network 
+      client and client OS vendors have started implementing MAC address rotation. When such a rotation
+      happens, some in-network states may break, which may affect network connectivity and user experience.
+      At the same time, devices may continue using other stable identifiers, defeating the MAC rotation purposes.
+      This document lists various network environments and a set of network services that may be affected
+      by such rotation. This document then examines settings where the user experience may be affected by in-network
       state disruption. Last, this document examines
       solutions to maintain user privacy while preserving user quality of experience and network
       operation efficiency.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1105,7 +1286,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 August 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1161,7 +1342,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-network-services" class="internal xref">Network Services</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-purpose-of-device-ident" class="internal xref">The Purpose of Device Identification and Associated Problems</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-device-identification-and-a" class="internal xref">Device Identification and Associated Problems</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-use-cases" class="internal xref">Use Cases</a></p>
@@ -1180,13 +1361,10 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1196,32 +1374,31 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">IEEE 802.11 or Wireless LAN (WLAN) technology has revolutionized 
-   communication and become the
-   preferred technology and sometimes the only technology used by
-   devices such as smartphones, tablets and Internet-of-Thing (IoT)
-   devices.  WLAN is an over-the-air technology, attackers who are
-   equiped with surveillance equipment can "monitor" WLAN packets and
+<p id="section-1-1">IEEE 802.11 (or 'Wi-Fi') <span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> technology has revolutionized
+   communications and become the
+   preferred, and sometimes the only technology used by
+   devices such as laptops, tablets and Internet-of-Thing (IoT)
+   devices.  Wi-Fi is an over-the-air technology, attackers with surveillance equipment can "monitor" WLAN packets and
    track the activity of WLAN devices.  Once the association between a
    device and its user is made, identifying the device and its activity
    is sufficient to deduce information about what the user is doing,
    without the user consent.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">To reduce the risks of correlation between a device activity and its owner, multiple
-      vendors have started to implement Randomized and Changing MAC addresses (RCM). By randomizing the MAC address, 
+<p id="section-1-2">To reduce the risks of correlation between a device activity and its owner's, multiple client and client OS 
+      vendors have started to implement Randomized and Changing MAC addresses (RCM). By randomizing the MAC address,
       the persistent association between a given
-      traffic flow and a single device is made more difficult, assuming no other visible unique identifiers are in use.<a href="#section-1-2" class="pilcrow">¶</a></p>
+      traffic flow and a single device is made more difficult, assuming no other visible unique identifiers or stable patterns are in use. When individual devices are no longer easily identifiable, it also becomes difficult to associate a series of network flows with a particular individual using one particular device.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">However, such address change may affect the user experience and the efficiency of legitimate
-      network operations. For a long time, network designers and implementers relied on the assumption that a given machine, 
-      in a network implementing <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> technologies, would be represented by a unique network MAC address that would not 
-      change over time, despite the existence of tools to flush out the MAC address to bypass 
-      some network policies. When this assumption is broken, network communication may be disrupted. 
-      For example, sessions established between the end-device and network services may be lost and
-      packets in transit may suddenly be lost. If multiple clients implement 
-      fast-paced RCM rotations, network services may be over-solicited and show more clients than it actually has.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">At the same time, some network services rely on the client station providing an identifier, which can be 
-      the MAC address or another value. If the client implements MAC rotation but continues sending the same static 
-      identifier, then the association between a stable identifier and the station continues despite the RCM scheme. 
-      There may be environments where such continued association is desirable, but others where the user privacy has 
+      network operations. For a long time, network designers and implementers relied on the assumption that a given machine,
+      in a network implementing <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> technologies, would be represented by a unique network MAC address that would not
+      change over time, despite the existence of tools to flush out the MAC address to bypass
+      some network policies. When this assumption is broken, network communication may be disrupted.
+      For example, sessions established between the end-device and network services may break and
+      packets in transit may suddenly be lost. If multiple clients implement
+      fast-paced RCM rotations without coordination with network services, these network services may become over-solicited.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">At the same time, some network services rely on the end station (as defined by the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard) providing an identifier, which can be
+      the MAC address or another value. If the client implements MAC rotation but continues sending the same static
+      identifier, then the association between a stable identifier and the station continues despite the RCM scheme.
+      There may be environments where such continued association is desirable, but others where the user privacy has
       more value than any continuity of network service state.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">There is a need to enumerate services that may be
       affected by RCM, and evaluate possible solutions to maintain both the quality of user experience
@@ -1232,14 +1409,14 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       <h2 id="name-mac-address-as-identity-use">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-mac-address-as-identity-use" class="section-name selfRef">MAC Address as Identity: User vs. Device</a>
       </h2>
-<p id="section-2-1">Any device member of a network implementing IEEE 802 technologies 
+<p id="section-2-1">Any device member of a network implementing IEEE 802 technologies
       includes several operating layers. Among them, the Media
       Access Control (MAC) layer defines rules to control how the device accesses the shared medium. In a
       network where a machine can communicate with one or more other machines, one such rule is that each
       machine needs to be identified, either as the target destination of a message, or as the source of a
       message (and thus the target destination of the answer). Initially intended as a 48-bit (6 octets)
-      value in the first versions of the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard, other Standards under 
-      the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> umbrella 
+      value in the first versions of the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard, other Standards under
+      the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> umbrella
       then allowed this address to take an extended
       format of 64 bits (8 octets), thus enabling a larger number of MAC addresses to coexist as the
       802 technologies became widely adopted.<a href="#section-2-1" class="pilcrow">¶</a></p>
@@ -1249,11 +1426,11 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       second bit, called the Universally or Locally Administered (U/L) Address Bit, indicates whether the address
       has been assigned by a local or universal administrator. Universally administered addresses have this
       bit set to 0. If this bit is set to 1, the entire address (i.e., 48 bits) has been locally administered
-      Section 8.4 of IEEE 802.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">The intent of this provision is important for the present document. The <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> 
+      (clause 8.4 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>).<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">The intent of this provision is important for the present document. The <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>
           Standard recognized
-      that some devices may never move and thus, always attaching to the same network, would not need a
-      globally unique MAC address to prevent address collision against any other device in any other network. 
+      that some devices may never change their attachment network and thus would not need a
+      globally unique MAC address to prevent address collision against any other device in any other network.
       To accommodate for this requirement, the second bit of the MAC
       address first octet was designed to express whether the address was intended
       to be globally unique, or locally unique. The address allocation method was not
@@ -1261,9 +1438,9 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       defined that an address should be unique so as to avoid collision with any other device attached to the same network.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">It is also important to note that the purpose of the Universal version of the address was
       to avoid collisions and confusion, as any machine could connect to any network, and each machine needs
-      to determine if it is the intended destination of a message or its response. Section 8.4 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>
+      to determine if it is the intended destination of a message or its response. Clause 8.4 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>
       reminds network designers and operators that all potential members of a network need to have a unique
-      identifier in that network (if they are going to coexist in the network without confusion on which 
+      identifier in that network (if they are going to coexist in the network without confusion on which
       machine is the source or destination or any message). The advantage of a universal address is
       that a node with such an address can be attached to any Local Area Network (LAN) in the world with an assurance that its
       address is unique in that network.<a href="#section-2-4" class="pilcrow">¶</a></p>
@@ -1272,7 +1449,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       the access, the MAC address of a wireless device can appear anywhere on the planet and collisions
       should still be avoided. However, the same evolution brought the distinction between two types of
       devices that the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard generally referred to as ‘nodes in a network’. Their definition is
-      found in the <span>[<a href="#IEEE_802E" class="cite xref">IEEE_802E</a>]</span> Recommended Practice stated in Section 6.2 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>. One type is a shared 
+      found in the <span>[<a href="#IEEE_802E" class="cite xref">IEEE_802E</a>]</span> Recommended Practice stated in Section 6.2 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>. One type is a shared
       service device, which
       functions are used by a number of people large enough that the device itself, its functions or its
       traffic cannot be associated with a single or small group of people. Examples of such devices include
@@ -1296,16 +1473,16 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       802 MAC address. A logical solution to remove this association is to use a locally administered
       address instead, and change the address in a fashion that prevents a continuous association between
       one MAC address and some PII. However, other network devices on the
-      same LAN implementing a MAC layer also expect each device to be associated to a MAC address that would 
+      same LAN implementing a MAC layer also expect each device to be associated to a MAC address that would
       persist over time. When a device changes
       its MAC address, other devices on the same LAN may fail to recognize that the same machine is attempting
       to communicate with them. Additionally, multiple layers implemented at upper OSI layers have been designed
-      with the assumption that each node on the LAN, using these services, would have a MAC address that would 
+      with the assumption that each node on the LAN, using these services, would have a MAC address that would
       stay the same over time, and that this document calls a 'persistent' MAC address. This
-      assumption sometimes adds to the PII confusion, for example in the case of Authentication, Association 
+      assumption sometimes adds to the PII confusion, for example in the case of Authentication, Association
       and Accounting (AAA) services authenticating
       the user of a machine and associating the authenticated user to the device MAC address. Other services
-      solely focus on the machine (e.g., DHCP), but still expect each device to use a persistent MAC address, 
+      solely focus on the machine (e.g., DHCP), but still expect each device to use a persistent MAC address,
       for example to re-assign the same IP address to a returning device.
       Changing the MAC address may disrupt these services.<a href="#section-2-7" class="pilcrow">¶</a></p>
 </section>
@@ -1315,15 +1492,15 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       </h2>
 <p id="section-3-1">The risk of service disruption is thus weighted against the privacy benefits. However, the plurality
       of actors involved in the exchanges tends to blur the boundaries of what privacy should be
-      protected against. It might therefore be useful to list the actors associated to the network exchanges, 
+      protected against. It might therefore be useful to list the actors associated to the network exchanges,
       either because they actively participate to these exchanges, or because they can observe them.
       Some actors are functional entities, some others are humans (or related) entities.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <section id="section-3.1">
         <h3 id="name-network-functional-entities">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-network-functional-entities" class="section-name selfRef">Network Functional Entities</a>
         </h3>
-<p id="section-3.1-1">Network communications based on IEEE 802 technologies commonly rely on station identifiers based on a  
-              MAC address. This MAC address is utilized by several types of network functional entitities.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">Network communications based on IEEE 802 technologies commonly rely on station identifiers based on a
+              MAC address. This MAC address is utilized by several types of network functional entitities (entities, like applications or devices, that provide a service related to network operations).<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">Wireless access network infrastructure devices (e.g., WLAN access points or controllers): these
         devices participate in IEEE 802 LAN operations. As such, they need to identify each machine as a source
         or destination so as to successfully continue exchanging frames. Part of the identification includes
@@ -1341,7 +1518,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         and bridges associate MAC addresses to individual ports (so as to know which port to send a frame
         intended for a particular MAC address). Similarly, authentication, authorization and accounting
         (AAA) services can validate the identity of a device and use the device MAC address as a first pointer
-        to the device identity (before operating further verification). Similarly, some networking devices offer 
+        to the device identity (before operating further verification). Similarly, some networking devices offer
         Layer-2 filtering policies that may rely on the connected MAC addresses. 802.1X-enabled devices may also selectively
         block the data portion of a port until a connecting device is authenticated. These services then use the
         MAC address as a first pointer to the device identity to allow or block data traffic. This list is not
@@ -1353,18 +1530,18 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         above the MAC layer. Some of them also operate a MAC layer function: for example, routers provide
         IP forwarding services, but rely on the device MAC address to create the appropriate frame structure.
         Other devices and services operate at upper layers, but also rely upon the 802 principle of unique
-        MAC-to-device mapping. For example, DHCPv4 services commonly provide a single IP address per MAC
-        address (they do not assign more than one IPv4 address per MAC address, and assign a new IPv4 address to each
+        MAC-to-device mapping. For example, DHCP services with IPv4 commonly provide a single IP address per MAC
+        address (they do not assign more than one IP address per MAC address, and assign a new IP address to each
         new requesting MAC address). ARP and reverse-ARP services commonly expect that, once an IP-to-MAC mapping
-        has been established, this mapping is valid and unlikely to change for the cache lifetime. DHCPv6 services
-        commonly do not assign the same IPv6 address to two different requesting MAC addresses. Hybrid services,
+        has been established, this mapping is valid and unlikely to change for the cache lifetime. DHCP services with IPv6
+        commonly do not assign the same IP address to two different requesting MAC addresses. Hybrid services,
         such as EoIP, also assume stability of the device-to-MAC-and-IP mapping for the duration of a given session.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 </section>
 <section id="section-3.2">
         <h3 id="name-human-related-entities">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-human-related-entities" class="section-name selfRef">Human-related Entities</a>
         </h3>
-<p id="section-3.2-1">Networks do no operate without humans actively involved at one or more points of the network lifecycle. 
+<p id="section-3.2-1">Networks do no operate without humans actively involved at one or more points of the network lifecycle.
               Humans may actively participate to the network structure and operations, or be observers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">Over the air (OTA) observers: as the transmitting or receiving MAC address is usually not encrypted
         in wireless 802-technologies exchanges, and as any protocol-compatible device in range of the signal
@@ -1374,7 +1551,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         It can happen that an OTA observer has a legitimate reason to monitor a particular device, for example
         for IT support operations. However, it is difficult to control if another actor also monitors the same
         station with the goal of obtaining PII or PCI.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">Wireless access network operators: some wireless access networks are only offered to users or
+<p id="section-3.2-3">Wireless access network operators: some wireless access networks are only provided
         devices matching specific requirements, such as device type (e.g., IoT-only networks, factory operational
         networks). Therefore, operators can attempt to identify the devices (or the users) connecting to the
         networks under their care. They can use the MAC address to represent an identified device.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
@@ -1407,46 +1584,47 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
       <h2 id="name-trust-degrees">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-trust-degrees" class="section-name selfRef">Trust Degrees</a>
       </h2>
-<p id="section-4-1">The surface of PII exposures that can drive MAC address randomization depends on the 
-        environment where the device operates, on the presence and nature of other devices in the 
-        environment, and on the type of network the device is communicating through. Therefore, a device 
-        can express an identity (such as a MAC address) that can persist over time if trust with the 
-        environment is established, or that can be temporal if an identity is required 
-        for a service in an environment where trust has not been established. Trust is not a binary currency. 
-        Thus it is useful to distinguish what trust a personal device may establish with the different entities 
-        at play in a L2 domain:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">The surface of PII exposures that can drive MAC address randomization depends on (1) the
+        environment where the device operates, (2) the presence and nature of other devices in the
+        environment, and (3) the type of network the device is communicating through. Therefore, a device
+        can express an identifier (such as a MAC address) that can persist over time if trust with the
+        environment is established, or that can be temporal if an identifier is required
+        for a service in an environment where trust has not been established. Trust is not a binary currency.
+        Thus it is useful to distinguish what trust a personal device may establish with the different entities
+        at play in a network domain where a MAC address may be visible:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4-2">
             <li id="section-4-2.1">Full trust: there are environments where a personal device establishes a trust relationship and can share a persistent
-            device identity with the access network devices (e.g., access point and WLC), the services beyond the
-            access point in the L2 broadcast domain (e.g., DHCP, AAA), without fear that observers or network actors may 
+            device identity with the access network devices (e.g., access point and WLAN Controller), the services beyond the
+            access point in the L2 broadcast domain (e.g., DHCP, AAA), without fear that observers or network actors may
             access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
             identity is not shared beyond the L2 broadcast domain boundary.<a href="#section-4-2.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-4-2.2">Selective trust: in other environments, the device may not be willing to share a persistent identity with some
+        <li id="section-4-2.2">Selective trust: in other environments, a device may not be willing to share a persistent identity with some
             elements of the Layer 2 broadcast domain, but may be willing to share a persistent identity with other
             elements. That persistent identity may or may not be the same for different
             services.<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-4-2.3">Zero trust: in other environments, the device may not be willing to share any persistent identity with any local entity
+        <li id="section-4-2.3">Zero trust: in other environments, a device may not be willing to share any persistent identity with any local entity
             reachable through the AP, and may express a temporal identity to each of them. That temporal
             identity may or not be the same for different services.<a href="#section-4-2.3" class="pilcrow">¶</a>
 </li>
       </ol>
 </section>
+<div id="Environments">
 <section id="section-5">
       <h2 id="name-environments">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-environments" class="section-name selfRef">Environments</a>
       </h2>
-<p id="section-5-1">This trust relationship naturally depends on the relationship between the user of the personal device
-        and the operator of the service. Thus, it is useful to observe the typical trust structure of common environments:<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">The trust relationship depends on the relationship between the user of a personal device
+        and the operator of a network service that the personal device may use. Thus, it is useful to observe the typical trust structure of common environments:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ol start="1" type="A" class="normal type-A" id="section-5-2">
             <li id="section-5-2.1">Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
-          Internet connection. In this environment, traffic over the Internet does not expose the MAC adddress if it is not copied to 
+          Internet connection. In this environment, traffic over the Internet does not expose the MAC adddress of internal devices if it is not copied to
           another field before routing happens. The wire segment within the broadcast domain is under the control of the user,
           and is therefore usually not at risk of hosting an eavesdropper. Full trust is typically established at
-         this level among users and with the network elements. The device trusts the access point and all L2 domain entities beyond the 
-          access point. However, unless the user has full access control over the physical space where the Wi-Fi transmissions can be detected, 
-          there is no guarantee that an eavesdropper would not be observing the communications. As such, it is common to assume that, even in 
+         this level among users and with the network elements. The device trusts the access point and all L2 domain entities beyond the
+          access point. However, unless the user has full access control over the physical space where the Wi-Fi transmissions can be detected,
+          there is no guarantee that an eavesdropper would not be observing the communications. As such, it is common to assume that, even in
           this environment, full trust cannot be achieved.<a href="#section-5-2.1" class="pilcrow">¶</a>
 </li>
         <li id="section-5-2.2">Managed residential settings: examples of this type of environment include shared living facilities
@@ -1456,7 +1634,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
           operator may need to identify a device activity in real time, but may also need to analyze logs so
           as to understand a past reported issue. For both activities, a device identification associated to the
           session is needed. Full trust is often established in this environment, at the scale of a series of a few
-          sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common 
+          sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common
           condition for the managed operations.<a href="#section-5-2.2" class="pilcrow">¶</a>
 </li>
         <li id="section-5-2.3">Public guest networks: public hotspots, such as in shopping malls, hotels, stores, trains stations
@@ -1466,7 +1644,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 </li>
         <li id="section-5-2.4">Enterprises (with BYOD): users may be provided with corporate devices or
           may bring their own devices. The devices are not directly under the control of a corporate IT
-          team. Trust may be established as the device joins the network. Some enterprise models will mandate full trust, others, 
+          team. Trust may be established as the device joins the network. Some enterprise models will mandate full trust, others,
           considering the BYOD nature of the device, will allow selective trust.<a href="#section-5-2.4" class="pilcrow">¶</a>
 </li>
         <li id="section-5-2.5">Managed enterprises: in this environment, users are typically provided with corporate devices,
@@ -1475,29 +1653,30 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 </li>
       </ol>
 </section>
+</div>
 <section id="section-6">
       <h2 id="name-network-services">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-network-services" class="section-name selfRef">Network Services</a>
       </h2>
 <p id="section-6-1">
-            Different network environments provide different levels of network services, from simple to complex. 
-            At its simplest level, a network can provide to a wireless connecting device basic address service (DHCP) 
-            and an ability to connect to the Internet (i.e. DNS service or relay, and routing in and out through a local gateway). 
-            The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more 
-            complex networks can also incorporate a multiplicity of more advanced services, from authentication (AAA), to quality of 
-            experience (QoE) monitoring and management. These services are often accompanied with network performance management services. 
-            Different levels of services may call for different relationships with the device, or its user, identity. For example, there 
-            is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a connecting 
+            Different network environments provide different levels of network services, from simple to complex.
+            At its simplest level, a network can provide to a wireless connecting device basic address allocation service (DHCP)
+            and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
+            The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more
+            complex networks can also incorporate a multiplicity of more advanced services, from authentication (AAA), to quality of
+            experience (QoE) monitoring and management. These services are often accompanied with network performance management services.
+            Different levels of services may call for different relationships with the device, or its user, identity. For example, there
+            is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a connecting
             station, or accept a station using its self-generated IP address (e.g., using SLAAC <span>[<a href="#RFC4862" class="cite xref">RFC4862</a>]</span>
-            ). However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality 
-            of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an 
+            ). However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality
+            of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an
             IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through
             mechanisms like SAVI <span>[<a href="#RFC6620" class="cite xref">RFC6620</a>]</span>
             .<a href="#section-6-1" class="pilcrow">¶</a></p>
 <div id="DevID">
 <section id="section-6.1">
-        <h3 id="name-the-purpose-of-device-ident">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-the-purpose-of-device-ident" class="section-name selfRef">The Purpose of Device Identification and Associated Problems</a>
+        <h3 id="name-device-identification-and-a">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-device-identification-and-a" class="section-name selfRef">Device Identification and Associated Problems</a>
         </h3>
 <p id="section-6.1-1">Many network functional devices offering a service to a personal
         device use the device MAC address to maintain service continuity.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
@@ -1512,7 +1691,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         right key to send encrypted traffic to the device). In short, the entire context needs to be
         rebuilt, and a new session restarted. The time consumed by this procedure breaks any flow that
         needs continuity or short delay between packets on the device (e.g., real-time audio, video,
-        AR/VR etc.) The 802.11i Standard recognizes that a device may leave the network and come back
+        AR/VR, etc.) The 802.11i Standard recognizes that a device may leave the network and come back
         after a short time window. As such, the standard suggests that the infrastructure should keep the
         context for a device for a while after the device was last seen. MAC address rotation in this
         context can cause resource exhaustion on the wireless infrastructure and the flush of contexts,
@@ -1541,14 +1720,14 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 <p id="section-6.1-6">
                Network devices using self-assigned IPv6 addresses (e.g., with SLAAC defined in
                <span>[<a href="#RFC6620" class="cite xref">RFC6620</a>]</span>
-               ) use mechanisms like DAD to and ND to establish the association between a target IP address 
-               and a MAC address, and may cache this association in memory. Changing the MAC address, even 
-               through a disconnection-reconnection phase, without changing the IP address, may disrupt the 
+               ) use mechanisms like DAD to and ND to establish the association between a target IP address
+               and a MAC address, and may cache this association in memory. Changing the MAC address, even
+               through a disconnection-reconnection phase, without changing the IP address, may disrupt the
                stability of these mappings, if the change occurs within the caching period.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 <p id="section-6.1-7">Routers keep track of which MAC address is on which interface. MAC rotation can cause MAC
         address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
-<p id="section-6.1-8">In residential settings (environments type A), policies can be in place to control the
-        traffic of some devices (e.g., parental control, block-list devices). These policies are often based on the device
+<p id="section-6.1-8">In residential settings (environments type A in section  <a href="#Environments" class="auto internal xref">Section 5</a>), policies can be in place to control the
+        traffic of some devices (e.g., parental control or block-list filters). These policies are often based on the device
         MAC address. Rotation of the MAC address removes the possibility for such control.<a href="#section-6.1-8" class="pilcrow">¶</a></p>
 <p id="section-6.1-9">In residential settings (environments type A) and in enterprises (environments types D and E),
         device recognition and ranging may be used for IoT-related functionalities (door unlock, preferred
@@ -1560,8 +1739,8 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         current MAC address. Service improvement support is not possible if the MAC address that
         the device had at the (past) time of the reported issue is not known at the time the issue
  is reported.<a href="#section-6.1-10" class="pilcrow">¶</a></p>
-<p id="section-6.1-11">In industrial environments, policies are associated to each group of objects, including IoT. 
-              MAC address roation may prevent an IoT device from being identified properly, thus leading to 
+<p id="section-6.1-11">In industrial environments, policies are associated to each group of objects, including IoT.
+              MAC address rotation may prevent an IoT device from being identified properly, thus leading to
               network quarantine and disruption of operations.<a href="#section-6.1-11" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1571,7 +1750,7 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
         </h3>
 <p id="section-6.2-1">
                <a href="#DevID" class="auto internal xref">Section 6.1</a>
-               discusses different environments, different settings, and the expectations of 
+               discusses different environments, different settings, and the expectations of
   users and network operators.
                <a href="#scenario_table" class="auto internal xref">Table 1</a>
                summarizes the expected degree of trust, network
@@ -1637,21 +1816,21 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
           </tbody>
         </table>
 </div>
-<p id="section-6.2-3">For example: a Home network is sometimes considered to be trusted and safe, where users 
+<p id="section-6.2-3">For example: a Home network is sometimes considered to be trusted and safe, where users
               are not worried about other users (or the home network admin) seeing their MAC address.
-              Users expect a simple procedure to connect to their home network. All devices in the home 
-              network often trust each other. The Home network can also include many IoT devices, which 
-              need to be simple to onboard and manage. The home user commonly expects the network operator 
-              to protect the home network from external threats (attacks from the Internet). The home 
-              user also commonly expects simple policy features (e.g., Parental Control). Most home users 
-              do not expect to need networking skills to manage their home network. Such environments may 
-              lead to full-trust conditions. However, if the trust commonly exists between allowed actors, 
-              there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside, 
+              Users expect a simple procedure to connect to their home network. All devices in the home
+              network often trust each other. The Home network can also include many IoT devices, which
+              need to be simple to onboard and manage. The home user commonly expects the network operator
+              to protect the home network from external threats (attacks from the Internet). The home
+              user also commonly expects simple policy features (e.g., Parental Control). Most home users
+              do not expect to need networking skills to manage their home network. Such environments may
+              lead to full-trust conditions. However, if the trust commonly exists between allowed actors,
+              there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside,
               thus practically limiting the applicability of the trust in most home scenarios.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<p id="section-6.2-4">On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted, 
-              where a user has no expectation of being able to trust other users or any actor inside or 
-              outside of the Layer 2 domain. Privacy is the number one concern for the user. Most users 
-              connecting to Public Wi-Fi only require simple Internet connectivity service, and expect 
+<p id="section-6.2-4">On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted,
+              where a user has no expectation of being able to trust other users or any actor inside or
+              outside of the Layer 2 domain. Privacy is the number one concern for the user. Most users
+              connecting to Public Wi-Fi only require simple Internet connectivity service, and expect
               only limited to no technical support.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 </section>
 </section>
@@ -1679,32 +1858,17 @@ svg :is([stroke="fill"], [fill^="#fff"]) {
 </section>
 </div>
 <section id="section-8">
-      <h2 id="name-normative-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
-      </h2>
-<dl class="references">
-<dt id="RFC2119">[RFC2119]</dt>
-      <dd>
-<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC3552">[RFC3552]</dt>
-      <dd>
-<span class="refAuthor">Rescorla, E.</span> and <span class="refAuthor">B. Korver</span>, <span class="refTitle">"Guidelines for Writing RFC Text on Security Considerations"</span>, <span class="seriesInfo">BCP 72</span>, <span class="seriesInfo">RFC 3552</span>, <span class="seriesInfo">DOI 10.17487/RFC3552</span>, <time datetime="2003-07" class="refDate">July 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3552">https://www.rfc-editor.org/info/rfc3552</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5226">[RFC5226]</dt>
-    <dd>
-<span class="refAuthor">Narten, T.</span> and <span class="refAuthor">H. Alvestrand</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">RFC 5226</span>, <span class="seriesInfo">DOI 10.17487/RFC5226</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5226">https://www.rfc-editor.org/info/rfc5226</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-</dl>
-</section>
-<section id="section-9">
       <h2 id="name-informative-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
       </h2>
 <dl class="references">
 <dt id="IEEE_802">[IEEE_802]</dt>
       <dd>
 <span class="refAuthor">IEEE 802</span>, <span class="refTitle">"IEEE Std 802 - IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture"</span>, <span class="seriesInfo">IEEE 802 </span>, <time datetime="2014" class="refDate">2014</time>. </dd>
+<dd class="break"></dd>
+<dt id="IEEE_802.11">[IEEE_802.11]</dt>
+      <dd>
+<span class="refAuthor">IEEE 802.11 WG - 802 LAN/MAN Standards Committee</span>, <span class="refTitle">"IEEE 802.11-2020 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications"</span>, <span class="seriesInfo">IEEE 802.11 </span>, <time datetime="2020" class="refDate">2020</time>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802E">[IEEE_802E]</dt>
       <dd>
