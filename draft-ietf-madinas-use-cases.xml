@@ -126,7 +126,7 @@
 
          <t>This document is organized as follows. <xref target="identity"/> discusses the current status of using MAC address as Identity.
             <xref target="actors"/> discusses various actors in the network that will be impacted by the MAC
-            address randamization. <xref target="trust"/> discusses the Trust degrees. <xref target="environments"/> discusses various network 
+            address randomization. <xref target="trust"/> examines the Trust degrees. <xref target="environments"/> discusses various network 
             environments that will be impacted. <xref target="services"/> analyzes some existing network services that will be impacted. Finally,
             we include some solutions in <xref target="solutions"/> that are being worked on.</t>
 
