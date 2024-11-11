@@ -124,12 +124,15 @@
          and network efficiency while RCM happens and user privacy is reinforced. This document
          presents such assessment and recommendations.</t>
 
-         <t>This document is organized as follows. 
-         </t>
+         <t>This document is organized as follows. <xref target="identity"/> discusses the current status of using MAC address as Identity.
+            <xref target="actors"/> discusses various actors in the network that will be impacted by the MAC
+            address randomization. <xref target="trust"/> examines the Trust degrees. <xref target="environments"/> discusses various network 
+            environments that will be impacted. <xref target="services"/> analyzes some existing network services that will be impacted. Finally,
+            we include some solutions in <xref target="solutions"/> that are being worked on.</t>
 
       </section>
       <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
-      <section numbered="true" toc="default">
+      <section anchor="identity" numbered="true" toc="default">
          <name>MAC Address as Identity: User vs. Device</name>
          <t>The Media Access Control (MAC) layer of IEEE 802 technologies defines rules to control 
          how a device accesses the shared medium. In a
@@ -223,7 +226,7 @@
 
       </section>
 
-      <section anchor="actor" numbered="true" toc="default">
+      <section anchor="actors" numbered="true" toc="default">
          <name>The Actors: Network Functional Entities and Human Entities</name>
          <t>The risk of service disruption is thus weighted against the privacy benefits. However, the plurality
          of actors involved in the exchanges tends to blur the boundaries of what privacy should be
@@ -326,7 +329,7 @@
          </section>
       </section>
 
-      <section numbered="true" toc="default">
+      <section anchor="trust" numbered="true" toc="default">
          <name>Trust Degrees</name>
          <t>The surface of PII exposures that can drive MAC address randomization depends on (1) the
         environment where the device operates, (2) the presence and nature of other devices in the
@@ -355,7 +358,7 @@
          </ol>
       </section>
 
-      <section anchor="Environments" numbered="true" toc="default">
+      <section anchor="environments" numbered="true" toc="default">
          <name>Environments</name>
          <t>The trust relationship depends on the relationship between the user of a personal device
          and the operator of a network service that the personal device may use. Thus, it is useful to observe the typical trust 
@@ -398,7 +401,7 @@
 
          </ol>
       </section>
-      <section numbered="true" toc="default">
+      <section anchor="services" numbered="true" toc="default">
          <name>Network Services</name>
          <t>Different network environments provide different levels of network services, from simple to complex.
          At its simplest level, a network can provide to a wireless connecting device basic address allocation service (e.g., 
@@ -475,7 +478,7 @@
             <t>Routers keep track of which MAC address is on which interface. MAC address randomization can cause MAC
             address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
 
-            <t>In residential settings (environments type A in section  <xref target="Environments" />), 
+            <t>In residential settings (environments type A in section  <xref target="environments" />), 
             policies can be in place to control the
             traffic of some devices (e.g., parental control or block-list filters). These policies are often based on the device
             MAC address. MAC address randomization removes the possibility for such control.</t>
@@ -680,8 +683,8 @@
 </references>
 
 
-  <section anchor="Solutions" numbered="true" toc="default">
-      <name>Existing solutions</name>
+  <section anchor="solutions" numbered="true" toc="default">
+      <name>Existing Solutions</name>
       
 	   <section numbered="true" toc="default">
 	   <name>802.1X with WPA2 / WPA3</name>
