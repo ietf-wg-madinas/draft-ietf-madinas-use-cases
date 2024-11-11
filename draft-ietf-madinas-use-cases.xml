@@ -257,7 +257,7 @@
             AAA services can validate the identity of a device and use the device MAC address as a first pointer
             to the device identity (before operating further verification). Similarly, some networking devices offer
             layer-2 filtering policies that may rely on the connected MAC addresses. 802.1X-enabled 
-            <xref target="IEEE_801X"/> devices may also selectively put the interface in blocking state
+            <xref target="IEEE_802.1X"/> devices may also selectively put the interface in blocking state
             until a connecting device is authenticated. These services then use the
             MAC address as a first pointer to the device identity to allow or block data traffic. This list is not
             exhaustive. Multiple services are defined for 802.3 networks, and multiple services defined by the IEEE
@@ -341,7 +341,7 @@
             device identity with the access network devices (e.g., access point and WLAN Controller), the services beyond the
             access point in the layer-2 broadcast domain (e.g., DHCP, AAA), without fear that observers or network actors may
             access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
-            identity is not shared beyond the L2 broadcast domain boundary.</li>
+            identity is not shared beyond the layer-2 broadcast domain boundary.</li>
 
             <li>Selective trust: in other environments, a device may not be willing to share a persistent identity with some
             elements of the layer-2 broadcast domain, but may be willing to share a persistent identity with other
@@ -366,7 +366,7 @@
             if it is not copied to
             another field before routing happens. The wire segment within the broadcast domain is under the control of the user,
             and is therefore usually not at risk of hosting an eavesdropper. Full trust is typically established at
-            this level among users and with the network elements. The device trusts the access point and all L2 domain entities beyond the
+            this level among users and with the network elements. The device trusts the access point and all layer-2 domain entities beyond the
             access point. However, unless the user has full access control over the physical space where the Wi-Fi transmissions can be detected,
             there is no guarantee that an eavesdropper would not be observing the communications. As such, it is common to assume that, even in
             this environment, full trust cannot be achieved.</li>
@@ -381,12 +381,12 @@
             sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common
             condition for the managed operations.</li>
 
-            <li>Public guest networks: public hotspots, such as in shopping malls, hotels, stores, trains stations
+            <li>Public guest networks: public hotspots, such as in shopping malls, hotels, stores, train-stations,
             and airports are typical of this environment. The guest network operator may be legally mandated to
             identify devices or users or may have the option to leave all devices and users untracked. In this
-            environment, trust is commonly not established with any element of the L2 broadcast domain (Zero trust model by default).</li>
+            environment, trust is commonly not established with any element of the layer-2 broadcast domain (Zero trust model by default).</li>
             
-            <li>Enterprises (with BYOD): users may be provided with corporate devices or
+            <li>Enterprises with Bring-Your-Own-Device (BYOD): users may be provided with corporate devices or
             may bring their own devices. The devices are not directly under the control of a corporate IT
             team. Trust may be established as the device joins the network. Some enterprise models will mandate full trust, others,
             considering the BYOD nature of the device, will allow selective trust.</li>
@@ -399,76 +399,80 @@
       </section>
       <section numbered="true" toc="default">
          <name>Network Services</name>
-         <t>
-            Different network environments provide different levels of network services, from simple to complex.
-            At its simplest level, a network can provide to a wireless connecting device basic address allocation service (DHCP)
-            and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
-            The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more
-            complex networks can also incorporate a multiplicity of more advanced services, from authentication (AAA), to quality of
-            experience (QoE) monitoring and management. These services are often accompanied with network performance management services.
-            Different levels of services may call for different relationships with the device, or its user, identity. For example, there
-            is usually no need to identify the device or its user for a public network to provide a DHCP-sourced IP address to a connecting
-            station, or accept a station using its self-generated IP address (e.g., using SLAAC <xref target="RFC4862" />
-            ). However, there may be a need, in an enterprise private network, to identify devices in order to provide adapted quality
-            of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an
-            IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through
-            mechanisms like SAVI <xref target="RFC6620" />
-            .
+         <t>Different network environments provide different levels of network services, from simple to complex.
+         At its simplest level, a network can provide to a wireless connecting device basic address allocation service (e.g., 
+         DHCPv4 <xref target="RFC2131" /> or SLAAC <xref target="RFC4862" />)
+         and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
+         The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more
+         complex networks can also incorporate a multiplicity of more advanced services, from AAA, to Quality of
+         Experience monitoring and management. These services are often accompanied with network performance management services.
+         Different levels of services may call for different relationships with the device, its user and the identity. For example, there
+         is usually no need to identify the device or its user in a public network.
+         However, there may be a need, in an enterprise private network, to associate a device to an identity in order to provide 
+         adapted quality
+         of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an
+         IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through
+         mechanisms like SAVI <xref target="RFC6620" />.
          </t>
          <section anchor="DevID" numbered="true" toc="default">
-         <name>Device Identification and Associated Problems</name>
-         <t>Many network functional devices offering a service to a personal
-         device use the device MAC address to maintain service continuity.</t>
+            <name>Device Identification and Associated Problems</name>
 
-         <t>Wireless access points and controllers use the MAC address to validate the device connection
-         context, including protocol capabilities, confirmation that authentication was completed, QoS or
-         security profiles, encryption key material. Some advanced access points and controllers also include
-         upper layer functions which purpose is covered below. A device changing its MAC address, without
-         another recorded device identity, would cause the access point and the controller to lose these
-         parameters. As such, the layer-2 infrastructure does not know that the device (with its new MAC address)
-         is authorized to communicate through the network. The encryption keying material is not identified
-         anymore (causing the access point to fail decrypting the device traffic, and fail selecting the
-         right key to send encrypted traffic to the device). In short, the entire context needs to be
-         rebuilt, and a new session restarted. The time consumed by this procedure breaks any flow that
-         needs continuity or short delay between packets on the device (e.g., real-time audio, video,
-         AR/VR, etc.) The 802.11i Standard recognizes that a device may leave the network and come back
-         after a short time window. As such, the standard suggests that the infrastructure should keep the
-         context for a device for a while after the device was last seen. MAC address rotation in this
-         context can cause resource exhaustion on the wireless infrastructure and the flush of contexts,
-         including for devices that are simply in temporal sleep mode.</t>
+            <t>Wireless access points and controllers use the MAC address to validate the device connection
+            context, including protocol capabilities, confirmation that authentication was completed, Quality of Service 
+            or security profiles, encryption key material. Some advanced access points and controllers also include
+            upper layer functions which purpose is covered below. A device changing its MAC address, without
+            another recorded device identity, would cause the access point and the controller to lose these
+            parameters. As such, the layer-2 infrastructure does not know that the device (with its new MAC address)
+            is authorized to communicate through the network. The encryption keying material is not identified
+            anymore (causing the access point to fail decrypting the device traffic, and fail selecting the
+            right key to send encrypted traffic to the device). In short, the entire context needs to be
+            rebuilt, and a new session restarted. The time consumed by this procedure breaks any flow that
+            needs continuity or short delay between packets on the device (e.g., real-time audio, video,
+            AR/VR, etc.) The 802.11i Standard <xref target="IEEE_802.11i"/>
+            recognizes that a device may leave the network and come back
+            after a short time window. As such, the standard suggests that the infrastructure should keep the
+            context for a device for a while after the device was last seen. MAC address rotation in this
+            context can cause resource exhaustion on the wireless infrastructure and the flush of contexts,
+            including for devices that are simply in temporal sleep mode.</t>
 
-         <t>Other devices in the layer-2 broadcast domain also use the MAC address to know whether and where to
-         forward frames. MAC rotation can cause these devices to exhaust their resources, holding in memory
-         traffic for a device which port location can no longer be found. As these infrastructure devices
-         also implement a cache (to remember the port position of each known device), too frequent MAC rotation
-         can cause resources exhaustion and the flush of older MAC addresses, including for devices that did
-         not rotate their MAC. For the RCM device, these effects translate into session discontinuity
-         and return traffic losses.</t>
+            <t>Layer-2 switches rely on ARP <xref target="RFC826"/> and NDP  <xref target="RFC4861"/>, 
+            and use the MAC address to forward frames. Aggressive MAC randanization from many devices in a short
+            time-interval may cause the layer-2 switch to exhaust its resources, holding in memory
+            traffic for a device which port location can no longer be found. As these infrastructure devices
+            also implement a cache (to remember the port position of each known device), too frequent MAC rotation
+            can cause resources exhaustion and the flush of older MAC addresses, including for devices that did
+            not rotate their MAC. For the RCM device, these effects translate into session discontinuity
+            and return traffic losses.</t>
 
-         <t>In wireless contexts, 802.1X authenticators rely on the device and user identity validation
-         provided by a AAA server to open their port to data transmission. The MAC address is used to
-         verify that the device is in the authorized list, and the associated key used to decrypt the
-         device traffic. A change in MAC address causes the port to be closed to the device data traffic
-         until the AAA server confirms the validity of the new MAC address. Therefore, MAC rotation can
-         interrupt the device traffic, and cause a strain on the AAA server.</t>
+            <t>In wireless contexts, 802.1X <xref target="IEEE_802.1X"/> authenticators rely on the device and 
+            user identity validation provided by a AAA server to change the inferface from blocking state to 
+            forwarding state. The MAC address is used to
+            verify that the device is in the authorized list, and the associated key used to decrypt the
+            device traffic. A change in MAC address causes the port to be closed to the device data traffic
+            until the AAA server confirms the validity of the new MAC address. Therefore, MAC rotation can
+            interrupt the device traffic, and cause a strain on the AAA server.</t>
 
-         <t>DHCP servers, without a unique identification of the device, lose track of which IP address is
-         validly assigned. Unless the RCM device releases the IP address before the rotation
-         occurs, DHCP servers are at risk of scope exhaustion, causing new devices (and RCM devices)
-         to fail to obtain a new IP address. Even if the RCM device releases the IP address before
-         the rotation occurs, the DHCP server typically holds the released IP address for a certain duration,
-         in case the leaving MAC would return. As the DHCP server cannot know if the release is due to a
-         temporal disconnection or a MAC rotation, the risk of scope address exhaustion exists even in cases
-         where the IP address is released.</t>
+            <t>DHCPv4 servers, without a unique identification of the device, lose track of which IP address is
+            validly assigned. Unless the RCM device releases the IP address before changing the MAC address.
+            DHCPv4 servers are at risk of scope exhaustion, causing new devices (and RCM devices)
+            to fail to obtain a new IP address. Even if the RCM device releases the IP address before
+            changing the MAC address, the DHCPv4 server typically holds the released IP address for a certain duration,
+            in case the leaving MAC would return. As the DHCPv4 server cannot know if the release is due to a
+            temporal disconnection or a MAC randamization, the risk of scope address exhaustion exists even in cases
+            where the IP address is released.</t>
 
-            <t>Network devices using self-assigned IPv6 addresses (e.g., with SLAAC defined in 
-            <xref target="RFC6620" />) use mechanisms like DAD to and ND to establish the association between a target IP address
-               and a MAC address, and may cache this association in memory. Changing the MAC address, even
-               through a disconnection-reconnection phase, without changing the IP address, may disrupt the
-               stability of these mappings, if the change occurs within the caching period.
-            </t>
+            <t>Network devices with self-assigned IPv6 addresses (e.g., with SLAAC defined in 
+            <xref target="RFC6620" />) use mechanisms like Optimistic Duplicate Address Detection (DAD)
+            <xref target="RFC4429"/> and NDP <xref target="RFC4861"/>  
+            to establish the association between a target IP address
+            and a MAC address, and may cache this association in memory. Changing the MAC address, even
+            through a disconnection-reconnection phase, without changing the IP address, may disrupt the
+            stability of these mappings, if the change occurs within the caching period. Similarly, static IP assignement 
+            will break if the MAC address changes without updating the mapping.</t>
+
             <t>Routers keep track of which MAC address is on which interface. MAC rotation can cause MAC
-        address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
+            address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
+
             <t>In residential settings (environments type A in section  <xref target="Environments" />), 
             policies can be in place to control the
             traffic of some devices (e.g., parental control or block-list filters). These policies are often based on the device
@@ -484,22 +488,20 @@
             MAC address rotation, real time support is only possible if the user is able to provide the
             current MAC address. Service improvement support is not possible if the MAC address that
             the device had at the (past) time of the reported issue is not known at the time the issue
-		      is reported.</t>
+            is reported.</t>
             
             <t>In industrial environments, policies are associated to each group of objects, including IoT.
-              MAC address rotation may prevent an IoT device from being identified properly, thus leading to
-              network quarantine and disruption of operations.</t>
+            MAC address rotation may prevent an IoT device from being identified properly, thus leading to
+            network quarantine and disruption of operations.</t>
          </section>
+
          <section numbered="true" toc="default">
             <name>Use Cases</name>
-            <t>
-               <xref target="DevID" />
-               discusses different environments, different settings, and the expectations of
-  users and network operators.
-               <xref target="scenario_table" />
-               summarizes the expected degree of trust, network
-  admin responsibility, complexity of supported network services and network support expectation from the user for the different use cases.
-            </t>
+            <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of
+            users and network operators.<xref target="scenario_table" />
+            ummarizes the expected degree of trust, network admin responsibility, complexity of supported network services 
+            and network support expectation from the user for the different use cases.</t>
+
             <table anchor="scenario_table" align="center">
                <name>Use Cases</name>
                <thead>
@@ -513,47 +515,41 @@
                </thead>
                <tbody>
                   <tr>
-                     <td align="center">Home</td>
+                     <td align="center">Residential settings under the control of the user</td>
                      <td align="center">Medium</td>
                      <td align="center">User</td>
                      <td align="center">Medium</td>
                      <td align="center">Low</td>
                   </tr>
                   <tr>
-                     <td align="center">Managed Residential</td>
+                     <td align="center">Managed residential settings</td>
                      <td align="center">Medium</td>
                      <td align="center">IT</td>
                      <td align="center">Medium</td>
                      <td align="center">Medium</td>
                   </tr>
                   <tr>
-                     <td align="center">Campus (BYOD)</td>
-                     <td align="center">Medium</td>
-                     <td align="center">IT</td>
-                     <td align="center">Complex</td>
-                     <td align="center">Medium</td>
-                  </tr>
-                  <tr>
-                     <td align="center">Enterprise (MDM)</td>
-                     <td align="center">High</td>
-                     <td align="center">IT</td>
-                     <td align="center">Complex</td>
-                     <td align="center">High</td>
-                  </tr>
-                  <tr>
-                     <td align="center">Hospitality</td>
-                     <td align="center">Low</td>
-                     <td align="center">IT</td>
-                     <td align="center">Simple</td>
-                     <td align="center">Medium</td>
-                  </tr>
-                  <tr>
-                     <td align="center">Public WiFi</td>
+                     <td align="center">Public guest networks</td>
                      <td align="center">Low</td>
                      <td align="center">ISP</td>
                      <td align="center">Simple</td>
                      <td align="center">Low</td>
                   </tr>
+                  <tr>
+                     <td align="center">Enterprises with Bring-Your-Own-Device (BYOD)</td>
+                     <td align="center">Medium</td>
+                     <td align="center">IT</td>
+                     <td align="center">Complex</td>
+                     <td align="center">Medium</td>
+                  </tr>
+                  <tr>
+                     <td align="center">Managed enterprises</td>
+                     <td align="center">High</td>
+                     <td align="center">IT</td>
+                     <td align="center">Complex</td>
+                     <td align="center">High</td>
+                  </tr>
+
                </tbody>
             </table>
             <t>For example: a Home network is sometimes considered to be trusted and safe, where users
@@ -602,9 +598,10 @@
          <?rfc include="reference.RFC.826.xml" ?>
          <?rfc include="reference.RFC.2131.xml" ?>
          <?rfc include="reference.RFC.3539.xml" ?>
-         <?rfc include="reference.RFC.4941.xml" ?>
+         <?rfc include="reference.RFC.4429.xml" ?>   
          <?rfc include="reference.RFC.4861.xml" ?>        
          <?rfc include="reference.RFC.4862.xml" ?>
+         <?rfc include="reference.RFC.4941.xml" ?>
          <?rfc include="reference.RFC.6620.xml" ?>
          <?rfc include="reference.RFC.7217.xml" ?>
 
@@ -618,13 +615,13 @@
          <seriesInfo name="IEEE 802" value="" />
       </reference>
 
-      <reference anchor="IEEE_801X" >
+      <reference anchor="IEEE_802.1X" >
          <front>
-            <title>IEEE 801X-2020 - IEEE Standard for Local and Metropolitan Area Networks--Port-Based Network Access Control</title>
+            <title>IEEE 802.1X-2020 - IEEE Standard for Local and Metropolitan Area Networks--Port-Based Network Access Control</title>
             <author initials="" surname="" fullname="IEEE 802.1X WG - 802 LAN/MAN Standards Committee"></author>
             <date month="" year="2020"/>
          </front>
-         <seriesInfo name="IEEE 801X" value="" />
+         <seriesInfo name="IEEE 802.1X" value="" />
 	   </reference>   
 
       <reference anchor="IEEE_802E" >
@@ -645,6 +642,18 @@
          <seriesInfo name="IEEE 802.11" value="" />
 	   </reference>
 
+      <reference anchor="IEEE_802.11i" >
+         <front>
+            <title>IEEE 802.11i-2004 - IEEE Standard for information technology-Telecommunications and information exchange 
+               between systems-Local and metropolitan area networks-Specific requirements-Part 11: Wireless LAN Medium 
+               Access Control (MAC) and Physical Layer (PHY) specifications: Amendment 6: Medium Access Control (MAC) 
+               Security Enhancements</title>
+            <author initials="" surname="" fullname="IEEE 802.11i WG - 802 LAN/MAN Standards Committee"></author>
+            <date month="" year="2004"/>
+         </front>
+         <seriesInfo name="IEEE 802.11i" value="" />
+	   </reference>   
+
 	   <reference anchor="draft-tomas-openroaming" >
          <front>
             <title>WBA OpenRoaming Wireless Federation</title>
@@ -655,32 +664,67 @@
       </reference>
 
 
-
 </references>
 
 
   <section anchor="Solutions" numbered="true" toc="default">
       <name>Existing solutions</name>
       
-	     <section numbered="true" toc="default">
-	      <name>802.1X with WPA2 / WPA3</name>
+	   <section numbered="true" toc="default">
+	   <name>802.1X with WPA2 / WPA3</name>
 	      
-	      <t> At the time of association to a Wi-Fi access point, 802.1X authentication coupled with WPA2 or WPA3 encryption schemes allows for the mutual identification of the client device or of the user of the device and an authentication authority. The authentication exchange is protected from eavesdropping. In this scenario, the user or the device identity can be obfuscated from external observers. However, the authentication authority is in most cases under the control of the same entity as the network access provider, thus making the user or device identity visible to the network owner. </t>
+	   <t>At the time of association to a Wi-Fi access point, 802.1X <xref target="IEEE 802.1X"/> authentication coupled 
+      with WPA2 or WPA3 <xref target="IEEE_802.11i"/>
+      encryption schemes allows for the mutual identification of the client device or of the user of the device and an 
+      authentication authority. The authentication exchange is protected from eavesdropping. In this scenario, the 
+      user or the device identity can be obfuscated from external observers. However, the authentication authority is in 
+      most cases under the control of the same entity as the network access provider, thus making the user or device identity 
+      visible to the network owner. </t>
 	      
-	      <t>This scheme is therefore well-adapted to enterprise environments, where a level of trust is established between the user and the enterprise network operator. In this scheme, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the procedure to install a profile cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public Wi-Fi as well. Similar limitations are found in hospitality environments.
-	    </t>
+	   <t>This scheme is therefore well-adapted to enterprise environments, where a level of trust is established between the user 
+      and the enterprise network operator. In this scheme, rotation of MAC address can occur through brief disconnections and 
+      reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service 
+      disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a 
+      continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise 
+      environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted 
+      by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the 
+      procedure to install a profile cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 
+      500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by 
+      a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public 
+      Wi-Fi as well. Similar limitations are found in hospitality environments. </t>
 	
 		</section>
-	     <section anchor="OpenRoaming" numbered="true" toc="default">
-	      <name>OpenRoaming</name>
-<t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming Standard introduces an intermediate trusted relay between local venues and sources of identity  <xref target="draft-tomas-openroaming" />. The federation structure also extends the type of authorities that can be used as identity sources (compared to traditional enterprise-based 802.1X scheme for Wi-Fi), and also facilitates the establishment of trust between a local venue and an identity provider. Such procedure drammatically increases the likelihood that one or more identity profiles for the user or the device will be recognized by a local venue. At the same time, authentication does not occur to the local venue, thus offering the possibility for the user or the device to keep their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).
-</t>
+	     
+      <section anchor="OpenRoaming" numbered="true" toc="default">
+	   <name>OpenRoaming</name>
+      <t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming 
+      Standard introduces an intermediate trusted relay between local venues and sources of identity  
+      <xref target="draft-tomas-openroaming" />. The federation structure also extends the type of authorities that can be 
+      used as identity sources (compared to traditional enterprise-based 802.1X scheme for Wi-Fi), and also facilitates the 
+      establishment of trust between a local venue and an identity provider. Such procedure drammatically increases the likelihood 
+      that one or more identity profiles for the user or the device will be recognized by a local venue. At the same time, 
+      authentication does not occur to the local venue, thus offering the possibility for the user or the device to keep 
+      their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to 
+      disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).</t>
 
-<t> The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environments, allowing for the obfuscation of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user and a trusted identity provider. Just like with standard 802.1X scheme for Wi-Fi, authentication allows the establishment of WPA2 or WPA3 keys that can then be used to encrypt the communication between the device and the access point, thus obfuscating the traffic from observers. </t>
+      <t>The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environments, allowing for the 
+      obfuscation of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user 
+      and a trusted identity provider. Just like with standard 802.1X scheme for Wi-Fi, authentication allows the establishment of WPA2 
+      or WPA3 keys that can then be used to encrypt the communication between the device and the access point, thus obfuscating the traffic 
+      from observers. </t>
 	
-<t> Just like in the enterprise case, rotation of MAC address can occur through brief disconnections and reconnections (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a continuous MAC address to external observers. Limitations of this scheme include the requirement to first install one or more profiles on the client device. This scheme also requires the local venue network to support RADSEC and the relay function, which may not be common in small hotspot networks and in home environments.</t>
-<t>It is worth noting that, as part of collaborations between IETF MADINAS and WBA around OpenRoaming, some RADIUS privacy enhancements have been proposed in the IETF RADEXT group. For instance, [draft-ietf-radext-deprecating-radius] describes good practices in the use of Chargeable-User-Identity (CUI) between different visited networks, making it better suited for Public Wi-Fi and Hospitality use cases.</t>
-	
+      <t>Just like in the enterprise case, rotation of MAC address can occur through brief disconnections and reconnections 
+      (under the rules of 802.11-2020). Authentication may then need to reoccur, with an associated cost of service disruption and 
+      additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a 
+      continuous MAC address to external observers. Limitations of this scheme include the requirement to first install one or more profiles 
+      on the client device. This scheme also requires the local venue network to support RADSEC and the relay function, which may not be common 
+      in small hotspot networks and in home environments.</t>
+
+      <t>It is worth noting that, as part of collaborations between IETF MADINAS and WBA around OpenRoaming, some RADIUS privacy 
+      enhancements have been proposed in the IETF RADEXT group. For instance, [draft-ietf-radext-deprecating-radius] describes 
+      good practices in the use of Chargeable-User-Identity (CUI) between different visited networks, making it better suited for 
+      Public Wi-Fi and Hospitality use cases.</t>
+
 	      
 	 </section>
 	
