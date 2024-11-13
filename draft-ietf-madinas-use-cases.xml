@@ -70,8 +70,8 @@
         output. If you submit your draft to the RFC Editor, the
         keywords will be used for the search engine. -->
       <abstract>
-         <t>To limit the privacy issues created by the association between a device, its traffic, its location and its user,
-      client and client Operation System vendors have started implementing MAC address randomization. When such a randomization
+         <t>To limit the privacy issues created by the association between a device, its traffic, its location, and its user,
+      client and client Operation System vendors have started implementing MAC address randomization. When such randomization
       happens, some in-network states may break, which may affect network connectivity and user experience.
       At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes.</t>
       
@@ -91,7 +91,7 @@
          preferred, and sometimes the only technology used by
          devices such as laptops, tablets and Internet-of-Thing (IoT)
          devices.  Wi-Fi is an over-the-air technology, attackers with surveillance equipment can "monitor" WLAN packets and
-         track the activity of WLAN devices. It is also possible for attackers to "monitor" the WLAN packers behind the Wi-Fi
+         track the activity of WLAN devices. It is also sometimes possible for attackers to "monitor" the WLAN packers behind the Wi-Fi
          Access Point (AP) over the wired Ethernet. Once the association between a device and its user is made, identifying the 
          device and its activity is sufficient to deduce information about what the user is doing,
          without the user consent.</t>
@@ -101,7 +101,7 @@
          it becomes harder to use the MAC address to construct persistent association between a flow of data packets and a device, 
          assuming no other visible unique identifiers or stable patterns are in use. When individual devices are no longer easily 
          identifiable, it also becomes difficult 
-         to associate a series of network flows with a particular individual using one particular device.</t>
+         to associate a series of network packets with a particular individual using one particular device.</t>
 
          <t>However, such address change may affect the user experience and the efficiency of legitimate
          network operations. For a long time, network designers and implementers relied on the assumption that a given machine,
@@ -112,8 +112,8 @@
          packets in transit may suddenly be lost. If multiple clients implement
          fast-paced MAC address randomization without coordination with network services, these network services may become over-solicited.</t>
 
-         <t>At the same time, some network services rely on the end station (as defined by the <xref target="IEEE_802"/> Standard) providing 
-         an identifier, which can be
+         <t>At the same time, some network services rely on the end station (as defined by the <xref target="IEEE_802"/> Standard,
+         also called in this document device, or machine) providing an identifier, which can be
          the MAC address or another value. If the client implements MAC address randomization but continues sending the same static
          identifier, then the association between a stable identifier and the station continues despite the RCM scheme.
          There may be environments where such continued association is desirable, but others where the user privacy has
@@ -125,10 +125,10 @@
          presents such assessment and recommendations.</t>
 
          <t>This document is organized as follows. <xref target="identity"/> discusses the current status of using MAC address as Identity.
-            <xref target="actors"/> discusses various actors in the network that will be impacted by the MAC
-            address randomization. <xref target="trust"/> examines the Trust degrees. <xref target="environments"/> discusses various network 
-            environments that will be impacted. <xref target="services"/> analyzes some existing network services that will be impacted. Finally,
-            we include some solutions in <xref target="solutions"/> that are being worked on.</t>
+         <xref target="actors"/> discusses various actors in the network that will be impacted by the MAC
+         address randomization. <xref target="trust"/> examines the Trust degrees. <xref target="environments"/> discusses various network 
+         environments that will be impacted. <xref target="services"/> analyzes some existing network services that will be impacted. Finally,
+         <xref target="solutions"/> includes some solutions that are being worked on.</t>
 
       </section>
       <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
@@ -140,8 +140,7 @@
          machine needs to be identified, either as the target destination of a message, or as the source of a
          message (and thus the target destination of the answer). Initially intended as a 48-bit (6 octets)
          value in the first versions of the <xref target="IEEE_802"/> Standard, other Standards under
-         the <xref target="IEEE_802"/> umbrella
-         then allowed this address to take an extended
+         the <xref target="IEEE_802"/> umbrella then allowed this address to take an extended
          format of 64 bits (8 octets), thus enabling a larger number of MAC addresses to coexist as the
          802 technologies became widely adopted.</t>
 
@@ -149,24 +148,25 @@
          the first octet are reserved for specific purposes. In particular, the first bit is used to identify
          the destination address either as an individual (bit set to 0) or a group address (bit set to 1). The
          second bit, called the Universally or Locally Administered (U/L) Address Bit, indicates whether the address
-         has been assigned by a local or universal administrator. Universally administered addresses have this
-         bit set to 0. If this bit is set to 1, the entire address (i.e., 48 bits) has been locally administered
+         has been assigned by a local or administrator. Universally administered addresses have this
+         bit set to 0. If this bit is set to 1, the entire address is considered as locally administered
          (clause 8.4 of <xref target="IEEE_802"/>).</t>
 
          <t>The intent of this provision is important for the present document. The <xref target="IEEE_802"/>
-         Standard recognized
-         that some devices (e.g., Smart Thermostat) may never change their attachment network and thus would not need a
-         globally unique MAC address to prevent address collision against any other device in any other network. The 
-         Universally or Locally Administered Address Bit is defined to signal the network that the MAC Address is locally
-         significant. IEEE didn't define the MAC Address allocation schema when L=1. It states the address must be unique
-         in the same broadcast domain.</t>
+         Standard recognized that some devices (e.g., smart thermostat) may never change their attachment network 
+         and thus would not need a globally unique MAC address to prevent address collision against any other 
+         device in any other network. The U/L bit can be to signal the network that the MAC Address is intended
+         to be locally unique (not globally unique). The 802 Standard <xref target="IEEE_802"/>
+         didn't initially the MAC Address allocation schema when U/L bit is set to 1. It states the address must 
+         be unique in a given broadcast domain (i.e., the space where the MAC addresses of device are visible to one
+         another).</t>
 
          <t>It is also important to note that the purpose of the Universal version of the address was
          to avoid collisions and confusion, as any machine could connect to any network, and each machine needs
          to determine if it is the intended destination of a message or its response. Clause 8.4 of <xref target="IEEE_802"/>
          reminds network designers and operators that all potential members of a network need to have a unique
          identifier in that network (if they are going to coexist in the network without confusion on which
-         machine is the source or destination or any message). The advantage of a universally administrated address is
+         machine is the source or destination or any message). The advantage of an administrated address is
          that a node with such an address can be attached to any Local Area Network (LAN) in the world with an assurance that its
          address is unique in that network.</t>
 
@@ -191,9 +191,9 @@
             </ol>
 
             <t>The identification of the device is trivial if the device expresses a
-            universally unique MAC address. Then, the detection of elements directly or indirectly identifying
+            unique MAC address. Then, the detection of elements directly or indirectly identifying
             the user of the device (Personally Identifiable Information, or PII) is sufficient to tie the
-            universal MAC address to a user. Then, any detection of traffic that can be associated to the
+            MAC address to a user. Then, any detection of traffic that can be associated to the
             device becomes also associated with the known user of that device (Personally Correlated
             Information, or PCI).</t>
 
@@ -216,7 +216,7 @@
          to communicate with them. Additionally, multiple layers implemented at upper OSI layers have been designed
          with the assumption that each node on the LAN, using these services, would have a MAC address that would
          stay the same over time, and that this document calls a 'persistent' MAC address. This
-         assumption sometimes adds to the PII confusion, for example in the case of Authentication, Association
+         assumption sometimes adds to the PII confusion, for example in the case of Authentication, Authorization
          and Accounting (AAA) services <xref target="RFC3539"/> authenticating
          the user of a machine and associating the authenticated user to the device MAC address. Other services
          solely focus on the machine (e.g., DHCPv4 <xref target="RFC2131"/>), but still expect each device to use a persistent MAC address,
@@ -240,41 +240,49 @@
               MAC address. This MAC address is utilized by several types of network functional entities (entities, 
               like applications or devices, that provide a service related to network operations).</t>
 
-            <t>Wireless access network infrastructure devices (e.g., WLAN access points or controllers): these
+            <ol spacing="normal" type="1">
+            <li>Wireless access network infrastructure devices (e.g., WLAN access points or controllers): these
             devices participate in IEEE 802 LAN operations. As such, they need to identify each machine as a source
             or destination so as to successfully continue exchanging frames. Part of the identification includes
             recording, and adapting to, devices communication capabilities (e.g., support for specific protocols).
             As a device changes its network attachment (roams) from one access point to another, the access points can
             exchange contextual information (e.g., device MAC, keying material) allowing the device session to
             continue seamlessly. These access points can also inform devices further in the wired network about
-            the roam, to ensure that layer-2 frames are redirected to the new device access point.</t>
+            the roam, to ensure that layer-2 frames are redirected to the new device access point.</li>
 
-            <ol spacing="normal" type="1">
-            <li> Wireless Access Point: Many wireless network access devices
-            (e.g., IEEE 802.11 access points) are conceived as layer-2 devices, and as such they bridge a frame from
-            one medium (e.g., IEEE 802.11 or Wi-Fi) to another (e.g., IEEE 802.3 or Ethernet). This means that a wireless
-            device MAC address often exists on the wire beyond the wireless access device. Devices connected to
-            this wire also implement IEEE 802.3 technologies, and as such operate on the expectation that each device is
-            associated to a MAC address that persists for the duration of continuous exchanges. For example, switches
-            and bridges associate MAC addresses to individual ports (so as to know which port to send a frame
-            intended for a particular MAC address). Similarly,
-            AAA services can validate the identity of a device and use the device MAC address as a first pointer
-            to the device identity (before operating further verification). Similarly, some networking devices offer
-            layer-2 filtering policies that may rely on the connected MAC addresses. 802.1X-enabled 
-            <xref target="IEEE_802.1X"/> devices may also selectively put the interface in blocking state
-            until a connecting device is authenticated. These services then use the
-            MAC address as a first pointer to the device identity to allow or block data traffic. This list is not
-            exhaustive. Multiple services are defined for 802.3 networks, and multiple services defined by the IEEE
-            802.1 working group are also applicable to 802.3 networks. Wireless access points may also connect to
-            other mediums than 802.3, which also implements mechanism under the umbrella of the general 802 Standard,
-            and therefore expect the unique and persistent association of a MAC address to a device.</li>
+            <li> Other network devices operating at the MAC layer: many wireless network access devices 
+            (e.g., IEEE 802.11 access points) are conceived as layer-2 devices, and as such they bridge a frame
+            from one medium (e.g., IEEE 802.11 or Wi-Fi) to another (e.g.,IEEE 802.3 or Ethernet).  This means that 
+            a wireless device MAC address often exists on the wire beyond the wireless access
+            device.  Devices connected to this wire also implement IEEE 802.3 technologies, and as such operate 
+            on the expectation that each device is associated to a MAC address that persists for the duration of 
+            continuous exchanges.  For example, switches and bridges associate MAC addresses to individual ports 
+            (so as to know which port to send a frame intended for a particular MAC
+            address).  Similarly, AAA services can validate the identity of a device and use the device MAC address
+            as a first pointer to the device identity (before operating further verification).
+            Similarly, some networking devices offer layer-2 filtering policies that may rely on the connected MAC 
+            addresses. 802.1X-enabled <xref target="IEEE_802.1X"/> devices may also selectively put the
+            interface in blocking state until a connecting device is authenticated.  These services then use the MAC 
+            address as a first pointer to the device identity to allow or block data traffic.  This list is not 
+            exhaustive.  Multiple services are defined for 802.3 networks, and multiple services defined by the
+            IEEE 802.1 working group are also applicable to 802.3 networks. Wireless access points may also connect 
+            to other mediums than 802.3, which also implements mechanism under the umbrella of the general 802 
+            Standard, and therefore expect the unique and persistent association of a MAC address to a device.</li>
 
-            <li>Address Resolution Protocol and Neighbor Discovery Protocol: Address Resolution Protocol (ARP) 
-               <xref target="RFC826"/> and Neighbor Discovery Protocol (NDP) <xref target="RFC4861"/> use MAC address
-               to create the mapping of an IP address to a MAC address for packet forwarding. 
-               If a device changed a MAC address without 
-               notifying the layer-2 switch it is connected to, network connectivity would be interrupted until the layer-2
-               switch learned the new MAC address and updated the table.  
+            <li>Network devices operating at upper layers: some network devices
+            provide functions and services above the MAC layer.  Some of them
+            also operate a MAC layer function: for example, routers provide
+            IP forwarding services, but rely on the device MAC address to
+            create the appropriate frame structure.  Other devices and
+            services operate at upper layers, but also rely upon the 802
+            principle of unique MAC-to- device mapping.  For example, Address
+            Resolution Protocol (ARP) <xref target="RFC826"/> and Neighbor Discovery
+            Protocol (NDP) <xref target="RFC4861"/> use MAC address to create the mapping of
+            an IP address to a MAC address for packet forwarding.  If a
+            device changes its MAC address without a mechanism to notify the
+            layer-2 switch it is connected to or the provider of a service
+            that expects a stable MAC-to-device mapping, the provider of the
+            service and traffic forwarding may be disrupted.
             </li>
          </ol>
          </section>
@@ -285,7 +293,7 @@
             of network lifecycle. Humans could be wireless device users or people operating the wireless networks.</t>
 
             <ol spacing="normal" type="1">
-               <li>Over the air (OTA) observers: As the transmitting or receiving MAC address is usually not encrypted
+               <li>Over the air (OTA) observers: as the transmitting or receiving MAC address is usually not encrypted
                in wireless 802-technologies exchanges, and as any protocol-compatible device in range of the signal
                can read the frame header, OTA observers are able to read individual transmissions MAC addresses. Some
                wireless technologies also support techniques to establish distances or positions, allowing the observer,
@@ -343,7 +351,7 @@
          <ol spacing="normal" type="1">
             <li>Full trust: there are environments where a personal device establishes a trust relationship and can share a persistent
             device identity with the access network devices (e.g., access point and WLAN Controller), the services beyond the
-            access point in the layer-2 broadcast domain (e.g., DHCP, AAA), without fear that observers or network actors may
+            access point in the layer-2 broadcast domain (e.g., DHCPv4, AAA), without fear that observers or network actors may
             access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
             identity is not shared beyond the layer-2 broadcast domain boundary.</li>
 
@@ -404,13 +412,13 @@
       <section anchor="services" numbered="true" toc="default">
          <name>Network Services</name>
          <t>Different network environments provide different levels of network services, from simple to complex.
-         At its simplest level, a network can provide to a wireless connecting device basic address allocation service (e.g., 
+         At its simplest level, a network can provide to a wireless connecting device basic IP communication service (e.g., 
          DHCPv4 <xref target="RFC2131" /> or SLAAC <xref target="RFC4862" />)
          and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
-         The network can also offer more advanced services, such as file storage, printing or local web service. Larger and more
+         The network can also offer more advanced services, such as file storage, printing, or local web service. Larger and more
          complex networks can also incorporate a multiplicity of more advanced services, from AAA, to Quality of
          Experience monitoring and management. These services are often accompanied with network performance management services.
-         Different levels of services may call for different relationships with the device, its user and the identity. For example, there
+         Different levels of services may call for different relationships with the device, its user, and the identity. For example, there
          is usually no need to identify the device or its user in a public network.
          However, there may be a need, in an enterprise private network, to associate a device to an identity in order to provide 
          adapted quality
@@ -418,6 +426,7 @@
          IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through
          mechanisms like SAVI <xref target="RFC6620" />.
          </t>
+
          <section anchor="DevID" numbered="true" toc="default">
             <name>Device Identification and Associated Problems</name>
 
@@ -440,14 +449,13 @@
             including for devices that are simply in temporal sleep mode.</t>
 
             <t>Layer-2 switches rely on ARP <xref target="RFC826"/> and NDP  <xref target="RFC4861"/>, 
-            and use the MAC address to forward frames. Aggressive MAC randamization from many devices in a short
+            and use the MAC address to forward frames. Aggressive MAC randomization from many devices in a short
             time-interval may cause the layer-2 switch to exhaust its resources, holding in memory
             traffic for a device which port location can no longer be found. As these infrastructure devices
-            also implement a cache (to remember the port position of each known device), too frequent MAC address
-            randomization
-            can cause resources exhaustion and the flush of older MAC addresses, including for devices that did
-            not rotate their MAC. For the RCM device, these effects translate into session discontinuity
-            and return traffic losses.</t>
+            also implement a cache (to remember the port position of each known device), too frequent randomized 
+            MAC address changes can cause resources exhaustion and the flush of older MAC addresses, including 
+            for devices that did not change their MAC to a new randomized value. For the RCM device, these 
+            effects translate into session discontinuity and return traffic losses.</t>
 
             <t>In wireless contexts, 802.1X <xref target="IEEE_802.1X"/> authenticators rely on the device and 
             user identity validation provided by a AAA server to change the interface from blocking state to 
@@ -458,7 +466,7 @@
             interrupt the device traffic, and cause a strain on the AAA server.</t>
 
             <t>DHCPv4 servers, without a unique identification of the device, lose track of which IP address is
-            validly assigned. Unless the RCM device releases the IP address before changing the MAC address.
+            validly assigned. Unless the RCM device releases the IP address before changing its MAC address,
             DHCPv4 servers are at risk of scope exhaustion, causing new devices (and RCM devices)
             to fail to obtain a new IP address. Even if the RCM device releases the IP address before
             changing the MAC address, the DHCPv4 server typically holds the released IP address for a certain duration,
@@ -467,15 +475,16 @@
             where the IP address is released.</t>
 
             <t>Network devices with self-assigned IPv6 addresses (e.g., with SLAAC defined in 
-            <xref target="RFC6620" />) use mechanisms like Optimistic Duplicate Address Detection (DAD)
-            <xref target="RFC4429"/> and NDP <xref target="RFC4861"/>  
-            to establish the association between a target IP address
-            and a MAC address, and may cache this association in memory. Changing the MAC address, even
+            <xref target="RFC6620" />) and devices using static IP addresses rely on mechanisms like Optimistic 
+            Duplicate Address Detection (DAD) <xref target="RFC4429"/> and NDP <xref target="RFC4861"/>  
+            for peer devices to establish the association between the target IP address
+            and a MAC address, and these peers may cache this association in memory. Changing the MAC address, even
             through a disconnection-reconnection phase, without changing the IP address, may disrupt the
-            stability of these mappings, if the change occurs within the caching period. Similarly, static IP assignment 
+            stability of these mappings for these peers, if the change occurs within the caching period. Similarly, static IP assignment 
             will break if the MAC address changes without updating the mapping.</t>
 
-            <t>Routers keep track of which MAC address is on which interface. MAC address randomization can cause MAC
+            <t>Routers keep track of which MAC address is on which interface, so they can form the proper Data Link
+            header when forwarding a packet to a segment where MAC address are used. MAC address randomization can cause MAC
             address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
 
             <t>In residential settings (environments type A in section  <xref target="environments" />), 
@@ -692,20 +701,20 @@
 	   <t>At the time of association to a Wi-Fi access point, 802.1X <xref target="IEEE_802.1X"/> authentication coupled 
       with WPA2 or WPA3 <xref target="IEEE_802.11i"/>
       encryption schemes allows for the mutual identification of the client device or of the user of the device and an 
-      authentication authority. Successful authentication will create a secure communication between the network and the 
-      user device. In this scenario, the 
-      user or the device identity can be obfuscated from external observers. However, the authentication authority is in 
+      authentication authority. The authentication exchange does not occur in clear text, and the user or the device 
+      identity can be obfuscated from unauthorized observers. However, the authentication authority is in 
       most cases under the control of the same entity as the network access provider, thus making the user or device identity 
       visible to the network owner.</t>
 	      
 	   <t>This scheme is therefore well-adapted to enterprise environments, where a level of trust is established between the user 
       and the enterprise network operator. In this scheme, MAC address randomization can occur through brief disconnections and 
-      reconnections (under the rules of <xref target="IEEE_802.11bh"/>). Authentication may then need to reoccur, with an associated cost of service 
+      reconnections (under the rules of <xref target="IEEE_802.11bh"/>). Authentication may then need to reoccur, with an associated 
+      cost of service 
       disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a 
       continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise 
       environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted 
       by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the 
-      procedure to install a profile cumbersome for most untrained users. Remembering that 2022 estimations count approximatively 
+      procedure to install a profile cumbersome for most untrained users. Remembering that unofficial estimations count approximatively 
       500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by 
       a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public 
       Wi-Fi as well. Similar limitations are found in hospitality environments. </t>
@@ -715,10 +724,12 @@
       <section anchor="OpenRoaming" numbered="true" toc="default">
 	   <name>OpenRoaming</name>
       <t> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming 
-      Standard introduces an intermediate trusted relay between local venues and sources of identity  
+      Standard introduces an intermediate trusted relay between local venues (places where some public Wi-Fi is available)
+      and sources of identity  
       <xref target="draft-tomas-openroaming" />. The federation structure also extends the type of authorities that can be 
-      used as identity sources (compared to traditional enterprise-based 802.1X <xref target="IEEE_802.1X"/> scheme for Wi-Fi), and also facilitates the 
-      establishment of trust between a local network and an identity provider. Such procedure increases the likelihood 
+      used as identity sources (compared to traditional enterprise-based 802.1X <xref target="IEEE_802.1X"/> scheme for Wi-Fi), 
+      and also facilitates the 
+      establishment of trust between local network and an identity provider. Such procedure increases the likelihood 
       that one or more identity profiles for the user or the device will be recognized by a local network. At the same time, 
       authentication does not occur to the local network, thus offering the possibility for the user or the device to keep 
       their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to 
@@ -731,7 +742,7 @@
       be used to encrypt the communication between the device and the access point, thus obfuscating the traffic 
       from observers. </t>
 	
-      <t>Just like in the enterprise case, MAC address randomization can occur through brief disconnections and reconnections 
+      <t>MAC address randomization can occur through brief disconnections and reconnections 
       (under the rules of <xref target="IEEE_802.11bh"/>). Authentication may then need to reoccur, with an associated cost of service disruption and 
       additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a 
       continuous MAC address to external observers. Limitations of this scheme include the requirement to first install one or more profiles 
