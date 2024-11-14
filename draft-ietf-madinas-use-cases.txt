@@ -5,13 +5,13 @@
 Internet Engineering Task Force                                 J. Henry
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                                    Y. Lee
-Expires: 17 May 2025                                             Comcast
-                                                        13 November 2024
+Expires: 18 May 2025                                             Comcast
+                                                        14 November 2024
 
 
  Randomized and Changing MAC Address: Context, Network Impacts and Use
                                  Cases
-                    draft-ietf-madinas-use-cases-11
+                    draft-ietf-madinas-use-cases-12
 
 Abstract
 
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2025.
+   This Internet-Draft will expire on 18 May 2025.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 1]
+Henry & Lee                Expires 18 May 2025                  [Page 1]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 2]
+Henry & Lee                Expires 18 May 2025                  [Page 2]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -165,7 +165,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 3]
+Henry & Lee                Expires 18 May 2025                  [Page 3]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -203,13 +203,13 @@ Internet-Draft                RCM Use Cases                November 2024
    The [IEEE_802] Standard recognized that some devices (e.g., smart
    thermostat) may never change their attachment network and thus would
    not need a globally unique MAC address to prevent address collision
-   against any other device in any other network.  The U/L bit can be to
-   signal the network that the MAC Address is intended to be locally
-   unique (not globally unique).  The 802 Standard [IEEE_802] didn't
-   initially the MAC Address allocation schema when U/L bit is set to 1.
-   It states the address must be unique in a given broadcast domain
-   (i.e., the space where the MAC addresses of device are visible to one
-   another).
+   against any other device in any other network.  The U/L bit can be
+   set to signal to the network that the MAC Address is intended to be
+   locally unique (not globally unique).  The 802 Standard [IEEE_802]
+   didn't initially define the MAC Address allocation schema when the U/
+   L bit is set to 1.  It states the address must be unique in a given
+   broadcast domain (i.e., the space where the MAC addresses of devices
+   are visible to one another).
 
    It is also important to note that the purpose of the Universal
    version of the address was to avoid collisions and confusion, as any
@@ -221,7 +221,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 4]
+Henry & Lee                Expires 18 May 2025                  [Page 4]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -277,7 +277,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 5]
+Henry & Lee                Expires 18 May 2025                  [Page 5]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -333,7 +333,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 6]
+Henry & Lee                Expires 18 May 2025                  [Page 6]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -389,7 +389,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 7]
+Henry & Lee                Expires 18 May 2025                  [Page 7]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -445,7 +445,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 8]
+Henry & Lee                Expires 18 May 2025                  [Page 8]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -501,7 +501,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                  [Page 9]
+Henry & Lee                Expires 18 May 2025                  [Page 9]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -557,7 +557,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 10]
+Henry & Lee                Expires 18 May 2025                 [Page 10]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -613,7 +613,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 11]
+Henry & Lee                Expires 18 May 2025                 [Page 11]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -655,24 +655,38 @@ Internet-Draft                RCM Use Cases                November 2024
    infrastructure and the flush of contexts, including for devices that
    are simply in temporal sleep mode.
 
-   Layer-2 switches rely on ARP [RFC826] and NDP [RFC4861], and use the
-   MAC address to forward frames.  Aggressive MAC randomization from
-   many devices in a short time-interval may cause the layer-2 switch to
-   exhaust its resources, holding in memory traffic for a device which
-   port location can no longer be found.  As these infrastructure
-   devices also implement a cache (to remember the port position of each
-   known device), too frequent randomized MAC address changes can cause
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Henry & Lee                Expires 18 May 2025                 [Page 12]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
+   Some network equipments such as Multi-Layer router and Wi-Fi Access
+   Point which serve both layer-2 and layer-3 in the same device rely on
+   ARP [RFC826] and NDP [RFC4861], to build the MAC-to-IP table for
+   packet forwarding.  Aggressive MAC randomization from many devices in
+   a short time-interval may cause the layer-2 switch to exhaust its
+   resources, holding in memory traffic for a device which port location
+   can no longer be found.  As these infrastructure devices also
+   implement a cache (to remember the port position of each known
+   device), too frequent randomized MAC address changes can cause
    resources exhaustion and the flush of older MAC addresses, including
    for devices that did not change their MAC to a new randomized value.
    For the RCM device, these effects translate into session
    discontinuity and return traffic losses.
-
-
-
-Henry & Lee                Expires 17 May 2025                 [Page 12]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
    In wireless contexts, 802.1X [IEEE_802.1X] authenticators rely on the
    device and user identity validation provided by a AAA server to
@@ -705,30 +719,29 @@ Internet-Draft                RCM Use Cases                November 2024
    address, even through a disconnection-reconnection phase, without
    changing the IP address, may disrupt the stability of these mappings
    for these peers, if the change occurs within the caching period.
-   Similarly, static IP assignment will break if the MAC address changes
-   without updating the mapping.
+
+
+
+
+
+
+Henry & Lee                Expires 18 May 2025                 [Page 13]
+
+Internet-Draft                RCM Use Cases                November 2024
+
 
    Routers keep track of which MAC address is on which interface, so
    they can form the proper Data Link header when forwarding a packet to
-   a segment where MAC address are used.  MAC address randomization can
-   cause MAC address cache exhaustion, but also the need for frequent
-   ARP and inverse ARP exchanges.
+   a segment where MAC addresses are used.  MAC address randomization
+   can cause MAC address cache exhaustion, but also the need for
+   frequent ARP, inverse ARP [RFC826], Neighbor Soilict Solicitation
+   and, Neighbor Advertisement [RFC4861] exchanges.
 
    In residential settings (environments type A in section Section 5),
    policies can be in place to control the traffic of some devices
    (e.g., parental control or block-list filters).  These policies are
    often based on the device MAC address.  MAC address randomization
    removes the possibility for such control.
-
-
-
-
-
-
-Henry & Lee                Expires 17 May 2025                 [Page 13]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
    In residential settings (environments type A) and in enterprises
    (environments types D and E), device recognition and ranging may be
@@ -768,20 +781,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Henry & Lee                Expires 17 May 2025                 [Page 14]
+Henry & Lee                Expires 18 May 2025                 [Page 14]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -791,20 +791,22 @@ Internet-Draft                RCM Use Cases                November 2024
     |                       |Degree|  Admin  | Services |   Support   |
     |                       |      |         |          | Expectation |
     +=======================+======+=========+==========+=============+
-    |  Residential settings |Medium|   User  |  Medium  |     Low     |
-    |  under the control of |      |         |          |             |
-    |        the user       |      |         |          |             |
+    |    (A) Residential    |Medium|   User  |  Medium  |     Low     |
+    |   settings under the  |      |         |          |             |
+    |  control of the user  |      |         |          |             |
     +-----------------------+------+---------+----------+-------------+
-    |  Managed residential  |Medium|    IT   |  Medium  |    Medium   |
-    |        settings       |      |         |          |             |
+    |      (B) Managed      |Medium|    IT   |  Medium  |    Medium   |
+    |  residential settings |      |         |          |             |
     +-----------------------+------+---------+----------+-------------+
-    | Public guest networks | Low  |   ISP   |  Simple  |     Low     |
+    |    (C) Public guest   | Low  |   ISP   |  Simple  |     Low     |
+    |        networks       |      |         |          |             |
     +-----------------------+------+---------+----------+-------------+
-    |    Enterprises with   |Medium|    IT   | Complex  |    Medium   |
+    |  (D) Enterprises with |Medium|    IT   | Complex  |    Medium   |
     | Bring-Your-Own-Device |      |         |          |             |
     |         (BYOD)        |      |         |          |             |
     +-----------------------+------+---------+----------+-------------+
-    |  Managed enterprises  | High |    IT   | Complex  |     High    |
+    |      (E) Managed      | High |    IT   | Complex  |     High    |
+    |      enterprises      |      |         |          |             |
     +-----------------------+------+---------+----------+-------------+
 
                              Table 1: Use Cases
@@ -835,15 +837,13 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-
-
-Henry & Lee                Expires 17 May 2025                 [Page 15]
+Henry & Lee                Expires 18 May 2025                 [Page 15]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
    There are existing technical solutions that address some of the
-   requirements from several of the use cases listed above.  Appendix A
+   requirements from several of the use cases listed above.  Appendix A>
    provides a list of some of these existing solutions.
 
 7.  IANA Considerations
@@ -893,7 +893,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 16]
+Henry & Lee                Expires 18 May 2025                 [Page 16]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -949,7 +949,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 17]
+Henry & Lee                Expires 18 May 2025                 [Page 17]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -994,18 +994,18 @@ A.1.  802.1X with WPA2 / WPA3
    that would be recognized and accepted by a local authentication
    authority and its authentication server.  Such server is uncommon in
    a home environment, and the procedure to install a profile cumbersome
-   for most untrained users.  Remembering that unofficial estimations
-   count approximatively 500 million Wi-Fi hotspots on the planet, the
-   likelihood that a user or device profile would match a profile
-   recognized by a public Wi-Fi authentication authority is also fairly
-   limited, thus restricting the adoption of this scheme for public Wi-
-   Fi as well.  Similar limitations are found in hospitality
-   environments.
+   for most untrained users.  The likelihood that a user or device
+   profile would match a profile recognized by a public Wi-Fi
+   authentication authority is also fairly limited, thus restricting the
+   adoption of this scheme for public Wi-Fi as well.  Similar
+   limitations are found in hospitality environments.
 
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 18]
+
+
+Henry & Lee                Expires 18 May 2025                 [Page 18]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -1061,7 +1061,7 @@ A.2.  OpenRoaming
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 19]
+Henry & Lee                Expires 18 May 2025                 [Page 19]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Henry & Lee                Expires 17 May 2025                 [Page 20]
+Henry & Lee                Expires 18 May 2025                 [Page 20]
