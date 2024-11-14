@@ -11,7 +11,7 @@
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
     please see http://xml.resource.org/authoring/README.html. -->
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-11" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-12" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
    <!-- xml2rfc v2v3 conversion 2.38.1 -->
    <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
@@ -23,7 +23,7 @@
       <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
       <title abbrev="RCM Use Cases">Randomized and Changing MAC Address: Context, Network Impacts and Use Cases</title>
-      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-11" />
+      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-12" />
       <!-- add 'role="editor"' below for the editors if appropriate -->
       <!-- Another author who claims to be an editor -->
       <author fullname="Jerome Henry" initials="J" surname="Henry">
@@ -155,10 +155,10 @@
          <t>The intent of this provision is important for the present document. The <xref target="IEEE_802"/>
          Standard recognized that some devices (e.g., smart thermostat) may never change their attachment network 
          and thus would not need a globally unique MAC address to prevent address collision against any other 
-         device in any other network. The U/L bit can be to signal the network that the MAC Address is intended
+         device in any other network. The U/L bit can be set to signal to the network that the MAC Address is intended
          to be locally unique (not globally unique). The 802 Standard <xref target="IEEE_802"/>
-         didn't initially the MAC Address allocation schema when U/L bit is set to 1. It states the address must 
-         be unique in a given broadcast domain (i.e., the space where the MAC addresses of device are visible to one
+         didn't initially define the MAC Address allocation schema when the U/L bit is set to 1. It states the address must 
+         be unique in a given broadcast domain (i.e., the space where the MAC addresses of devices are visible to one
          another).</t>
 
          <t>It is also important to note that the purpose of the Universal version of the address was
@@ -448,8 +448,9 @@
             context can cause resource exhaustion on the wireless infrastructure and the flush of contexts,
             including for devices that are simply in temporal sleep mode.</t>
 
-            <t>Layer-2 switches rely on ARP <xref target="RFC826"/> and NDP  <xref target="RFC4861"/>, 
-            and use the MAC address to forward frames. Aggressive MAC randomization from many devices in a short
+            <t>Some network equipments such as Multi-Layer router and Wi-Fi Access Point which serve both 
+            layer-2 and layer-3 in the same device rely on ARP <xref target="RFC826"/> and NDP <xref target="RFC4861"/>, 
+            to build the MAC-to-IP table for packet forwarding. Aggressive MAC randomization from many devices in a short
             time-interval may cause the layer-2 switch to exhaust its resources, holding in memory
             traffic for a device which port location can no longer be found. As these infrastructure devices
             also implement a cache (to remember the port position of each known device), too frequent randomized 
@@ -480,12 +481,12 @@
             for peer devices to establish the association between the target IP address
             and a MAC address, and these peers may cache this association in memory. Changing the MAC address, even
             through a disconnection-reconnection phase, without changing the IP address, may disrupt the
-            stability of these mappings for these peers, if the change occurs within the caching period. Similarly, static IP assignment 
-            will break if the MAC address changes without updating the mapping.</t>
+            stability of these mappings for these peers, if the change occurs within the caching period.</t>
 
             <t>Routers keep track of which MAC address is on which interface, so they can form the proper Data Link
-            header when forwarding a packet to a segment where MAC address are used. MAC address randomization can cause MAC
-            address cache exhaustion, but also the need for frequent ARP and inverse ARP exchanges.</t>
+            header when forwarding a packet to a segment where MAC addresses are used. MAC address randomization can cause MAC
+            address cache exhaustion, but also the need for frequent ARP, inverse ARP <xref target="RFC826"/>, 
+            Neighbor Soilict Solicitation and, Neighbor Advertisement <xref target="RFC4861"/> exchanges.</t>
 
             <t>In residential settings (environments type A in section  <xref target="environments" />), 
             policies can be in place to control the
@@ -529,35 +530,35 @@
                </thead>
                <tbody>
                   <tr>
-                     <td align="center">Residential settings under the control of the user</td>
+                     <td align="center">(A) Residential settings under the control of the user</td>
                      <td align="center">Medium</td>
                      <td align="center">User</td>
                      <td align="center">Medium</td>
                      <td align="center">Low</td>
                   </tr>
                   <tr>
-                     <td align="center">Managed residential settings</td>
+                     <td align="center">(B) Managed residential settings</td>
                      <td align="center">Medium</td>
                      <td align="center">IT</td>
                      <td align="center">Medium</td>
                      <td align="center">Medium</td>
                   </tr>
                   <tr>
-                     <td align="center">Public guest networks</td>
+                     <td align="center">(C) Public guest networks</td>
                      <td align="center">Low</td>
                      <td align="center">ISP</td>
                      <td align="center">Simple</td>
                      <td align="center">Low</td>
                   </tr>
                   <tr>
-                     <td align="center">Enterprises with Bring-Your-Own-Device (BYOD)</td>
+                     <td align="center">(D) Enterprises with Bring-Your-Own-Device (BYOD)</td>
                      <td align="center">Medium</td>
                      <td align="center">IT</td>
                      <td align="center">Complex</td>
                      <td align="center">Medium</td>
                   </tr>
                   <tr>
-                     <td align="center">Managed enterprises</td>
+                     <td align="center">(E) Managed enterprises</td>
                      <td align="center">High</td>
                      <td align="center">IT</td>
                      <td align="center">Complex</td>
@@ -583,8 +584,9 @@
               outside of the layer-2 domain. Privacy is the number one concern for the user. Most users
               connecting to Public Wi-Fi only require simple Internet connectivity service, and expect
 		    only limited to no technical support.</t>
+
 	    <t>There are existing technical solutions that address some of the requirements from several of the use cases listed above. 
-		    Appendix A provides a list of some of these existing solutions.</t>
+		    <xref target="solutions"/>> provides a list of some of these existing solutions.</t>
          </section>
       </section>
          <section anchor="IANA" numbered="true" toc="default">
@@ -714,8 +716,8 @@
       continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise 
       environment by the requirement to install an authentication profile on the end device, that would be recognized and accepted 
       by a local authentication authority and its authentication server. Such server is uncommon in a home environment, and the 
-      procedure to install a profile cumbersome for most untrained users. Remembering that unofficial estimations count approximatively 
-      500 million Wi-Fi hotspots on the planet, the likelihood that a user or device profile would match a profile recognized by 
+      procedure to install a profile cumbersome for most untrained users.
+      The likelihood that a user or device profile would match a profile recognized by 
       a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public 
       Wi-Fi as well. Similar limitations are found in hospitality environments. </t>
 	
