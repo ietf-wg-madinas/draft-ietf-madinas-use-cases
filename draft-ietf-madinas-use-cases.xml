@@ -486,7 +486,7 @@
             <t>Routers keep track of which MAC address is on which interface, so they can form the proper Data Link
             header when forwarding a packet to a segment where MAC addresses are used. MAC address randomization can cause MAC
             address cache exhaustion, but also the need for frequent ARP, inverse ARP <xref target="RFC826"/>, 
-            Neighbor Soilict Solicitation and, Neighbor Advertisement <xref target="RFC4861"/> exchanges.</t>
+            Neighbor Solicitation and, Neighbor Advertisement <xref target="RFC4861"/> exchanges.</t>
 
             <t>In residential settings (environments type A in section  <xref target="environments" />), 
             policies can be in place to control the
@@ -515,7 +515,7 @@
             <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of
             users and network operators.<xref target="scenario_table" />
             summarizes the expected degree of trust, network admin responsibility, complexity of supported network services 
-            and network support expectation from the user for the different use cases.</t>
+            and network support expectation from the user for the different use cases defined in <xref target="environments"/>.</t>
 
             <table anchor="scenario_table" align="center">
                <name>Use Cases</name>
@@ -568,25 +568,25 @@
                </tbody>
             </table>
             <t>For example: a Home network is sometimes considered to be trusted and safe, where users
-              are not worried about other users (or the home network admin) seeing their MAC address.
-              Users expect a simple procedure to connect to their home network. All devices in the home
-              network often trust each other. The Home network can also include many IoT devices, which
-              need to be simple to onboard and manage. The home user commonly expects the network operator
-              to protect the home network from external threats (i.e., attacks from the Internet). The home
-              user also commonly expects simple policy features (e.g., Parental Control). Most home users
-              do not expect to need networking skills to manage their home network. Such environments may
-              lead to full-trust conditions. However, if the trust commonly exists between allowed actors,
-              there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside,
-              thus practically limiting the applicability of the trust in most home scenarios.</t>
+            are not worried about other users (or the home network admin) seeing their MAC address.
+            Users expect a simple procedure to connect to their home network. All devices in the home
+            network often trust each other. The Home network can also include many IoT devices, which
+            need to be simple to onboard and manage. The home user commonly expects the network operator
+            to protect the home network from external threats (i.e., attacks from the Internet). The home
+            user also commonly expects simple policy features (e.g., Parental Control). Most home users
+            do not expect to need networking skills to manage their home network. Such environments may
+            lead to full-trust conditions. However, if the trust commonly exists between allowed actors,
+            there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside,
+            thus practically limiting the applicability of the trust in most home scenarios.</t>
 
             <t>On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted,
-              where a user has no expectation of being able to trust other users or any actor inside or
-              outside of the layer-2 domain. Privacy is the number one concern for the user. Most users
-              connecting to Public Wi-Fi only require simple Internet connectivity service, and expect
-		    only limited to no technical support.</t>
+            where a user has no expectation of being able to trust other users or any actor inside or
+            outside of the layer-2 domain. Privacy is the number one concern for the user. Most users
+            connecting to Public Wi-Fi only require simple Internet connectivity service, and expect
+		      only limited to no technical support.</t>
 
 	    <t>There are existing technical solutions that address some of the requirements from several of the use cases listed above. 
-		    <xref target="solutions"/>> provides a list of some of these existing solutions.</t>
+		    <xref target="solutions"/> provides a list of some of these existing solutions.</t>
          </section>
       </section>
          <section anchor="IANA" numbered="true" toc="default">
