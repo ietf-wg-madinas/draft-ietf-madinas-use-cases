@@ -5,13 +5,13 @@
 Internet Engineering Task Force                                 J. Henry
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                                    Y. Lee
-Expires: 18 May 2025                                             Comcast
-                                                        14 November 2024
+Expires: 22 May 2025                                             Comcast
+                                                        18 November 2024
 
 
  Randomized and Changing MAC Address: Context, Network Impacts and Use
                                  Cases
-                    draft-ietf-madinas-use-cases-12
+                    draft-ietf-madinas-use-cases-13
 
 Abstract
 
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 May 2025.
+   This Internet-Draft will expire on 22 May 2025.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 1]
+Henry & Lee                Expires 22 May 2025                  [Page 1]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 2]
+Henry & Lee                Expires 22 May 2025                  [Page 2]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -165,7 +165,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 3]
+Henry & Lee                Expires 22 May 2025                  [Page 3]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -221,7 +221,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 4]
+Henry & Lee                Expires 22 May 2025                  [Page 4]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -277,7 +277,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 5]
+Henry & Lee                Expires 22 May 2025                  [Page 5]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -333,7 +333,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 6]
+Henry & Lee                Expires 22 May 2025                  [Page 6]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -389,7 +389,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 7]
+Henry & Lee                Expires 22 May 2025                  [Page 7]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -445,7 +445,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 8]
+Henry & Lee                Expires 22 May 2025                  [Page 8]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -501,7 +501,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                  [Page 9]
+Henry & Lee                Expires 22 May 2025                  [Page 9]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -557,7 +557,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 10]
+Henry & Lee                Expires 22 May 2025                 [Page 10]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -613,7 +613,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 11]
+Henry & Lee                Expires 22 May 2025                 [Page 11]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -669,7 +669,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 12]
+Henry & Lee                Expires 22 May 2025                 [Page 12]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -725,7 +725,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 13]
+Henry & Lee                Expires 22 May 2025                 [Page 13]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -734,8 +734,8 @@ Internet-Draft                RCM Use Cases                November 2024
    they can form the proper Data Link header when forwarding a packet to
    a segment where MAC addresses are used.  MAC address randomization
    can cause MAC address cache exhaustion, but also the need for
-   frequent ARP, inverse ARP [RFC826], Neighbor Soilict Solicitation
-   and, Neighbor Advertisement [RFC4861] exchanges.
+   frequent ARP, inverse ARP [RFC826], Neighbor Solicitation and,
+   Neighbor Advertisement [RFC4861] exchanges.
 
    In residential settings (environments type A in section Section 5),
    policies can be in place to control the traffic of some devices
@@ -770,7 +770,8 @@ Internet-Draft                RCM Use Cases                November 2024
    the expectations of users and network operators.Table 1 summarizes
    the expected degree of trust, network admin responsibility,
    complexity of supported network services and network support
-   expectation from the user for the different use cases.
+   expectation from the user for the different use cases defined in
+   Section 5.
 
 
 
@@ -780,8 +781,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-
-Henry & Lee                Expires 18 May 2025                 [Page 14]
+Henry & Lee                Expires 22 May 2025                 [Page 14]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -837,13 +837,13 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 15]
+Henry & Lee                Expires 22 May 2025                 [Page 15]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
    There are existing technical solutions that address some of the
-   requirements from several of the use cases listed above.  Appendix A>
+   requirements from several of the use cases listed above.  Appendix A
    provides a list of some of these existing solutions.
 
 7.  IANA Considerations
@@ -864,8 +864,8 @@ Internet-Draft                RCM Use Cases                November 2024
               DeKok, A., "Deprecating Insecure Practices in RADIUS",
               Work in Progress, Internet-Draft, draft-ietf-radext-
               deprecating-radius-04, 11 November 2024,
-              <https://datatracker.ietf.org/api/v1/doc/document/draft-
-              ietf-radext-deprecating-radius/>.
+              <https://datatracker.ietf.org/doc/html/draft-ietf-radext-
+              deprecating-radius-04>.
 
    [IEEE_802] IEEE 802, "IEEE Std 802 - IEEE Standard for Local and
               Metropolitan Area Networks: Overview and Architecture",
@@ -893,7 +893,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 16]
+Henry & Lee                Expires 22 May 2025                 [Page 16]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -949,7 +949,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 17]
+Henry & Lee                Expires 22 May 2025                 [Page 17]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -1005,7 +1005,7 @@ A.1.  802.1X with WPA2 / WPA3
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 18]
+Henry & Lee                Expires 22 May 2025                 [Page 18]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -1061,7 +1061,7 @@ A.2.  OpenRoaming
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 19]
+Henry & Lee                Expires 22 May 2025                 [Page 19]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Henry & Lee                Expires 18 May 2025                 [Page 20]
+Henry & Lee                Expires 22 May 2025                 [Page 20]
