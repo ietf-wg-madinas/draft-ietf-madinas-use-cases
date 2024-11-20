@@ -579,7 +579,7 @@
             do not expect to need networking skills to manage their home network. Such environments may
             lead to full-trust conditions. However, if the trust commonly exists between allowed actors,
             there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside 
-            or a rogue IoT device monitoring local traffic from inside,
+            or, a rogue IoT device monitoring local traffic from inside,
             thus practically limiting the applicability of the trust in most home scenarios.</t>
 
             <t>On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted,

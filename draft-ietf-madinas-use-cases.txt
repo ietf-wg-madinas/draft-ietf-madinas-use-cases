@@ -824,7 +824,7 @@ Internet-Draft                RCM Use Cases                November 2024
    skills to manage their home network.  Such environments may lead to
    full-trust conditions.  However, if the trust commonly exists between
    allowed actors, there is no guarantee that an eavesdropper would not
-   be observing the Wi-Fi traffic from outside or a rogue IoT device
+   be observing the Wi-Fi traffic from outside or, a rogue IoT device
    monitoring local traffic from inside, thus practically limiting the
    applicability of the trust in most home scenarios.
 
