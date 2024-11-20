@@ -5,8 +5,8 @@
 Internet Engineering Task Force                                 J. Henry
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                                    Y. Lee
-Expires: 22 May 2025                                             Comcast
-                                                        18 November 2024
+Expires: 24 May 2025                                             Comcast
+                                                        20 November 2024
 
 
  Randomized and Changing MAC Address: Context, Network Impacts and Use
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2025.
+   This Internet-Draft will expire on 24 May 2025.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 1]
+Henry & Lee                Expires 24 May 2025                  [Page 1]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -99,17 +99,17 @@ Table of Contents
    IEEE 802.11 (or 'Wi-Fi') [IEEE_802.11] technology has revolutionized
    communications and become the preferred, and sometimes the only
    technology used by devices such as laptops, tablets and Internet-of-
-   Thing (IoT) devices.  Wi-Fi is an over-the-air technology, attackers
-   with surveillance equipment can "monitor" WLAN packets and track the
-   activity of WLAN devices.  It is also sometimes possible for
-   attackers to "monitor" the WLAN packers behind the Wi-Fi Access Point
-   (AP) over the wired Ethernet.  Once the association between a device
-   and its user is made, identifying the device and its activity is
-   sufficient to deduce information about what the user is doing,
+   Thing (IoT) devices.  Wi-Fi is an over-the-air technology, on which
+   attackers with surveillance equipment can "monitor" WLAN packets and
+   track the activity of WLAN devices.  It is also sometimes possible
+   for attackers to "monitor" the WLAN packers behind the Wi-Fi Access
+   Point (AP) over the wired Ethernet.  Once the association between a
+   device and its user is made, identifying the device and its activity
+   is sufficient to deduce information about what the user is doing,
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 2]
+Henry & Lee                Expires 24 May 2025                  [Page 2]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -124,8 +124,9 @@ Internet-Draft                RCM Use Cases                November 2024
    and a device, assuming no other visible unique identifiers or stable
    patterns are in use.  When individual devices are no longer easily
    identifiable, it also becomes difficult to associate a series of
-   network packets with a particular individual using one particular
-   device.
+   network packet flows in a prolonged period with a particular
+   individual using one particular device if the device randomizes the
+   MAC address governed by the OS privacy policies.
 
    However, such address change may affect the user experience and the
    efficiency of legitimate network operations.  For a long time,
@@ -151,25 +152,25 @@ Internet-Draft                RCM Use Cases                November 2024
    continued association is desirable, but others where the user privacy
    has more value than any continuity of network service state.
 
-   It could be useful to enumerate services that may be affected by RCM,
-   and evaluate possible solutions to maintain both the quality of user
-   experience and network efficiency while RCM happens and user privacy
-   is reinforced.  This document presents such assessment and
-   recommendations.
+   It is useful for implemementations of clients and network devices to
+   enumerate services that may be affected by RCM, and evaluate possible
+   solutions to maintain both the quality of user experience and network
+   efficiency while RCM happens and user privacy is reinforced.  This
+   document presents such assessment and recommendations.
 
    This document is organized as follows.  Section 2 discusses the
    current status of using MAC address as Identity.  Section 3 discusses
    various actors in the network that will be impacted by the MAC
    address randomization.  Section 4 examines the Trust degrees.
-   Section 5 discusses various network environments that will be
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 3]
+Henry & Lee                Expires 24 May 2025                  [Page 3]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
+   Section 5 discusses various network environments that will be
    impacted.  Section 6 analyzes some existing network services that
    will be impacted.  Finally, Appendix A includes some solutions that
    are being worked on.
@@ -217,15 +218,15 @@ Internet-Draft                RCM Use Cases                November 2024
    determine if it is the intended destination of a message or its
    response.  Clause 8.4 of [IEEE_802] reminds network designers and
    operators that all potential members of a network need to have a
-   unique identifier in that network (if they are going to coexist in
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 4]
+Henry & Lee                Expires 24 May 2025                  [Page 4]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
+   unique identifier in that network (if they are going to coexist in
    the network without confusion on which machine is the source or
    destination or any message).  The advantage of an administrated
    address is that a node with such an address can be attached to any
@@ -276,8 +277,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-
-Henry & Lee                Expires 22 May 2025                  [Page 5]
+Henry & Lee                Expires 24 May 2025                  [Page 5]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -291,8 +291,8 @@ Internet-Draft                RCM Use Cases                November 2024
    each device to be associated to a MAC address that would persist over
    time.  When a device changes its MAC address, other devices on the
    same LAN may fail to recognize that the same machine is attempting to
-   communicate with them.  Additionally, multiple layers implemented at
-   upper OSI layers have been designed with the assumption that each
+   communicate with them.  Additionally, upper protocal layers (e.g.,
+   application layer) have been designed with the assumption that each
    node on the LAN, using these services, would have a MAC address that
    would stay the same over time, and that this document calls a
    'persistent' MAC address.  This assumption sometimes adds to the PII
@@ -308,11 +308,12 @@ Internet-Draft                RCM Use Cases                November 2024
 
    The risk of service disruption is thus weighted against the privacy
    benefits.  However, the plurality of actors involved in the exchanges
-   tends to blur the boundaries of what privacy should be protected
-   against.  It might therefore be useful to list the actors associated
-   to the network exchanges, either because they actively participate to
-   these exchanges, or because they can observe them.  Some actors are
-   functional entities, some others are humans (or related) entities.
+   tends to blur the boundaries of what privacy violations should be
+   protected against.  It might therefore be useful to list the actors
+   associated to the network exchanges, either because they actively
+   participate to these exchanges, or because they can observe them.
+   Some actors are functional entities, some others are humans (or
+   related) entities.
 
 3.1.  Network Functional Entities
 
@@ -329,15 +330,15 @@ Internet-Draft                RCM Use Cases                November 2024
        frames.  Part of the identification includes recording, and
        adapting to, devices communication capabilities (e.g., support
        for specific protocols).  As a device changes its network
-       attachment (roams) from one access point to another, the access
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 6]
+Henry & Lee                Expires 24 May 2025                  [Page 6]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
+       attachment (roams) from one access point to another, the access
        points can exchange contextual information (e.g., device MAC,
        keying material) allowing the device session to continue
        seamlessly.  These access points can also inform devices further
@@ -388,8 +389,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-
-Henry & Lee                Expires 22 May 2025                  [Page 7]
+Henry & Lee                Expires 24 May 2025                  [Page 7]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -445,7 +445,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 8]
+Henry & Lee                Expires 24 May 2025                  [Page 8]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -501,7 +501,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 22 May 2025                  [Page 9]
+Henry & Lee                Expires 24 May 2025                  [Page 9]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -557,7 +557,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 22 May 2025                 [Page 10]
+Henry & Lee                Expires 24 May 2025                 [Page 10]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -613,7 +613,7 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 22 May 2025                 [Page 11]
+Henry & Lee                Expires 24 May 2025                 [Page 11]
 
 Internet-Draft                RCM Use Cases                November 2024
 
@@ -623,10 +623,12 @@ Internet-Draft                RCM Use Cases                November 2024
    However, there may be a need, in an enterprise private network, to
    associate a device to an identity in order to provide adapted quality
    of services (e.g., to prioritize identified voice traffic coming from
-   a smartphone over keepalive data coming from an IoT endpoint).  The
-   same type of network may have a need to limit the effect of IP
-   address spoofing and invalid reuse through mechanisms like SAVI
-   [RFC6620].
+   a smartphone over keepalive data coming from an IoT endpoint).
+   Applications may use ECN [RFC3168] for congestion and/or DSCP
+   [RFC8837] for classification to signal the network for
+   prioritization.  The same type of network may have a need to limit
+   the effect of IP address spoofing and invalid reuse through
+   mechanisms like SAVI [RFC6620].
 
 6.1.  Device Identification and Associated Problems
 
@@ -655,25 +657,6 @@ Internet-Draft                RCM Use Cases                November 2024
    infrastructure and the flush of contexts, including for devices that
    are simply in temporal sleep mode.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 12]
-
-Internet-Draft                RCM Use Cases                November 2024
-
-
    Some network equipments such as Multi-Layer router and Wi-Fi Access
    Point which serve both layer-2 and layer-3 in the same device rely on
    ARP [RFC826] and NDP [RFC4861], to build the MAC-to-IP table for
@@ -683,6 +666,14 @@ Internet-Draft                RCM Use Cases                November 2024
    can no longer be found.  As these infrastructure devices also
    implement a cache (to remember the port position of each known
    device), too frequent randomized MAC address changes can cause
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 12]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    resources exhaustion and the flush of older MAC addresses, including
    for devices that did not change their MAC to a new randomized value.
    For the RCM device, these effects translate into session
@@ -720,22 +711,24 @@ Internet-Draft                RCM Use Cases                November 2024
    changing the IP address, may disrupt the stability of these mappings
    for these peers, if the change occurs within the caching period.
 
-
-
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 13]
-
-Internet-Draft                RCM Use Cases                November 2024
-
-
    Routers keep track of which MAC address is on which interface, so
    they can form the proper Data Link header when forwarding a packet to
    a segment where MAC addresses are used.  MAC address randomization
    can cause MAC address cache exhaustion, but also the need for
    frequent ARP, inverse ARP [RFC826], Neighbor Solicitation and,
    Neighbor Advertisement [RFC4861] exchanges.
+
+
+
+
+
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 13]
+
+Internet-Draft                RCM Use Cases                November 2024
+
 
    In residential settings (environments type A in section Section 5),
    policies can be in place to control the traffic of some devices
@@ -781,35 +774,42 @@ Internet-Draft                RCM Use Cases                November 2024
 
 
 
-Henry & Lee                Expires 22 May 2025                 [Page 14]
+
+
+
+
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 14]
 
 Internet-Draft                RCM Use Cases                November 2024
 
 
-    +=======================+======+=========+==========+=============+
-    |       Use Cases       |Trust | Network | Network  |   Network   |
-    |                       |Degree|  Admin  | Services |   Support   |
-    |                       |      |         |          | Expectation |
-    +=======================+======+=========+==========+=============+
-    |    (A) Residential    |Medium|   User  |  Medium  |     Low     |
-    |   settings under the  |      |         |          |             |
-    |  control of the user  |      |         |          |             |
-    +-----------------------+------+---------+----------+-------------+
-    |      (B) Managed      |Medium|    IT   |  Medium  |    Medium   |
-    |  residential settings |      |         |          |             |
-    +-----------------------+------+---------+----------+-------------+
-    |    (C) Public guest   | Low  |   ISP   |  Simple  |     Low     |
-    |        networks       |      |         |          |             |
-    +-----------------------+------+---------+----------+-------------+
-    |  (D) Enterprises with |Medium|    IT   | Complex  |    Medium   |
-    | Bring-Your-Own-Device |      |         |          |             |
-    |         (BYOD)        |      |         |          |             |
-    +-----------------------+------+---------+----------+-------------+
-    |      (E) Managed      | High |    IT   | Complex  |     High    |
-    |      enterprises      |      |         |          |             |
-    +-----------------------+------+---------+----------+-------------+
+   +=======================+===========+=======+========+=============+
+   |       Use Cases       |   Trust   |Network|Network |   Network   |
+   |                       |   Degree  | Admin |Services|   Support   |
+   |                       |           |       |        | Expectation |
+   +=======================+===========+=======+========+=============+
+   |    (A) Residential    | Selective |  User | Medium |     Low     |
+   |   settings under the  |   trust   |       |        |             |
+   |  control of the user  |           |       |        |             |
+   +-----------------------+-----------+-------+--------+-------------+
+   |      (B) Managed      | Selective |   IT  | Medium |    Medium   |
+   |  residential settings |   trust   |       |        |             |
+   +-----------------------+-----------+-------+--------+-------------+
+   |    (C) Public guest   |    Zero   |  ISP  | Simple |     Low     |
+   |        networks       |   trust   |       |        |             |
+   +-----------------------+-----------+-------+--------+-------------+
+   |  (D) Enterprises with | Selective |   IT  |Complex |    Medium   |
+   | Bring-Your-Own-Device |   trust   |       |        |             |
+   |         (BYOD)        |           |       |        |             |
+   +-----------------------+-----------+-------+--------+-------------+
+   |      (E) Managed      |    Full   |   IT  |Complex |     High    |
+   |      enterprises      |   trust   |       |        |             |
+   +-----------------------+-----------+-------+--------+-------------+
 
-                             Table 1: Use Cases
+                            Table 1: Use Cases
 
    For example: a Home network is sometimes considered to be trusted and
    safe, where users are not worried about other users (or the home
@@ -824,8 +824,23 @@ Internet-Draft                RCM Use Cases                November 2024
    skills to manage their home network.  Such environments may lead to
    full-trust conditions.  However, if the trust commonly exists between
    allowed actors, there is no guarantee that an eavesdropper would not
-   be observing the Wi-Fi traffic from outside, thus practically
-   limiting the applicability of the trust in most home scenarios.
+   be observing the Wi-Fi traffic from outside or a rogue IoT device
+   monitoring local traffic from inside, thus practically limiting the
+   applicability of the trust in most home scenarios.
+
+
+
+
+
+
+
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 15]
+
+Internet-Draft                RCM Use Cases                November 2024
+
 
    On the other end of the spectrum, Public Wi-Fi is often considered to
    be completely untrusted, where a user has no expectation of being
@@ -834,13 +849,6 @@ Internet-Draft                RCM Use Cases                November 2024
    Most users connecting to Public Wi-Fi only require simple Internet
    connectivity service, and expect only limited to no technical
    support.
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 15]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
    There are existing technical solutions that address some of the
    requirements from several of the use cases listed above.  Appendix A
@@ -882,21 +890,19 @@ Internet-Draft                RCM Use Cases                November 2024
               Operation with Randomized and Changing MAC Addresses",
               IEEE 802.11bh , 2024.
 
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 16]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    [IEEE_802.11i]
               "IEEE 802.11i-2004 - Wireless LAN Medium Access Control
               (MAC) and Physical Layer (PHY) specifications: Amendment
               6: Medium Access Control (MAC) Security Enhancements",
               IEEE 802.11i , 2004.
-
-
-
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 16]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
    [IEEE_802.1X]
               "IEEE 802.1X-2020 - IEEE Standard for Local and
@@ -911,6 +917,11 @@ Internet-Draft                RCM Use Cases                November 2024
    [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
               <https://www.rfc-editor.org/info/rfc2131>.
+
+   [RFC3168]  Ramakrishnan, K., Floyd, S., and D. Black, "The Addition
+              of Explicit Congestion Notification (ECN) to IP",
+              RFC 3168, DOI 10.17487/RFC3168, September 2001,
+              <https://www.rfc-editor.org/info/rfc3168>.
 
    [RFC3539]  Aboba, B. and J. Wood, "Authentication, Authorization and
               Accounting (AAA) Transport Profile", RFC 3539,
@@ -936,6 +947,13 @@ Internet-Draft                RCM Use Cases                November 2024
               IPv6", RFC 4941, DOI 10.17487/RFC4941, September 2007,
               <https://www.rfc-editor.org/info/rfc4941>.
 
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 17]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    [RFC6614]  Winter, S., McCauley, M., Venaas, S., and K. Wierenga,
               "Transport Layer Security (TLS) Encryption for RADIUS",
               RFC 6614, DOI 10.17487/RFC6614, May 2012,
@@ -946,13 +964,6 @@ Internet-Draft                RCM Use Cases                November 2024
               Improvement for Locally Assigned IPv6 Addresses",
               RFC 6620, DOI 10.17487/RFC6620, May 2012,
               <https://www.rfc-editor.org/info/rfc6620>.
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 17]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
    [RFC7217]  Gont, F., "A Method for Generating Semantically Opaque
               Interface Identifiers with IPv6 Stateless Address
@@ -965,6 +976,11 @@ Internet-Draft                RCM Use Cases                November 2024
               Address for Transmission on Ethernet Hardware", STD 37,
               RFC 826, DOI 10.17487/RFC0826, November 1982,
               <https://www.rfc-editor.org/info/rfc826>.
+
+   [RFC8837]  Jones, P., Dhesikan, S., Jennings, C., and D. Druta,
+              "Differentiated Services Code Point (DSCP) Packet Markings
+              for WebRTC QoS", RFC 8837, DOI 10.17487/RFC8837, January
+              2021, <https://www.rfc-editor.org/info/rfc8837>.
 
 Appendix A.  Existing Solutions
 
@@ -986,6 +1002,14 @@ A.1.  802.1X with WPA2 / WPA3
    randomization can occur through brief disconnections and
    reconnections (under the rules of [IEEE_802.11bh]).  Authentication
    may then need to reoccur, with an associated cost of service
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 18]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    disruption and additional load on the enterprise infrastructure, and
    an associated benefit of limiting the exposure of a continuous MAC
    address to external observers.  The adoption of this scheme is
@@ -999,16 +1023,6 @@ A.1.  802.1X with WPA2 / WPA3
    authentication authority is also fairly limited, thus restricting the
    adoption of this scheme for public Wi-Fi as well.  Similar
    limitations are found in hospitality environments.
-
-
-
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 18]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
 A.2.  OpenRoaming
 
@@ -1044,6 +1058,14 @@ A.2.  OpenRoaming
    reconnections (under the rules of [IEEE_802.11bh]).  Authentication
    may then need to reoccur, with an associated cost of service
    disruption and additional load on the venue and identity provider
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 19]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    infrastructure, and an associated benefit of limiting the exposure of
    a continuous MAC address to external observers.  Limitations of this
    scheme include the requirement to first install one or more profiles
@@ -1058,13 +1080,6 @@ A.2.  OpenRoaming
    use of Chargeable-User-Identity (CUI) between different visited
    networks, making it better suited for Public Wi-Fi and Hospitality
    use cases.
-
-
-
-Henry & Lee                Expires 22 May 2025                 [Page 19]
-
-Internet-Draft                RCM Use Cases                November 2024
-
 
 A.3.  Proprietary RCM schemes
 
@@ -1095,6 +1110,18 @@ Authors' Addresses
    Email: jerhenry@cisco.com
 
 
+
+
+
+
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 20]
+
+Internet-Draft                RCM Use Cases                November 2024
+
+
    Yiu L. Lee
    Comcast
    1800 Arch Street
@@ -1117,4 +1144,33 @@ Authors' Addresses
 
 
 
-Henry & Lee                Expires 22 May 2025                 [Page 20]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Henry & Lee                Expires 24 May 2025                 [Page 21]

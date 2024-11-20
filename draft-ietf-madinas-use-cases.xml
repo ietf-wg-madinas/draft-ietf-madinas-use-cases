@@ -90,7 +90,7 @@
          communications and become the
          preferred, and sometimes the only technology used by
          devices such as laptops, tablets and Internet-of-Thing (IoT)
-         devices.  Wi-Fi is an over-the-air technology, attackers with surveillance equipment can "monitor" WLAN packets and
+         devices.  Wi-Fi is an over-the-air technology, on which attackers with surveillance equipment can "monitor" WLAN packets and
          track the activity of WLAN devices. It is also sometimes possible for attackers to "monitor" the WLAN packers behind the Wi-Fi
          Access Point (AP) over the wired Ethernet. Once the association between a device and its user is made, identifying the 
          device and its activity is sufficient to deduce information about what the user is doing,
@@ -101,7 +101,8 @@
          it becomes harder to use the MAC address to construct persistent association between a flow of data packets and a device, 
          assuming no other visible unique identifiers or stable patterns are in use. When individual devices are no longer easily 
          identifiable, it also becomes difficult 
-         to associate a series of network packets with a particular individual using one particular device.</t>
+         to associate a series of network packet flows in a prolonged period with a particular individual using one particular device
+         if the device randomizes the MAC address governed by the OS privacy policies.</t>
 
          <t>However, such address change may affect the user experience and the efficiency of legitimate
          network operations. For a long time, network designers and implementers relied on the assumption that a given machine,
@@ -119,7 +120,7 @@
          There may be environments where such continued association is desirable, but others where the user privacy has
          more value than any continuity of network service state.</t>
 
-         <t>It could be useful to enumerate services that may be
+         <t>It is useful for implemementations of clients and network devices to enumerate services that may be
          affected by RCM, and evaluate possible solutions to maintain both the quality of user experience
          and network efficiency while RCM happens and user privacy is reinforced. This document
          presents such assessment and recommendations.</t>
@@ -213,14 +214,14 @@
          same LAN implementing a MAC layer also expect each device to be associated to a MAC address that would
          persist over time. When a device changes
          its MAC address, other devices on the same LAN may fail to recognize that the same machine is attempting
-         to communicate with them. Additionally, multiple layers implemented at upper OSI layers have been designed
+         to communicate with them. Additionally, upper protocal layers (e.g., application layer) have been designed
          with the assumption that each node on the LAN, using these services, would have a MAC address that would
          stay the same over time, and that this document calls a 'persistent' MAC address. This
          assumption sometimes adds to the PII confusion, for example in the case of Authentication, Authorization
          and Accounting (AAA) services <xref target="RFC3539"/> authenticating
          the user of a machine and associating the authenticated user to the device MAC address. Other services
-         solely focus on the machine (e.g., DHCPv4 <xref target="RFC2131"/>), but still expect each device to use a persistent MAC address,
-         for example to re-assign the same IP address to a returning device.
+         solely focus on the machine (e.g., DHCPv4 <xref target="RFC2131"/>), but still expect each device to use a 
+         persistent MAC address, for example to re-assign the same IP address to a returning device.
          Changing the MAC address may disrupt these services.</t>
          </section>
 
@@ -229,7 +230,7 @@
       <section anchor="actors" numbered="true" toc="default">
          <name>The Actors: Network Functional Entities and Human Entities</name>
          <t>The risk of service disruption is thus weighted against the privacy benefits. However, the plurality
-         of actors involved in the exchanges tends to blur the boundaries of what privacy should be
+         of actors involved in the exchanges tends to blur the boundaries of what privacy violations should be
          protected against. It might therefore be useful to list the actors associated to the network exchanges,
          either because they actively participate to these exchanges, or because they can observe them.
          Some actors are functional entities, some others are humans (or related) entities.</t>
@@ -423,8 +424,9 @@
          However, there may be a need, in an enterprise private network, to associate a device to an identity in order to provide 
          adapted quality
          of services (e.g., to prioritize identified voice traffic coming from a smartphone over keepalive data coming from an
-         IoT endpoint). The same type of network may have a need to limit the effect of IP address spoofing and invalid reuse through
-         mechanisms like SAVI <xref target="RFC6620" />.
+         IoT endpoint). Applications may use ECN <xref target="RFC3168"/> for congestion and/or DSCP <xref target="RFC8837"/> 
+         for classification to signal the network for prioritization. The same type of network may have a need to limit the effect of 
+         IP address spoofing and invalid reuse through mechanisms like SAVI <xref target="RFC6620" />.
          </t>
 
          <section anchor="DevID" numbered="true" toc="default">
@@ -531,35 +533,35 @@
                <tbody>
                   <tr>
                      <td align="center">(A) Residential settings under the control of the user</td>
-                     <td align="center">Medium</td>
+                     <td align="center">Selective trust</td>
                      <td align="center">User</td>
                      <td align="center">Medium</td>
                      <td align="center">Low</td>
                   </tr>
                   <tr>
                      <td align="center">(B) Managed residential settings</td>
-                     <td align="center">Medium</td>
+                     <td align="center">Selective trust</td>
                      <td align="center">IT</td>
                      <td align="center">Medium</td>
                      <td align="center">Medium</td>
                   </tr>
                   <tr>
                      <td align="center">(C) Public guest networks</td>
-                     <td align="center">Low</td>
+                     <td align="center">Zero trust</td>
                      <td align="center">ISP</td>
                      <td align="center">Simple</td>
                      <td align="center">Low</td>
                   </tr>
                   <tr>
                      <td align="center">(D) Enterprises with Bring-Your-Own-Device (BYOD)</td>
-                     <td align="center">Medium</td>
+                     <td align="center">Selective trust</td>
                      <td align="center">IT</td>
                      <td align="center">Complex</td>
                      <td align="center">Medium</td>
                   </tr>
                   <tr>
                      <td align="center">(E) Managed enterprises</td>
-                     <td align="center">High</td>
+                     <td align="center">Full trust</td>
                      <td align="center">IT</td>
                      <td align="center">Complex</td>
                      <td align="center">High</td>
@@ -576,7 +578,8 @@
             user also commonly expects simple policy features (e.g., Parental Control). Most home users
             do not expect to need networking skills to manage their home network. Such environments may
             lead to full-trust conditions. However, if the trust commonly exists between allowed actors,
-            there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside,
+            there is no guarantee that an eavesdropper would not be observing the Wi-Fi traffic from outside 
+            or a rogue IoT device monitoring local traffic from inside,
             thus practically limiting the applicability of the trust in most home scenarios.</t>
 
             <t>On the other end of the spectrum, Public Wi-Fi is often considered to be completely untrusted,
@@ -613,6 +616,7 @@
       <references title="Informative References">
          <?rfc include="reference.RFC.826.xml" ?>
          <?rfc include="reference.RFC.2131.xml" ?>
+         <?rfc include="reference.RFC.3168.xml" ?>
          <?rfc include="reference.RFC.3539.xml" ?>
          <?rfc include="reference.RFC.4429.xml" ?>   
          <?rfc include="reference.RFC.4861.xml" ?>        
@@ -621,6 +625,7 @@
          <?rfc include="reference.RFC.6614.xml" ?>
          <?rfc include="reference.RFC.6620.xml" ?>
          <?rfc include="reference.RFC.7217.xml" ?>
+         <?rfc include="reference.RFC.8837.xml" ?>
 
          <?rfc include="reference.I-D.ietf-radext-deprecating-radius.xml" ?>
 
