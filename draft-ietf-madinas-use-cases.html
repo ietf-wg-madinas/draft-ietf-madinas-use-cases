@@ -38,7 +38,7 @@
     wcwidth 0.2.13
     weasyprint 61.2
 -->
-<link href="/usr/src/app/tmp/63dfb7b6-75ac-4279-a3db-8c532fcd4632/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/9db41cc1-2c7f-4af9-8066-0f7b9a7390e4/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1444,10 +1444,10 @@ li > p:last-of-type:only-child {
          how a device accesses the shared medium. In a
          network where a machine can communicate with one or more other machines, one such rule is that each
          machine needs to be identified either as the target destination of a message or as the source of a
-         message (and thus the target destination of the answer). Initially intended as a 48-bit (6 octets)
+         message (and the target destination of the answer). Initially intended as a 48-bit (6 octets)
          value in the first versions of the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard, other Standards under
-         the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> umbrella then allowed this address to take an extended
-         format of 64 bits (8 octets), thus enabling a larger number of MAC addresses to coexist as the
+         the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> umbrella allowed this address to take an extended
+         format of 64 bits (8 octets), of which enabling a larger number of MAC addresses to coexist as the
          802 technologies became widely adopted.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">Regardless of the address length, different networks have different needs, and several bits of
          the first octet are reserved for specific purposes. In particular, the first bit is used to identify
@@ -1458,7 +1458,7 @@ li > p:last-of-type:only-child {
          (clause 8.4 of <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>).<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">The intent of this provision is important for the present document. The <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>
          Standard recognized that some devices (e.g., smart thermostats) may never change their attachment network 
-         and thus would not need a globally unique MAC address to prevent address collision against any other 
+         and will not need a globally unique MAC address to prevent address collision against any other 
          device in any other network. The U/L bit can be set to signal to the network that the MAC Address is intended
          to be locally unique (not globally unique). The 802 Standard <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span>
          did not initially define the MAC Address allocation schema when the U/L bit is set to 1. It states the address must 
@@ -1535,7 +1535,7 @@ li > p:last-of-type:only-child {
       <h2 id="name-the-actors-network-function">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-actors-network-function" class="section-name selfRef">The Actors: Network Functional Entities and Human Entities</a>
       </h2>
-<p id="section-3-1">The risk of service disruption is thus weighted against the privacy benefits. However, the plurality
+<p id="section-3-1">The risk of service disruption is weighted against the privacy benefits. However, the plurality
          of actors involved in the exchanges tends to blur the boundaries of what privacy violations should be
          protected against. It might therefore be useful to list the actors associated with the network exchanges,
          either because they actively participate in these exchanges, or because they can observe them.
@@ -1655,11 +1655,11 @@ li > p:last-of-type:only-child {
       </h2>
 <p id="section-4-1">The surface of PII exposures that can drive MAC address randomization depends on (1) the
         environment where the device operates, (2) the presence and nature of other devices in the
-        environment, and (3) the type of network the device is communicating through. Therefore, a device
-        can express an identifier (such as a MAC address) that can persist over time if trust with the
+        environment, and (3) the type of network the device is communicating through. Consequently, a device
+        can use an identifier (such as a MAC address) that can persist over time if trust with the
         environment is established, or that can be temporal if an identifier is required
-        for a service in an environment where trust has not been established. Trust is not a binary currency.
-        Thus, it is useful to distinguish what trust a personal device may establish with the different entities
+        for a service in an environment where trust has not been established. Note that trust is not binary.
+        It is useful to distinguish what trust a personal device may establish with the different entities
         at play in a network domain where a MAC address may be visible:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4-2">
             <li id="section-4-2.1">Full trust: there is environment where a personal device establishes a trust relationship and can share a persistent
@@ -1685,7 +1685,7 @@ li > p:last-of-type:only-child {
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-environment" class="section-name selfRef">Environment</a>
       </h2>
 <p id="section-5-1">The trust relationship depends on the relationship between the user of a personal device
-         and the operator of a network service that the personal device may use. Thus, it is useful to observe the typical trust 
+         and the operator of a network service that the personal device may use. It is useful to observe the typical trust 
          structure of common environments:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ol start="1" type="A" class="normal type-A" id="section-5-2">
             <li id="section-5-2.1">Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
@@ -1822,7 +1822,7 @@ li > p:last-of-type:only-child {
             the device had at the (past) time of the reported issue is not known at the time the issue
             is reported.<a href="#section-6.1-9" class="pilcrow">¶</a></p>
 <p id="section-6.1-10">In industrial environment, policies are associated with each group of objects, including IoT devices.
-            MAC address randomization may prevent an IoT device from being identified properly. Thus, leading to
+            MAC address randomization may prevent an IoT device from being identified properly, thus leading to
             network quarantine and disruption of operations.<a href="#section-6.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2035,8 +2035,8 @@ li > p:last-of-type:only-child {
       encryption schemes allow for the mutual identification of the client device or the user of the device and an 
       authentication authority. The authentication exchange does not occur in clear text, and the user or the device 
       identity can be concealed from unauthorized observers. However, the authentication authority is in 
-      most cases under the control of the same entity as the network access provider. Thus, making the user or device identity 
-      visible to the network owner.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+      most cases under the control of the same entity as the network access provider. This may lead to expose the user 
+      or device identity to the network owner.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.1-2">This scheme is well-adapted to enterprise environment, where a level of trust is established between the user 
       and the enterprise network operator. In this scheme, MAC address randomization can occur through brief disconnections and 
       reconnections (under the rules of <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>). Authentication may then need to reoccur, with an associated 
@@ -2047,7 +2047,7 @@ li > p:last-of-type:only-child {
       by a local authentication authority and its authentication server. Such a server is uncommon in a home environment, and the 
       procedure to install a profile is cumbersome for most untrained users.
       The likelihood that a user or device profile would match a profile recognized by 
-      a public Wi-Fi authentication authority is also fairly limited. Thus, restricting the adoption of this scheme for public 
+      a public Wi-Fi authentication authority is also fairly limited. This may restrict the adoption of this scheme for public 
       Wi-Fi as well. Similar limitations are found in hospitality environment.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
 </section>
 <div id="OpenRoaming">
@@ -2063,15 +2063,15 @@ li > p:last-of-type:only-child {
       and facilitates the 
       establishment of trust between local networks and an identity provider. Such a procedure increases the likelihood 
       that one or more identity profiles for the user or the device will be recognized by a local network. At the same time, 
-      authentication does not occur to the local network, thus offering the possibility for the user or the device to keep 
+      authentication does not occur to the local network. This may offer the possibility for the user or the device to keep 
       their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to 
       disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-2">The OpenRoaming scheme seems well-adapted to public Wi-Fi and hospitality environment. It defines a framework to protect 
       the identity from unauthorized entities while to permit mutual authentication between the device or the user 
       and a trusted identity provider. Just like with standard 802.1X <span>[<a href="#IEEE_802.1X" class="cite xref">IEEE_802.1X</a>]</span> scheme for Wi-Fi, 
       authentication allows for the establishment of WPA2 or WPA3 keys <span>[<a href="#IEEE_802.11i" class="cite xref">IEEE_802.11i</a>]</span> that can then 
-      be used to encrypt the communication between the device and the access point, thus masking the traffic 
-      from observers.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
+      be used to encrypt the communication between the device and the access point. The encryption adds extra protection
+      to prevent the network traffic from being eavesdropped.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-3">MAC address randomization can occur through brief disconnections and reconnections 
       (under the rules of <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>). Authentication may then need to reoccur, with an associated cost of service disruption and 
       additional load on the venue and identity provider infrastructure, and an associated benefit of limiting the exposure of a 
@@ -2093,7 +2093,7 @@ li > p:last-of-type:only-child {
       With these schemes, the device changes its MAC address, when not associated, after having used a given MAC address for a 
       semi-random duration window. These schemes also allow for the device to manifest a different MAC address in different SSIDs.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
 <p id="appendix-A.3-2">Such a randomization scheme enables the device to limit the duration of exposure of a single MAC address to observers. 
-         In <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>, MAC address randomization is not allowed during a given association session, and thus MAC 
+         In <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>, MAC address randomization is not allowed during a given association session, and MAC 
          address randomization can only 
          occur through disconnection and reconnection. Authentication may then need to reoccur, with an associated cost of service disruption and 
          additional load on the venue and identity provider infrastructure, directly proportional to the frequency of the randomization. The scheme 
