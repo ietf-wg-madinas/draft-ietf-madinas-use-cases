@@ -11,7 +11,7 @@ Expires: 6 June 2025                                             Comcast
 
  Randomized and Changing MAC Address: Context, Network Impacts, and Use
                                  Cases
-                    draft-ietf-madinas-use-cases-14
+                    draft-ietf-madinas-use-cases-15
 
 Abstract
 
@@ -23,7 +23,7 @@ Abstract
    experience.  At the same time, devices may continue using other
    stable identifiers, defeating the MAC address randomization purposes.
 
-   This document lists various network environment and a range of
+   This document lists various network environments and a range of
    network services that may be affected by such randomization.  This
    document then examines settings where the user experience may be
    affected by in-network state disruption.  Last, this document
@@ -88,8 +88,8 @@ Table of Contents
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    9.  Informative References  . . . . . . . . . . . . . . . . . . .  16
-   Appendix A.  Existing Schemas . . . . . . . . . . . . . . . . . .  18
-     A.1.  802.1X with WPA2 / WPA3 . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Existing Schemas . . . . . . . . . . . . . . . . . .  19
+     A.1.  802.1X with WPA2 / WPA3 . . . . . . . . . . . . . . . . .  19
      A.2.  OpenRoaming . . . . . . . . . . . . . . . . . . . . . . .  19
      A.3.  Proprietary RCM schemes . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
@@ -148,14 +148,14 @@ Internet-Draft                RCM Use Cases                December 2024
    address or another value.  If the client implements MAC address
    randomization but continues sending the same static identifier, then
    the association between a stable identifier and the station continues
-   despite the RCM scheme.  There may be environment where such
+   despite the RCM scheme.  There may be environments where such
    continued association is desirable, but others where user privacy has
    more value than any continuity of network service state.
 
    It is useful for implementations of client and network devices to
    enumerate services that may be affected by RCM and evaluate possible
    schemas to maintain both the quality of user experience and network
-   efficiency while RCM happens and user privacy is strengthened.  This
+   efficiency while RCM happens, and user privacy is strengthened.  This
    document presents these assessments and recommendations.
 
    This document is organized as follows.  Section 2 discusses the
@@ -171,8 +171,8 @@ Internet-Draft                RCM Use Cases                December 2024
 
 
    between personal devices and the entities at play in a network
-   domain.  Section 5 discusses various network environment that will be
-   impacted.  Section 6 analyzes some existing network services that
+   domain.  Section 5 discusses various network environments that will
+   be impacted.  Section 6 analyzes some existing network services that
    will be impacted.  Finally, Appendix A includes some schemas that are
    being worked on.
 
@@ -373,7 +373,7 @@ Internet-Draft                RCM Use Cases                December 2024
        services are defined for [IEEE_802.3] networks, and multiple
        services defined by the IEEE 802.1 working group are also
        applicable to [IEEE_802.3] networks.  Wireless access points may
-       also connect to other mediums than [IEEE_802.3] (e.g, DOCSIS
+       also connect to other mediums than [IEEE_802.3] (e.g., DOCSIS
        [DOCSIS]), which also implements mechanisms under the umbrella of
        the general 802 Standard, and therefore expect the unique and
        persistent association of a MAC address to a device.
@@ -384,7 +384,7 @@ Internet-Draft                RCM Use Cases                December 2024
        IP forwarding services but rely on the device MAC address to
        create the appropriate frame structure.  Other devices and
        services operate at upper layers but also rely upon the 802
-       principle of unique MAC-to-device mapping.  For example, Address
+       principles of unique MAC-to-device mapping.  For example, Address
        Resolution Protocol (ARP) [RFC826] and Neighbor Discovery
 
 
@@ -411,11 +411,11 @@ Internet-Draft                RCM Use Cases                December 2024
    1.  Over-The-Air (OTA) observers: as the transmitting or receiving
        MAC address is usually not encrypted in wireless 802-technologies
        exchanges, and as any protocol-compatible device in range of the
-       signal can read the frame header, OTA observers are able to read
-       the MAC addresses of individual transmissions.  Some wireless
-       technologies also support techniques to establish distances or
-       positions, allowing the observer, in some cases, to uniquely
-       associate the MAC address with a physical device and its
+       signal can read the frame header.  As such OTA observers are able
+       to read the MAC addresses of individual transmissions.  Some
+       wireless technologies also support techniques to establish
+       distances or positions, allowing the observer, in some cases, to
+       uniquely associate the MAC address with a physical device and its
        associated location.  An OTA observer may have a legitimate
        reason to monitor a particular device, for example, for IT
        support operations.  However, another actor might also monitor
@@ -450,7 +450,7 @@ Henry & Lee                Expires 6 June 2025                  [Page 8]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   4.  Over the wire internal (OTWi) observers: because the device
+   4.  Over-The-Wire internal (OTWi) observers: because the device
        wireless MAC address continues to be present over the wire if the
        infrastructure connection device (e.g., access point) functions
        as a layer-2 bridge, observers may be positioned over the wire
@@ -464,7 +464,7 @@ Internet-Draft                RCM Use Cases                December 2024
        broadcast domain (e.g., switch closet), and is therefore not
        accessible to all.
 
-   5.  Over the wired external (OTWe) observers: beyond the broadcast
+   5.  Over-The-Wired external (OTWe) observers: beyond the broadcast
        domain, frame headers are removed by a routing device, and a new
        layer-2 header is added before the frame is transmitted to the
        next segment.  The personal device MAC address is not visible
@@ -484,7 +484,7 @@ Internet-Draft                RCM Use Cases                December 2024
    persist over time if trust with the environment is established, or
    that can be temporal if an identifier is required for a service in an
    environment where trust has not been established.  Trust is not a
-   binary currency.  Thus it is useful to distinguish what trust a
+   binary currency.  Thus, it is useful to distinguish what trust a
    personal device may establish with the different entities at play in
    a network domain where a MAC address may be visible:
 
@@ -506,15 +506,14 @@ Henry & Lee                Expires 6 June 2025                  [Page 9]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   2.  Selective trust: in other environment, a device may not be
-       willing to share a persistent identity with some elements of the
-       layer-2 broadcast domain, but may be willing to share a
-       persistent identity with other elements.  That persistent
-       identity may or may not be the same for different services.
+   2.  Selective trust: in another environment, a device may selectively
+       share a persistent identity with some elements of the layer-2
+       broadcast domain but not others.  That persistent identity may or
+       may not be the same for different services.
 
-   3.  Zero trust: in other environment, a device may not be willing to
+   3.  Zero trust: in another environment, a device may be unwilling to
        share any persistent identity with any local entity reachable
-       through the AP, and may express a temporal identity to each of
+       through the AP.  It may generate a temporal identity to each of
        them.  That temporal identity may or may not be the same for
        different services.
 
@@ -523,7 +522,7 @@ Internet-Draft                RCM Use Cases                December 2024
    The trust relationship depends on the relationship between the user
    of a personal device and the operator of a network service that the
    personal device may use.  Thus, it is useful to observe the typical
-   trust structure of common environment:
+   trust structure of common environments:
 
    A.  Residential settings under the control of the user: this is
        typical of a home network with Wi-Fi in the LAN and Internet
@@ -557,23 +556,24 @@ Internet-Draft                RCM Use Cases                December 2024
 
 
 
+
 Henry & Lee                Expires 6 June 2025                 [Page 10]
 
 Internet-Draft                RCM Use Cases                December 2024
 
 
    B.  Managed residential settings: examples of this type of
-       environment include shared living facilities and other collective
-       environment where an operator manages the network for the
-       residents.  The OTA exposure is similar to that of a home.  A
+       environments include shared living facilities and other
+       collective environments where an operator manages the network for
+       the residents.  The OTA exposure is similar to that of a home.  A
        number of devices larger than in a standard home may be present,
        and the operator may be requested to provide IT support to the
-       residents.  Therefore, the operator may need to identify a device
-       activity in real time, but may also need to analyze logs to
-       understand a past reported issue.  For both activities, a device
-       identification associated with the session is needed.  Full trust
-       is often established in this environment, at the scale of a
-       series of a few sessions, not because it is assumed that no
+       residents.  In this setting, the operator may need to identify a
+       device activity in real-time.  It may also need to analyze logs
+       to understand a past reported issue.  For both activities, a
+       device identification associated with the session is needed.
+       Full trust is often established in this environment, at the scale
+       of a series of a few sessions, not because it is assumed that no
        eavesdropper would observe the network activity, but because it
        is a common condition for the managed operations.
 
@@ -600,7 +600,7 @@ Internet-Draft                RCM Use Cases                December 2024
 
 6.  Network Services
 
-   Different network environment provide different levels of network
+   Different network environments provide different levels of network
    services, from simple to complex.  At its simplest level, a network
    can provide a wireless connecting device basic IP communication
    service (e.g., DHCPv4 [RFC2131] or SLAAC [RFC4862]) and an ability to
@@ -710,9 +710,9 @@ Internet-Draft                RCM Use Cases                December 2024
    [RFC4429] and NDP [RFC4861] for peer devices to establish the
    association between the target IP address and a MAC address, and
    these peers may cache this association in memory.  Changing the MAC
-   address, even through a disconnection-reconnection phase, without
-   changing the IP address, may disrupt the stability of these mappings
-   for these peers, if the change occurs within the caching period.
+   address, even at disconnection-reconnection phase, without changing
+   the IP address, may disrupt the stability of these mappings for these
+   peers, if the change occurs within the caching period.
 
    Routers keep track of which MAC address is on which interface, so
    they can form the proper Data Link header when forwarding a packet to
@@ -730,11 +730,11 @@ Henry & Lee                Expires 6 June 2025                 [Page 13]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   In residential settings (environment type A in Section Section 5),
-   policies can be in place to control the traffic of some devices
-   (e.g., parental control or block-list filters).  These policies are
-   often based on the device's MAC address.  MAC address randomization
-   removes the possibility for such control.
+   In residential settings (environment type A in Section 5), policies
+   can be in place to control the traffic of some devices (e.g.,
+   parental control or block-list filters).  These policies are often
+   based on the device's MAC address.  MAC address randomization removes
+   the possibility for such control.
 
    In residential settings (environment type A) and in enterprises
    (environment types D and E), device recognition and ranging may be
@@ -753,12 +753,12 @@ Internet-Draft                RCM Use Cases                December 2024
 
    In industrial environment, policies are associated with each group of
    objects, including IoT devices.  MAC address randomization may
-   prevent an IoT device from being identified properly, thus leading to
-   network quarantine and disruption of operations.
+   prevent an IoT device from being identified properly.  Thus, leading
+   to network quarantine and disruption of operations.
 
 6.2.  Use Cases
 
-   Section 6.1 discusses different environment, different settings, and
+   Section 6.1 discusses different environments, different settings, and
    the expectations of users and network operators.  Table 1 summarizes
    the expected degree of trust, network admin responsibility,
    complexity of supported network services, and network support
@@ -817,7 +817,7 @@ Internet-Draft                RCM Use Cases                December 2024
    procedure to connect to their home network.  All devices in the home
    network often trust each other.  The Home network can also include
    many IoT devices, which need to be simple to onboard and manage.
-   Home users typically expects the network operator to protect the home
+   Home users typically expect the network operator to protect the home
    network from external threats (i.e., attacks from the Internet).
    Home users also typically expect certain policy features (e.g.,
    Parental Control).  Most home users do not expect to need networking
@@ -856,7 +856,8 @@ Internet-Draft                RCM Use Cases                December 2024
 9.  Informative References
 
    [DOCSIS]   CableLabs DOCSIS WG, "DOCSIS 4.0 Physical Layer
-              Specification Version I06", IEEE 802 , March 2022,
+              Specification Version I06, DOI CM-SP-CM-OSSIv4.0",
+              CableLabs DOCSIS , March 2022,
               <https://www.cablelabs.com/specifications/CM-SP-CM-
               OSSIv4.0?v=I06>.
 
@@ -870,24 +871,23 @@ Internet-Draft                RCM Use Cases                December 2024
    [I-D.tomas-openroaming]
               Tomas, B., Grayson, M., Canpolat, N., Cockrell, B., and S.
               Gundavelli, "WBA OpenRoaming Wireless Federation, Work in
-              Progress, Internet-Draft, draft-tomas-openroaming-03", 25
-              July 2024, <https://datatracker.ietf.org/doc/html/draft-
-              tomas-openroaming-03>.
+              Progress, Internet-Draft, draft-tomas-openroaming-03",  ,
+              25 July 2024, <https://datatracker.ietf.org/doc/html/
+              draft-tomas-openroaming-03>.
 
    [IEEE_802] IEEE 802, "IEEE Std 802 - IEEE Standard for Local and
-              Metropolitan Area Networks: Overview and Architecture",
-              IEEE 802 , 2014.
+              Metropolitan Area Networks: Overview and Architecture, DOI
+              10.1109/IEEESTD.2014.6847097", IEEE 802 , 30 June 2014,
+              <https://ieeexplore.ieee.org/document/6847097>.
 
    [IEEE_802.11]
               "IEEE 802.11-2020 - Wireless LAN Medium Access Control
               (MAC) and Physical Layer (PHY) Specifications", IEEE
-              802.11 , 2020.
+              802.11 , 11 February 2021,
+              <https://standards.ieee.org/ieee/802.11/7028/>.
 
-   [IEEE_802.11bh]
-              "IEEE 802.11bh-2024 - Wireless LAN Medium Access Control
-              (MAC) and Physical Layer (PHY) Specifications Amendment 1:
-              Operation with Randomized and Changing MAC Addresses",
-              IEEE 802.11bh , 2024.
+
+
 
 
 
@@ -898,25 +898,37 @@ Henry & Lee                Expires 6 June 2025                 [Page 16]
 Internet-Draft                RCM Use Cases                December 2024
 
 
+   [IEEE_802.11bh]
+              "IEEE 802.11bh-2023 - Wireless LAN Medium Access Control
+              (MAC) and Physical Layer (PHY) Specifications Amendment 8
+              : Operation with Randomized and Changing MAC Addresses",
+              IEEE 802.11bh , 19 July 2023,
+              <https://ieeexplore.ieee.org/document/10214483>.
+
    [IEEE_802.11i]
               "IEEE 802.11i-2004 - Wireless LAN Medium Access Control
               (MAC) and Physical Layer (PHY) specifications: Amendment
-              6: Medium Access Control (MAC) Security Enhancements",
-              IEEE 802.11i , 2004.
+              6: Medium Access Control (MAC) Security Enhancements, DOI
+              10.1109/IEEESTD.2004.94585", IEEE 802.11i , 24 July 2004,
+              <https://ieeexplore.ieee.org/document/1318903>.
 
    [IEEE_802.1X]
               "IEEE 802.1X-2020 - IEEE Standard for Local and
               Metropolitan Area Networks--Port-Based Network Access
-              Control", IEEE 802.1X , 2020.
+              Control, DOI 10.1109/IEEESTD.2020.9018454", IEEE 802.1X ,
+              28 February 2020,
+              <https://ieeexplore.ieee.org/document/9018454>.
 
    [IEEE_802.3]
               "IEEE 802.3-2018 - IEEE Standard for Ethernet", IEEE
-              802E , 2018.
+              802.3 , 31 August 2018,
+              <https://standards.ieee.org/ieee/802.3/7071/>.
 
    [IEEE_802E]
               "IEEE 802E-2020 - IEEE Recommended Practice for Privacy
-              Considerations for IEEE 802 Technologies", IEEE 802E ,
-              2020.
+              Considerations for IEEE 802 Technologies", IEEE 802E , 13
+              November 2020,
+              <https://standards.ieee.org/ieee/802E/6242/>.
 
    [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
               RFC 2131, DOI 10.17487/RFC2131, March 1997,
@@ -932,6 +944,16 @@ Internet-Draft                RCM Use Cases                December 2024
               DOI 10.17487/RFC3539, June 2003,
               <https://www.rfc-editor.org/info/rfc3539>.
 
+
+
+
+
+
+Henry & Lee                Expires 6 June 2025                 [Page 17]
+
+Internet-Draft                RCM Use Cases                December 2024
+
+
    [RFC4429]  Moore, N., "Optimistic Duplicate Address Detection (DAD)
               for IPv6", RFC 4429, DOI 10.17487/RFC4429, April 2006,
               <https://www.rfc-editor.org/info/rfc4429>.
@@ -945,14 +967,6 @@ Internet-Draft                RCM Use Cases                December 2024
               Address Autoconfiguration", RFC 4862,
               DOI 10.17487/RFC4862, September 2007,
               <https://www.rfc-editor.org/info/rfc4862>.
-
-
-
-
-Henry & Lee                Expires 6 June 2025                 [Page 17]
-
-Internet-Draft                RCM Use Cases                December 2024
-
 
    [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
               Extensions for Stateless Address Autoconfiguration in
@@ -987,20 +1001,6 @@ Internet-Draft                RCM Use Cases                December 2024
               for WebRTC QoS", RFC 8837, DOI 10.17487/RFC8837, January
               2021, <https://www.rfc-editor.org/info/rfc8837>.
 
-Appendix A.  Existing Schemas
-
-A.1.  802.1X with WPA2 / WPA3
-
-   At the time of association to a Wi-Fi access point, 802.1X
-   [IEEE_802.1X] authentication coupled with WPA2 or WPA3 [IEEE_802.11i]
-   encryption schemes allows for the mutual identification of the client
-   device or the user of the device and an authentication authority.
-   The authentication exchange does not occur in clear text, and the
-   user or the device identity can be concealed from unauthorized
-   observers.  However, the authentication authority is in most cases
-   under the control of the same entity as the network access provider,
-   thus making the user or device identity visible to the network owner.
-
 
 
 
@@ -1010,25 +1010,40 @@ Henry & Lee                Expires 6 June 2025                 [Page 18]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   This scheme is therefore well-adapted to enterprise environment,
-   where a level of trust is established between the user and the
-   enterprise network operator.  In this scheme, MAC address
-   randomization can occur through brief disconnections and
-   reconnections (under the rules of [IEEE_802.11bh]).  Authentication
-   may then need to reoccur, with an associated cost of service
-   disruption and additional load on the enterprise infrastructure, and
-   an associated benefit of limiting the exposure of a continuous MAC
-   address to external observers.  The adoption of this scheme is
-   however limited outside of the enterprise environment by the
-   requirement to install an authentication profile on the end device,
-   which would be recognized and accepted by a local authentication
-   authority and its authentication server.  Such a server is uncommon
-   in a home environment, and the procedure to install a profile is
-   cumbersome for most untrained users.  The likelihood that a user or
-   device profile would match a profile recognized by a public Wi-Fi
-   authentication authority is also fairly limited, thus restricting the
-   adoption of this scheme for public Wi-Fi as well.  Similar
-   limitations are found in hospitality environment.
+Appendix A.  Existing Schemas
+
+A.1.  802.1X with WPA2 / WPA3
+
+   At the time of association to a Wi-Fi access point, 802.1X
+   [IEEE_802.1X] authentication coupled with WPA2 or WPA3 [IEEE_802.11i]
+   encryption schemes allow for the mutual identification of the client
+   device or the user of the device and an authentication authority.
+   The authentication exchange does not occur in clear text, and the
+   user or the device identity can be concealed from unauthorized
+   observers.  However, the authentication authority is in most cases
+   under the control of the same entity as the network access provider.
+   Thus, making the user or device identity visible to the network
+   owner.
+
+   This scheme is well-adapted to enterprise environment, where a level
+   of trust is established between the user and the enterprise network
+   operator.  In this scheme, MAC address randomization can occur
+   through brief disconnections and reconnections (under the rules of
+   [IEEE_802.11bh]).  Authentication may then need to reoccur, with an
+   associated cost of service disruption and additional load on the
+   enterprise infrastructure, and an associated benefit of limiting the
+   exposure of a continuous MAC address to external observers.  The
+   adoption of this scheme is limited outside of the enterprise
+   environment by the requirement to install an authentication profile
+   on the end device, which would be recognized and accepted by a local
+   authentication authority and its authentication server.  Such a
+   server is uncommon in a home environment, and the procedure to
+   install a profile is cumbersome for most untrained users.  The
+   likelihood that a user or device profile would match a profile
+   recognized by a public Wi-Fi authentication authority is also fairly
+   limited.  Thus, restricting the adoption of this scheme for public
+   Wi-Fi as well.  Similar limitations are found in hospitality
+   environment.
 
 A.2.  OpenRoaming
 
@@ -1036,28 +1051,13 @@ A.2.  OpenRoaming
    Wireless Broadband Alliance (WBA) OpenRoaming Standard introduces an
    intermediate trusted relay between local venues (places where some
    public Wi-Fi is available) and sources of identity
-   [I-D.tomas-openroaming].  The federation structure also extends the
-   type of authorities that can be used as identity sources (compared to
+   [I-D.tomas-openroaming].  The federation structure extends the type
+   of authorities that can be used as identity sources (compared to
    traditional enterprise-based 802.1X [IEEE_802.1X] scheme for Wi-Fi),
-   and also facilitates the establishment of trust between local
-   networks and an identity provider.  Such a procedure increases the
-   likelihood that one or more identity profiles for the user or the
-   device will be recognized by a local network.  At the same time,
-   authentication does not occur to the local network, thus offering the
-   possibility for the user or the device to keep their identity
-   obfuscated from the local network operator, unless that operator
-   specifically expresses the requirement to disclose such identity (in
-   which case the user has the option to accept or decline the
-   connection and associated identity exposure).
-
-
-
-
-
-
-
-
-
+   and facilitates the establishment of trust between local networks and
+   an identity provider.  Such a procedure increases the likelihood that
+   one or more identity profiles for the user or the device will be
+   recognized by a local network.  At the same time, authentication does
 
 
 
@@ -1066,15 +1066,22 @@ Henry & Lee                Expires 6 June 2025                 [Page 19]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi
-   and hospitality environment, allowing for the obfuscation of the
-   identity from unauthorized entities, while also permitting mutual
+   not occur to the local network, thus offering the possibility for the
+   user or the device to keep their identity obfuscated from the local
+   network operator, unless that operator specifically expresses the
+   requirement to disclose such identity (in which case the user has the
+   option to accept or decline the connection and associated identity
+   exposure).
+
+   The OpenRoaming scheme seems well-adapted to public Wi-Fi and
+   hospitality environment.  It defines a framework to protect the
+   identity from unauthorized entities while to permit mutual
    authentication between the device or the user and a trusted identity
    provider.  Just like with standard 802.1X [IEEE_802.1X] scheme for
    Wi-Fi, authentication allows for the establishment of WPA2 or WPA3
    keys [IEEE_802.11i] that can then be used to encrypt the
-   communication between the device and the access point, thus
-   obfuscating the traffic from observers.
+   communication between the device and the access point, thus masking
+   the traffic from observers.
 
    MAC address randomization can occur through brief disconnections and
    reconnections (under the rules of [IEEE_802.11bh]).  Authentication
@@ -1104,16 +1111,9 @@ A.3.  Proprietary RCM schemes
    window.  These schemes also allow for the device to manifest a
    different MAC address in different SSIDs.
 
-
-
-
-
-
-
-
-
-
-
+   Such a randomization scheme enables the device to limit the duration
+   of exposure of a single MAC address to observers.  In
+   [IEEE_802.11bh], MAC address randomization is not allowed during a
 
 
 
@@ -1122,9 +1122,6 @@ Henry & Lee                Expires 6 June 2025                 [Page 20]
 Internet-Draft                RCM Use Cases                December 2024
 
 
-   Such a randomization scheme enables the device to limit the duration
-   of exposure of a single MAC address to observers.  In
-   [IEEE_802.11bh], MAC address randomization is not allowed during a
    given association session, and thus MAC address randomization can
    only occur through disconnection and reconnection.  Authentication
    may then need to reoccur, with an associated cost of service
@@ -1149,6 +1146,9 @@ Authors' Addresses
    Philadelphia, PA 19103
    United States of America
    Email: yiu_lee@comcast.com
+
+
+
 
 
 

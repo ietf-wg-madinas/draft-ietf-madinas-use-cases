@@ -12,7 +12,7 @@
       client and client Operating System vendors have started implementing MAC address randomization. When such randomization
       happens, some in-network states may break, which may affect network connectivity and user experience.
       At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes. 
-       This document lists various network environment and a range of network services that may be affected
+       This document lists various network environments and a range of network services that may be affected
       by such randomization. This document then examines settings where the user experience may be affected by in-network
       state disruption. Last, this document examines
       schemas to maintain user privacy while preserving user quality of experience and network
@@ -20,7 +20,7 @@
     " name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
 <meta content="template" name="keyword">
-<meta content="draft-ietf-madinas-use-cases-14" name="ietf.draft">
+<meta content="draft-ietf-madinas-use-cases-15" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.25.0
     Python 3.10.12
@@ -38,7 +38,7 @@
     wcwidth 0.2.13
     weasyprint 61.2
 -->
-<link href="/usr/src/app/tmp/b1807e4f-3ab1-4d1f-9308-1f5db08e8947/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/63dfb7b6-75ac-4279-a3db-8c532fcd4632/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1235,7 +1235,7 @@ li > p:last-of-type:only-child {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Internet Engineering Task Force</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-madinas-use-cases-14</dd>
+<dd class="internet-draft">draft-ietf-madinas-use-cases-15</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2024-12-03" class="published">3 December 2024</time>
@@ -1264,7 +1264,7 @@ li > p:last-of-type:only-child {
       client and client Operating System vendors have started implementing MAC address randomization. When such randomization
       happens, some in-network states may break, which may affect network connectivity and user experience.
       At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document lists various network environment and a range of network services that may be affected
+<p id="section-abstract-2">This document lists various network environments and a range of network services that may be affected
       by such randomization. This document then examines settings where the user experience may be affected by in-network
       state disruption. Last, this document examines
       schemas to maintain user privacy while preserving user quality of experience and network
@@ -1419,11 +1419,11 @@ li > p:last-of-type:only-child {
          also called in this document device, or machine) providing an identifier, which can be
          the MAC address or another value. If the client implements MAC address randomization but continues sending the same static
          identifier, then the association between a stable identifier and the station continues despite the RCM scheme.
-         There may be environment where such continued association is desirable, but others where user privacy has
+         There may be environments where such continued association is desirable, but others where user privacy has
          more value than any continuity of network service state.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">It is useful for implementations of client and network devices to enumerate services that may be
          affected by RCM and evaluate possible schemas to maintain both the quality of user experience
-         and network efficiency while RCM happens and user privacy is strengthened. This document
+         and network efficiency while RCM happens, and user privacy is strengthened. This document
          presents these assessments and recommendations.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">This document is organized as follows. <a href="#identity" class="auto internal xref">Section 2</a> discusses the current status of using MAC 
          address as Identity.
@@ -1431,7 +1431,7 @@ li > p:last-of-type:only-child {
          address randomization. <a href="#trust" class="auto internal xref">Section 4</a> examines the degrees of trust between personal
          devices and the entities at play in a network domain. <a href="#environment" class="auto internal xref">Section 5</a> 
          discusses various network 
-         environment that will be impacted. <a href="#services" class="auto internal xref">Section 6</a> analyzes some existing 
+         environments that will be impacted. <a href="#services" class="auto internal xref">Section 6</a> analyzes some existing 
          network services that will be impacted. Finally,
          <a href="#schemas" class="auto internal xref">Appendix A</a> includes some schemas that are being worked on.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
@@ -1575,7 +1575,7 @@ li > p:last-of-type:only-child {
             address as a first pointer to the device identity to allow or block data traffic.  This list is not 
             exhaustive.  Multiple services are defined for <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> networks, and multiple services defined by the
             IEEE 802.1 working group are also applicable to <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> networks. Wireless access points may also connect 
-            to other mediums than <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> (e.g, DOCSIS <span>[<a href="#DOCSIS" class="cite xref">DOCSIS</a>]</span>), 
+            to other mediums than <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> (e.g., DOCSIS <span>[<a href="#DOCSIS" class="cite xref">DOCSIS</a>]</span>), 
             which also implements mechanisms under the umbrella of the general 802 
             Standard, and therefore expect the unique and persistent association of a MAC address to a device.<a href="#section-3.1-2.2" class="pilcrow">¶</a>
 </li>
@@ -1585,7 +1585,7 @@ li > p:last-of-type:only-child {
             IP forwarding services but rely on the device MAC address to
             create the appropriate frame structure.  Other devices and
             services operate at upper layers but also rely upon the 802
-            principle of unique MAC-to-device mapping.  For example, Address
+            principles of unique MAC-to-device mapping.  For example, Address
             Resolution Protocol (ARP) <span>[<a href="#RFC826" class="cite xref">RFC826</a>]</span> and Neighbor Discovery
             Protocol (NDP) <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> use MAC address to create the mapping of
             an IP address to a MAC address for packet forwarding.  If a
@@ -1605,7 +1605,7 @@ li > p:last-of-type:only-child {
 <ol start="1" type="1" class="normal type-1" id="section-3.2-2">
                <li id="section-3.2-2.1">Over-The-Air (OTA) observers: as the transmitting or receiving MAC address is usually not encrypted
                in wireless 802-technologies exchanges, and as any protocol-compatible device in range of the signal
-               can read the frame header, OTA observers are able to read the MAC addresses of individual transmissions. 
+               can read the frame header. As such OTA observers are able to read the MAC addresses of individual transmissions. 
                Some
                wireless technologies also support techniques to establish distances or positions, allowing the observer,
                in some cases, to uniquely associate the MAC address with a physical device and its associated location.
@@ -1627,7 +1627,7 @@ li > p:last-of-type:only-child {
                these operators may attempt to identify the devices and the users of their networks. They can use the
                MAC address to represent an identified device.<a href="#section-3.2-2.3" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.2-2.4">Over the wire internal (OTWi) observers: because the device wireless MAC address continues to be
+          <li id="section-3.2-2.4">Over-The-Wire internal (OTWi) observers: because the device wireless MAC address continues to be
                present over the wire if the infrastructure connection device (e.g., access point) functions as a layer-2 
                bridge, observers may be positioned over the wire and read transmission MAC addresses. Such capability
                supposes that the observer has access to the wired segment of the broadcast domain where the frames
@@ -1636,7 +1636,7 @@ li > p:last-of-type:only-child {
                In most networks, such capability requires physical access to an infrastructure wired
                device in the broadcast domain (e.g., switch closet), and is therefore not accessible to all.<a href="#section-3.2-2.4" class="pilcrow">¶</a>
 </li>
-          <li id="section-3.2-2.5">Over the wired external (OTWe) observers: beyond the broadcast domain, frame headers are removed
+          <li id="section-3.2-2.5">Over-The-Wired external (OTWe) observers: beyond the broadcast domain, frame headers are removed
                by a routing device, and a new layer-2 header is added before the frame is transmitted to the next
                segment. The personal device MAC address is not visible anymore unless a mechanism copies the MAC
                address into a field that can be read while the packet travels onto the next segment (e.g., pre-
@@ -1659,7 +1659,7 @@ li > p:last-of-type:only-child {
         can express an identifier (such as a MAC address) that can persist over time if trust with the
         environment is established, or that can be temporal if an identifier is required
         for a service in an environment where trust has not been established. Trust is not a binary currency.
-        Thus it is useful to distinguish what trust a personal device may establish with the different entities
+        Thus, it is useful to distinguish what trust a personal device may establish with the different entities
         at play in a network domain where a MAC address may be visible:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4-2">
             <li id="section-4-2.1">Full trust: there is environment where a personal device establishes a trust relationship and can share a persistent
@@ -1668,13 +1668,12 @@ li > p:last-of-type:only-child {
             access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
             identity is not shared beyond the layer-2 broadcast domain boundary.<a href="#section-4-2.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-4-2.2">Selective trust: in other environment, a device may not be willing to share a persistent identity with some
-            elements of the layer-2 broadcast domain, but may be willing to share a persistent identity with other
-            elements. That persistent identity may or may not be the same for different
+        <li id="section-4-2.2">Selective trust: in another environment, a device may selectively share a persistent identity with some
+            elements of the layer-2 broadcast domain but not others. That persistent identity may or may not be the same for different
             services.<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-4-2.3">Zero trust: in other environment, a device may not be willing to share any persistent identity with any local entity
-            reachable through the AP, and may express a temporal identity to each of them. That temporal
+        <li id="section-4-2.3">Zero trust: in another environment, a device may be unwilling to share any persistent identity with any local entity
+            reachable through the AP. It may generate a temporal identity to each of them. That temporal
             identity may or may not be the same for different services.<a href="#section-4-2.3" class="pilcrow">¶</a>
 </li>
       </ol>
@@ -1687,7 +1686,7 @@ li > p:last-of-type:only-child {
       </h2>
 <p id="section-5-1">The trust relationship depends on the relationship between the user of a personal device
          and the operator of a network service that the personal device may use. Thus, it is useful to observe the typical trust 
-         structure of common environment:<a href="#section-5-1" class="pilcrow">¶</a></p>
+         structure of common environments:<a href="#section-5-1" class="pilcrow">¶</a></p>
 <ol start="1" type="A" class="normal type-A" id="section-5-2">
             <li id="section-5-2.1">Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
             Internet connection. In this environment, traffic over the Internet does not expose the MAC address of 
@@ -1700,11 +1699,11 @@ li > p:last-of-type:only-child {
             the communications. As such, it is common to assume that, even in this environment, attackers may still be able
             to monitor the unencrypted information such as MAC addresses.<a href="#section-5-2.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-5-2.2">Managed residential settings: examples of this type of environment include shared living facilities
-            and other collective environment where an operator manages the network for the residents. The OTA
+        <li id="section-5-2.2">Managed residential settings: examples of this type of environments include shared living facilities
+            and other collective environments where an operator manages the network for the residents. The OTA
             exposure is similar to that of a home. A number of devices larger than in a standard home may be
-            present, and the operator may be requested to provide IT support to the residents. Therefore, the
-            operator may need to identify a device activity in real time, but may also need to analyze logs
+            present, and the operator may be requested to provide IT support to the residents. In this setting, the
+            operator may need to identify a device activity in real-time. It may also need to analyze logs
             to understand a past reported issue. For both activities, a device identification associated with the
             session is needed. Full trust is often established in this environment, at the scale of a series of a few
             sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common
@@ -1733,7 +1732,7 @@ li > p:last-of-type:only-child {
       <h2 id="name-network-services">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-network-services" class="section-name selfRef">Network Services</a>
       </h2>
-<p id="section-6-1">Different network environment provide different levels of network services, from simple to complex.
+<p id="section-6-1">Different network environments provide different levels of network services, from simple to complex.
          At its simplest level, a network can provide a wireless connecting device basic IP communication service (e.g., 
          DHCPv4 <span>[<a href="#RFC2131" class="cite xref">RFC2131</a>]</span> or SLAAC <span>[<a href="#RFC4862" class="cite xref">RFC4862</a>]</span>)
          and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
@@ -1801,14 +1800,14 @@ li > p:last-of-type:only-child {
             Duplicate Address Detection (DAD) <span>[<a href="#RFC4429" class="cite xref">RFC4429</a>]</span> and NDP <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span>  
             for peer devices to establish the association between the target IP address
             and a MAC address, and these peers may cache this association in memory. Changing the MAC address, even
-            through a disconnection-reconnection phase, without changing the IP address, may disrupt the
+            at disconnection-reconnection phase, without changing the IP address, may disrupt the
             stability of these mappings for these peers, if the change occurs within the caching period.<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <p id="section-6.1-6">Routers keep track of which MAC address is on which interface, so they can form the proper Data Link
             header when forwarding a packet to a segment where MAC addresses are used. MAC address randomization can cause MAC
             address cache exhaustion, but also the need for frequent Address Resolution Protocol (ARP), Reverse
             Address Resolution Protocol (RARP) <span>[<a href="#RFC826" class="cite xref">RFC826</a>]</span>, Neighbor Solicitation and, Neighbor 
             Advertisement <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> exchanges.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
-<p id="section-6.1-7">In residential settings (environment type A in Section <a href="#environment" class="auto internal xref">Section 5</a>), 
+<p id="section-6.1-7">In residential settings (environment type A in <a href="#environment" class="auto internal xref">Section 5</a>), 
             policies can be in place to control the
             traffic of some devices (e.g., parental control or block-list filters). These policies are often 
             based on the device's MAC address. MAC address randomization removes the possibility for such control.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
@@ -1823,7 +1822,7 @@ li > p:last-of-type:only-child {
             the device had at the (past) time of the reported issue is not known at the time the issue
             is reported.<a href="#section-6.1-9" class="pilcrow">¶</a></p>
 <p id="section-6.1-10">In industrial environment, policies are associated with each group of objects, including IoT devices.
-            MAC address randomization may prevent an IoT device from being identified properly, thus leading to
+            MAC address randomization may prevent an IoT device from being identified properly. Thus, leading to
             network quarantine and disruption of operations.<a href="#section-6.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1831,9 +1830,9 @@ li > p:last-of-type:only-child {
         <h3 id="name-use-cases">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-use-cases" class="section-name selfRef">Use Cases</a>
         </h3>
-<p id="section-6.2-1"><a href="#DevID" class="auto internal xref">Section 6.1</a> discusses different environment, different settings, and the expectations of
-            users and network operators. <a href="#scenario_table" class="auto internal xref">Table 1</a>
-            summarizes the expected degree of trust, network admin responsibility, complexity of supported network services, 
+<p id="section-6.2-1"><a href="#DevID" class="auto internal xref">Section 6.1</a> discusses different environments, different settings, and the expectations of
+            users and network operators. <a href="#scenario_table" class="auto internal xref">Table 1</a> summarizes the expected degree of trust, 
+            network admin responsibility, complexity of supported network services, 
             and network support expectation from the user for the different use cases defined in <a href="#environment" class="auto internal xref">Section 5</a>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <span id="name-use-cases-2"></span><div id="scenario_table">
 <table class="center" id="table-1">
@@ -1893,7 +1892,7 @@ li > p:last-of-type:only-child {
             are not worried about other users (or the home network admin) seeing their MAC address.
             Users expect a simple procedure to connect to their home network. All devices in the home
             network often trust each other. The Home network can also include many IoT devices, which
-            need to be simple to onboard and manage. Home users typically expects the network operator
+            need to be simple to onboard and manage. Home users typically expect the network operator
             to protect the home network from external threats (i.e., attacks from the Internet). Home
             users also typically expect certain policy features (e.g., Parental Control). Most home users
             do not expect to need networking skills to manage their home network. Such environment may
@@ -1934,7 +1933,7 @@ li > p:last-of-type:only-child {
 <dl class="references">
 <dt id="DOCSIS">[DOCSIS]</dt>
       <dd>
-<span class="refAuthor">CableLabs DOCSIS WG</span>, <span class="refTitle">"DOCSIS 4.0 Physical Layer Specification Version I06"</span>, <span class="seriesInfo">IEEE 802 </span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.cablelabs.com/specifications/CM-SP-CM-OSSIv4.0?v=I06">https://www.cablelabs.com/specifications/CM-SP-CM-OSSIv4.0?v=I06</a>&gt;</span>. </dd>
+<span class="refAuthor">CableLabs DOCSIS WG</span>, <span class="refTitle">"DOCSIS 4.0 Physical Layer Specification Version I06, DOI CM-SP-CM-OSSIv4.0"</span>, <span class="seriesInfo">CableLabs DOCSIS </span>, <time datetime="2022-03" class="refDate">March 2022</time>, <span>&lt;<a href="https://www.cablelabs.com/specifications/CM-SP-CM-OSSIv4.0?v=I06">https://www.cablelabs.com/specifications/CM-SP-CM-OSSIv4.0?v=I06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-radext-deprecating-radius">[I-D.ietf-radext-deprecating-radius]</dt>
       <dd>
@@ -1942,35 +1941,35 @@ li > p:last-of-type:only-child {
 <dd class="break"></dd>
 <dt id="I-D.tomas-openroaming">[I-D.tomas-openroaming]</dt>
       <dd>
-<span class="refAuthor">Tomas, B.</span>, <span class="refAuthor">Grayson, M.</span>, <span class="refAuthor">Canpolat, N.</span>, <span class="refAuthor">Cockrell, B.</span>, and <span class="refAuthor">S. Gundavelli</span>, <span class="refTitle">"WBA OpenRoaming Wireless Federation, Work in Progress, Internet-Draft, draft-tomas-openroaming-03"</span>, <time datetime="2024-07-25" class="refDate">25 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tomas-openroaming-03">https://datatracker.ietf.org/doc/html/draft-tomas-openroaming-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Tomas, B.</span>, <span class="refAuthor">Grayson, M.</span>, <span class="refAuthor">Canpolat, N.</span>, <span class="refAuthor">Cockrell, B.</span>, and <span class="refAuthor">S. Gundavelli</span>, <span class="refTitle">"WBA OpenRoaming Wireless Federation, Work in Progress, Internet-Draft, draft-tomas-openroaming-03"</span>, <span class="seriesInfo"></span>, <time datetime="2024-07-25" class="refDate">25 July 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-tomas-openroaming-03">https://datatracker.ietf.org/doc/html/draft-tomas-openroaming-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802">[IEEE_802]</dt>
       <dd>
-<span class="refAuthor">IEEE 802</span>, <span class="refTitle">"IEEE Std 802 - IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture"</span>, <span class="seriesInfo">IEEE 802 </span>, <time datetime="2014" class="refDate">2014</time>. </dd>
+<span class="refAuthor">IEEE 802</span>, <span class="refTitle">"IEEE Std 802 - IEEE Standard for Local and Metropolitan Area Networks: Overview and Architecture, DOI 10.1109/IEEESTD.2014.6847097"</span>, <span class="seriesInfo">IEEE 802 </span>, <time datetime="2014-06-30" class="refDate">30 June 2014</time>, <span>&lt;<a href="https://ieeexplore.ieee.org/document/6847097">https://ieeexplore.ieee.org/document/6847097</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802.11">[IEEE_802.11]</dt>
       <dd>
-<span class="refTitle">"IEEE 802.11-2020 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications"</span>, <span class="seriesInfo">IEEE 802.11 </span>, <time datetime="2020" class="refDate">2020</time>. </dd>
+<span class="refTitle">"IEEE 802.11-2020 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications"</span>, <span class="seriesInfo">IEEE 802.11 </span>, <time datetime="2021-02-11" class="refDate">11 February 2021</time>, <span>&lt;<a href="https://standards.ieee.org/ieee/802.11/7028/">https://standards.ieee.org/ieee/802.11/7028/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802.11bh">[IEEE_802.11bh]</dt>
       <dd>
-<span class="refTitle">"IEEE 802.11bh-2024 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications Amendment 1: Operation with Randomized and Changing MAC Addresses"</span>, <span class="seriesInfo">IEEE 802.11bh </span>, <time datetime="2024" class="refDate">2024</time>. </dd>
+<span class="refTitle">"IEEE 802.11bh-2023 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications Amendment 8 : Operation with Randomized and Changing MAC Addresses"</span>, <span class="seriesInfo">IEEE 802.11bh </span>, <time datetime="2023-07-19" class="refDate">19 July 2023</time>, <span>&lt;<a href="https://ieeexplore.ieee.org/document/10214483">https://ieeexplore.ieee.org/document/10214483</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802.11i">[IEEE_802.11i]</dt>
       <dd>
-<span class="refTitle">"IEEE 802.11i-2004 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) specifications: Amendment 6: Medium Access Control (MAC) Security Enhancements"</span>, <span class="seriesInfo">IEEE 802.11i </span>, <time datetime="2004" class="refDate">2004</time>. </dd>
+<span class="refTitle">"IEEE 802.11i-2004 - Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) specifications: Amendment 6: Medium Access Control (MAC) Security Enhancements, DOI 10.1109/IEEESTD.2004.94585"</span>, <span class="seriesInfo">IEEE 802.11i </span>, <time datetime="2004-07-24" class="refDate">24 July 2004</time>, <span>&lt;<a href="https://ieeexplore.ieee.org/document/1318903">https://ieeexplore.ieee.org/document/1318903</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802.1X">[IEEE_802.1X]</dt>
       <dd>
-<span class="refTitle">"IEEE 802.1X-2020 - IEEE Standard for Local and Metropolitan Area Networks--Port-Based Network Access Control"</span>, <span class="seriesInfo">IEEE 802.1X </span>, <time datetime="2020" class="refDate">2020</time>. </dd>
+<span class="refTitle">"IEEE 802.1X-2020 - IEEE Standard for Local and Metropolitan Area Networks--Port-Based Network Access Control, DOI 10.1109/IEEESTD.2020.9018454"</span>, <span class="seriesInfo">IEEE 802.1X </span>, <time datetime="2020-02-28" class="refDate">28 February 2020</time>, <span>&lt;<a href="https://ieeexplore.ieee.org/document/9018454">https://ieeexplore.ieee.org/document/9018454</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802.3">[IEEE_802.3]</dt>
       <dd>
-<span class="refTitle">"IEEE 802.3-2018 - IEEE Standard for Ethernet"</span>, <span class="seriesInfo">IEEE 802E </span>, <time datetime="2018" class="refDate">2018</time>. </dd>
+<span class="refTitle">"IEEE 802.3-2018 - IEEE Standard for Ethernet"</span>, <span class="seriesInfo">IEEE 802.3 </span>, <time datetime="2018-08-31" class="refDate">31 August 2018</time>, <span>&lt;<a href="https://standards.ieee.org/ieee/802.3/7071/">https://standards.ieee.org/ieee/802.3/7071/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE_802E">[IEEE_802E]</dt>
       <dd>
-<span class="refTitle">"IEEE 802E-2020 - IEEE Recommended Practice for Privacy Considerations for IEEE 802 Technologies"</span>, <span class="seriesInfo">IEEE 802E </span>, <time datetime="2020" class="refDate">2020</time>. </dd>
+<span class="refTitle">"IEEE 802E-2020 - IEEE Recommended Practice for Privacy Considerations for IEEE 802 Technologies"</span>, <span class="seriesInfo">IEEE 802E </span>, <time datetime="2020-11-13" class="refDate">13 November 2020</time>, <span>&lt;<a href="https://standards.ieee.org/ieee/802E/6242/">https://standards.ieee.org/ieee/802E/6242/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2131">[RFC2131]</dt>
       <dd>
@@ -2033,22 +2032,22 @@ li > p:last-of-type:only-child {
         </h3>
 <p id="appendix-A.1-1">At the time of association to a Wi-Fi access point, 802.1X <span>[<a href="#IEEE_802.1X" class="cite xref">IEEE_802.1X</a>]</span> authentication coupled 
       with WPA2 or WPA3 <span>[<a href="#IEEE_802.11i" class="cite xref">IEEE_802.11i</a>]</span>
-      encryption schemes allows for the mutual identification of the client device or the user of the device and an 
+      encryption schemes allow for the mutual identification of the client device or the user of the device and an 
       authentication authority. The authentication exchange does not occur in clear text, and the user or the device 
       identity can be concealed from unauthorized observers. However, the authentication authority is in 
-      most cases under the control of the same entity as the network access provider, thus making the user or device identity 
+      most cases under the control of the same entity as the network access provider. Thus, making the user or device identity 
       visible to the network owner.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-2">This scheme is therefore well-adapted to enterprise environment, where a level of trust is established between the user 
+<p id="appendix-A.1-2">This scheme is well-adapted to enterprise environment, where a level of trust is established between the user 
       and the enterprise network operator. In this scheme, MAC address randomization can occur through brief disconnections and 
       reconnections (under the rules of <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>). Authentication may then need to reoccur, with an associated 
       cost of service 
       disruption and additional load on the enterprise infrastructure, and an associated benefit of limiting the exposure of a 
-      continuous MAC address to external observers. The adoption of this scheme is however limited outside of the enterprise 
+      continuous MAC address to external observers. The adoption of this scheme is limited outside of the enterprise 
       environment by the requirement to install an authentication profile on the end device, which would be recognized and accepted 
       by a local authentication authority and its authentication server. Such a server is uncommon in a home environment, and the 
       procedure to install a profile is cumbersome for most untrained users.
       The likelihood that a user or device profile would match a profile recognized by 
-      a public Wi-Fi authentication authority is also fairly limited, thus restricting the adoption of this scheme for public 
+      a public Wi-Fi authentication authority is also fairly limited. Thus, restricting the adoption of this scheme for public 
       Wi-Fi as well. Similar limitations are found in hospitality environment.<a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
 </section>
 <div id="OpenRoaming">
@@ -2059,19 +2058,19 @@ li > p:last-of-type:only-child {
 <p id="appendix-A.2-1"> In order to alleviate some of the limitations listed above, the Wireless Broadband Alliance (WBA) OpenRoaming 
       Standard introduces an intermediate trusted relay between local venues (places where some public Wi-Fi is available)
       and sources of identity  
-      <span>[<a href="#I-D.tomas-openroaming" class="cite xref">I-D.tomas-openroaming</a>]</span>. The federation structure also extends the type of authorities that can be 
+      <span>[<a href="#I-D.tomas-openroaming" class="cite xref">I-D.tomas-openroaming</a>]</span>. The federation structure extends the type of authorities that can be 
       used as identity sources (compared to traditional enterprise-based 802.1X <span>[<a href="#IEEE_802.1X" class="cite xref">IEEE_802.1X</a>]</span> scheme for Wi-Fi), 
-      and also facilitates the 
+      and facilitates the 
       establishment of trust between local networks and an identity provider. Such a procedure increases the likelihood 
       that one or more identity profiles for the user or the device will be recognized by a local network. At the same time, 
       authentication does not occur to the local network, thus offering the possibility for the user or the device to keep 
       their identity obfuscated from the local network operator, unless that operator specifically expresses the requirement to 
       disclose such identity (in which case the user has the option to accept or decline the connection and associated identity exposure).<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-2">The OpenRoaming scheme therefore seems well-adapted to public Wi-Fi and hospitality environment, allowing for the 
-      obfuscation of the identity from unauthorized entities, while also permitting mutual authentication between the device or the user 
+<p id="appendix-A.2-2">The OpenRoaming scheme seems well-adapted to public Wi-Fi and hospitality environment. It defines a framework to protect 
+      the identity from unauthorized entities while to permit mutual authentication between the device or the user 
       and a trusted identity provider. Just like with standard 802.1X <span>[<a href="#IEEE_802.1X" class="cite xref">IEEE_802.1X</a>]</span> scheme for Wi-Fi, 
       authentication allows for the establishment of WPA2 or WPA3 keys <span>[<a href="#IEEE_802.11i" class="cite xref">IEEE_802.11i</a>]</span> that can then 
-      be used to encrypt the communication between the device and the access point, thus obfuscating the traffic 
+      be used to encrypt the communication between the device and the access point, thus masking the traffic 
       from observers.<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-A.2-3">MAC address randomization can occur through brief disconnections and reconnections 
       (under the rules of <span>[<a href="#IEEE_802.11bh" class="cite xref">IEEE_802.11bh</a>]</span>). Authentication may then need to reoccur, with an associated cost of service disruption and 
