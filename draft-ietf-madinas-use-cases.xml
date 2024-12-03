@@ -11,7 +11,7 @@
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
     please see http://xml.resource.org/authoring/README.html. -->
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-14" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-15" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
    <!-- xml2rfc v2v3 conversion 2.38.1 -->
    <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
@@ -23,7 +23,7 @@
       <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
       <title abbrev="RCM Use Cases">Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases</title>
-      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-14" />
+      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-15" />
       <!-- add 'role="editor"' below for the editors if appropriate -->
       <!-- Another author who claims to be an editor -->
       <author fullname="Jerome Henry" initials="J" surname="Henry">
@@ -75,7 +75,7 @@
       happens, some in-network states may break, which may affect network connectivity and user experience.
       At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes.</t>
       
-         <t>This document lists various network environment and a range of network services that may be affected
+         <t>This document lists various network environments and a range of network services that may be affected
       by such randomization. This document then examines settings where the user experience may be affected by in-network
       state disruption. Last, this document examines
       schemas to maintain user privacy while preserving user quality of experience and network
@@ -117,7 +117,7 @@
          also called in this document device, or machine) providing an identifier, which can be
          the MAC address or another value. If the client implements MAC address randomization but continues sending the same static
          identifier, then the association between a stable identifier and the station continues despite the RCM scheme.
-         There may be environment where such continued association is desirable, but others where user privacy has
+         There may be environments where such continued association is desirable, but others where user privacy has
          more value than any continuity of network service state.</t>
 
          <t>It is useful for implementations of client and network devices to enumerate services that may be
@@ -131,7 +131,7 @@
          address randomization. <xref target="trust"/> examines the degrees of trust between personal
          devices and the entities at play in a network domain. <xref target="environment"/> 
          discusses various network 
-         environment that will be impacted. <xref target="services"/> analyzes some existing 
+         environments that will be impacted. <xref target="services"/> analyzes some existing 
          network services that will be impacted. Finally,
          <xref target="schemas"/> includes some schemas that are being worked on.</t>
 
@@ -382,7 +382,7 @@
          <name>Environment</name>
          <t>The trust relationship depends on the relationship between the user of a personal device
          and the operator of a network service that the personal device may use. Thus, it is useful to observe the typical trust 
-         structure of common environment:</t>
+         structure of common environments:</t>
         
         <ol spacing="normal" type="A">
             <li>Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
@@ -396,8 +396,8 @@
             the communications. As such, it is common to assume that, even in this environment, attackers may still be able
             to monitor the unencrypted information such as MAC addresses.</li>
 
-            <li>Managed residential settings: examples of this type of environment include shared living facilities
-            and other collective environment where an operator manages the network for the residents. The OTA
+            <li>Managed residential settings: examples of this type of environments include shared living facilities
+            and other collective environments where an operator manages the network for the residents. The OTA
             exposure is similar to that of a home. A number of devices larger than in a standard home may be
             present, and the operator may be requested to provide IT support to the residents. Therefore, the
             operator may need to identify a device activity in real time, but may also need to analyze logs
@@ -425,7 +425,7 @@
       </section>
       <section anchor="services" numbered="true" toc="default">
          <name>Network Services</name>
-         <t>Different network environment provide different levels of network services, from simple to complex.
+         <t>Different network environments provide different levels of network services, from simple to complex.
          At its simplest level, a network can provide a wireless connecting device basic IP communication service (e.g., 
          DHCPv4 <xref target="RFC2131" /> or SLAAC <xref target="RFC4862" />)
          and an ability to connect to the Internet (e.g., DNS service or relay, and routing in and out through a local gateway).
@@ -530,7 +530,7 @@
 
          <section numbered="true" toc="default">
             <name>Use Cases</name>
-            <t><xref target="DevID" /> discusses different environment, different settings, and the expectations of
+            <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of
             users and network operators. <xref target="scenario_table" />
             summarizes the expected degree of trust, network admin responsibility, complexity of supported network services, 
             and network support expectation from the user for the different use cases defined in <xref target="environment"/>.</t>
