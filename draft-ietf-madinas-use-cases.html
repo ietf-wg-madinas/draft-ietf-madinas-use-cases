@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases for Wi-Fi Network</title>
+<title>Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases</title>
 <meta content="Jerome Henry" name="author">
 <meta content="Yiu L. Lee" name="author">
 <meta content="
-       To limit the privacy issues created by the association between a device, its traffic, its location, and its user in Wi-Fi
-           network,
-         client and client Operating System vendors have started implementing MAC address randomization. When such randomization
+       To limit the privacy issues created by the association between a device, its traffic, its location, and its user in
+           networks,
+         client and client Operating System vendors have started implementing MAC address randomization. This technology is
+         particularly important in Wi-Fi   networks due to the over-the-air nature and device mobility.
+         When such randomization
          happens, some in-network states may break, which may affect network connectivity and user experience.
          At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes. 
        This document lists various network environments and a range of network services that may be affected
@@ -20,7 +22,7 @@
     " name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
 <meta content="template" name="keyword">
-<meta content="draft-ietf-madinas-use-cases-16" name="ietf.draft">
+<meta content="draft-ietf-madinas-use-cases-17" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.25.0
     Python 3.10.12
@@ -38,7 +40,7 @@
     wcwidth 0.2.13
     weasyprint 61.2
 -->
-<link href="/usr/src/app/tmp/7c57363d-f4ad-4748-8d6f-d1f6ffac5374/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/465d239a-f5a2-446a-85db-cb970869611e/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1225,7 +1227,7 @@ li > p:last-of-type:only-child {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Henry &amp; Lee</td>
-<td class="center">Expires 7 June 2025</td>
+<td class="center">Expires 12 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1235,15 +1237,15 @@ li > p:last-of-type:only-child {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Internet Engineering Task Force</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-madinas-use-cases-16</dd>
+<dd class="internet-draft">draft-ietf-madinas-use-cases-17</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-04" class="published">4 December 2024</time>
+<time datetime="2024-12-09" class="published">9 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-07">7 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-12">12 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1257,12 +1259,14 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases for Wi-Fi Network</h1>
+<h1 id="title">Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">To limit the privacy issues created by the association between a device, its traffic, its location, and its user in Wi-Fi
-         <span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> network,
-         client and client Operating System vendors have started implementing MAC address randomization. When such randomization
+<p id="section-abstract-1">To limit the privacy issues created by the association between a device, its traffic, its location, and its user in
+         <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> networks,
+         client and client Operating System vendors have started implementing MAC address randomization. This technology is
+         particularly important in Wi-Fi <span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> networks due to the over-the-air nature and device mobility.
+         When such randomization
          happens, some in-network states may break, which may affect network connectivity and user experience.
          At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document lists various network environments and a range of network services that may be affected
@@ -1289,7 +1293,7 @@ li > p:last-of-type:only-child {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1391,60 +1395,65 @@ li > p:last-of-type:only-child {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1"><span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> (or 'Wi-Fi') technology has revolutionized communications and become the
+<p id="section-1-1">When MAC-Address was first introduced in <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard, it was used in wired 
+         Ethernet network <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span>. Due to the nature of
+         the wired network, devices were relatively stationary and the physical connection imposed a boundary to restrict attackers
+         to easily access the network data. But <span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> (Wi-Fi) brought new challenges when it was introduced.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The flexibility of Wi-Fi technology has revolutionized communications and become the
          preferred, and sometimes the only technology used by devices such as laptops, tablets, and Internet of Things (IoT)
          devices.  Wi-Fi is an over-the-air medium that allows attackers with surveillance equipment to monitor WLAN packets and
          track the activity of WLAN devices. It is also sometimes possible for attackers to monitor the WLAN packets behind the Wi-Fi
          Access Point (AP) over the wired Ethernet. Once the association between a device and its user is made, identifying the 
-         device and its activity is sufficient to deduce information about what the user is doing,
-         without the user's consent.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">To reduce the risks of identifying a device only by the MAC address, client OS 
+         device and its activity is sufficient to deduce information about what the user is doing, without the user's consent.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">To reduce the risks of identifying a device only by the MAC address, client OS 
          vendors have started implementing Randomized and Changing MAC addresses (RCM). By randomizing the MAC address,
          it becomes harder to use the MAC address to construct a persistent association between a flow of data packets and a device, 
          assuming no other visible unique identifiers or stable patterns are in use. When individual devices are no longer easily 
          identifiable, it also becomes difficult 
          to associate a series of network packet flows in a prolonged period with a particular individual using one specific device
-         if the device randomizes the MAC address governed by the OS privacy policies.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">However, such address change may affect the user experience and the efficiency of legitimate
+         if the device randomizes the MAC address governed by the OS privacy policies.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">However, such address change may affect the user experience and the efficiency of legitimate
          network operations. For a long time, network designers and implementers relied on the assumption that a given machine,
          in a network implementing <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> technologies, would be represented by a unique network MAC address that would not
          change over time. When this assumption is broken, network communication may be disrupted.
          For example, sessions established between the end-device and network services may break and
          packets in transit may suddenly be lost. If multiple clients implement aggressive (e.g., once an hour or shorter) 
          MAC address randomization without coordination with network services, some network services such as MAC address cache in
-         the AP and the upstream layer-2 switch may not be able to handle the load that may result in unexpected network interruption.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">At the same time, some network services rely on the end station (as defined by the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard,
+         the AP and the upstream layer-2 switch may not be able to handle the load that may result in unexpected network interruption.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">At the same time, some network services rely on the end station (as defined by the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard,
          also called in this document device, or machine) providing an identifier, which can be
          the MAC address or another value. If the client implements MAC address randomization but continues sending the same static
          identifier, then the association between a stable identifier and the station continues despite the RCM scheme.
          There may be environments where such continued association is desirable, but others where user privacy has
-         more value than any continuity of network service state.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">It is useful for implementations of client and network devices to enumerate services that may be
+         more value than any continuity of network service state.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">It is useful for implementations of client and network devices to enumerate services that may be
          affected by RCM and evaluate possible framework to maintain both the quality of user experience
          and network efficiency while RCM happens, and user privacy is strengthened. This document
-         presents these assessments and recommendations.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">This document is organized as follows. <a href="#identity" class="auto internal xref">Section 2</a> discusses the current status of using MAC 
+         presents these assessments and recommendations.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7"> Although this document mainly discusses MAC-Address randomization in Wi-Fi <span>[<a href="#IEEE_802.11" class="cite xref">IEEE_802.11</a>]</span> networks, 
+         same principles can be easily extended to any <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> networks.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">This document is organized as follows. <a href="#identity" class="auto internal xref">Section 2</a> discusses the current status of using MAC 
          address as identity. <a href="#actors" class="auto internal xref">Section 3</a> discusses various actors in the network that will be impacted by MAC
          address randomization. <a href="#trust" class="auto internal xref">Section 4</a> examines the degrees of trust between personal
          devices and the entities at play in a network domain. <a href="#environment" class="auto internal xref">Section 5</a> discusses various network 
          environments that will be impacted. <a href="#services" class="auto internal xref">Section 6</a> analyzes some existing 
          network services that will be impacted. Finally, <a href="#framework" class="auto internal xref">Appendix A</a> includes some frameworks that are 
-         being worked on.<a href="#section-1-6" class="pilcrow">¶</a></p>
+         being worked on.<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
 <div id="identity">
 <section id="section-2">
       <h2 id="name-mac-address-as-identity-use">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-mac-address-as-identity-use" class="section-name selfRef">MAC Address as Identity: User vs. Device</a>
       </h2>
-<p id="section-2-1">The Media Access Control (MAC) layer of IEEE 802 technologies defines rules to control 
-         how a device accesses the shared medium. In a
+<p id="section-2-1">The Media Access Control (MAC) layer of IEEE 802.3 <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> 
+         technologies define rules to control how a device accesses the shared medium. In a
          network where a machine can communicate with one or more other machines, one such rule is that each
          machine needs to be identified either as the target destination of a message or as the source of a
          message (and the target destination of the answer). Initially intended as a 48-bit (6 octets)
-         value in the first versions of the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> Standard, other Standards under
-         the <span>[<a href="#IEEE_802" class="cite xref">IEEE_802</a>]</span> umbrella allow this address to take an extended
+         value in the first versions of the <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> Standard, other Standards under
+         the <span>[<a href="#IEEE_802.3" class="cite xref">IEEE_802.3</a>]</span> umbrella allow this address to take an extended
          format of 64 bits (8 octets) which enable a larger number of MAC addresses to coexist as the
-         802 technologies became widely adopted.<a href="#section-2-1" class="pilcrow">¶</a></p>
+         802.3 technologies became widely adopted.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">Regardless of the address length, different networks have different needs, and several bits of
          the first octet are reserved for specific purposes. In particular, the first bit is used to identify
          the destination address as an individual (bit set to 0) or a group address (bit set to 1). The
@@ -1612,7 +1621,7 @@ li > p:last-of-type:only-child {
           <li id="section-3.2-2.2">Wireless access network operators: some wireless access networks host
                devices that meet specific requirements, such as device type (e.g., IoT-only networks, factory operational
                networks). Therefore, operators can attempt to identify the devices (or the users) connecting to the
-               networks under their care. They can use the MAC address to represent an identified device.<a href="#section-3.2-2.2" class="pilcrow">¶</a>
+               networks under their care. They often use the MAC address to represent an identified device.<a href="#section-3.2-2.2" class="pilcrow">¶</a>
 </li>
           <li id="section-3.2-2.3">Network access providers: wireless access networks are often considered beyond the first 2 layers of
                the OSI model. For example, several regulatory or legislative bodies can group all OSI layers into
@@ -1795,7 +1804,7 @@ li > p:last-of-type:only-child {
             temporal disconnection or a MAC randomization, the risk of scope address exhaustion exists even in cases
             where the IP address is released.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <p id="section-6.1-5">Network devices with self-assigned IPv6 addresses (e.g., with SLAAC defined in 
-            <span>[<a href="#RFC6620" class="cite xref">RFC6620</a>]</span>) and devices using static IP addresses rely on mechanisms like Optimistic 
+            <span>[<a href="#RFC4862" class="cite xref">RFC4862</a>]</span>) and devices using static IP addresses rely on mechanisms like Optimistic 
             Duplicate Address Detection (DAD) <span>[<a href="#RFC4429" class="cite xref">RFC4429</a>]</span> and NDP <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span>  
             for peer devices to establish the association between the target IP address
             and a MAC address, and these peers may cache this association in memory. Changing the MAC address, even
@@ -2004,10 +2013,6 @@ li > p:last-of-type:only-child {
 <dt id="RFC6614">[RFC6614]</dt>
       <dd>
 <span class="refAuthor">Winter, S.</span>, <span class="refAuthor">McCauley, M.</span>, <span class="refAuthor">Venaas, S.</span>, and <span class="refAuthor">K. Wierenga</span>, <span class="refTitle">"Transport Layer Security (TLS) Encryption for RADIUS"</span>, <span class="seriesInfo">RFC 6614</span>, <span class="seriesInfo">DOI 10.17487/RFC6614</span>, <time datetime="2012-05" class="refDate">May 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6614">https://www.rfc-editor.org/info/rfc6614</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6620">[RFC6620]</dt>
-      <dd>
-<span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Bagnulo, M.</span>, and <span class="refAuthor">E. Levy-Abegnoli</span>, <span class="refTitle">"FCFS SAVI: First-Come, First-Served Source Address Validation Improvement for Locally Assigned IPv6 Addresses"</span>, <span class="seriesInfo">RFC 6620</span>, <span class="seriesInfo">DOI 10.17487/RFC6620</span>, <time datetime="2012-05" class="refDate">May 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6620">https://www.rfc-editor.org/info/rfc6620</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7217">[RFC7217]</dt>
       <dd>
