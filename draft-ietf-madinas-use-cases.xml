@@ -11,7 +11,7 @@
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
     please see http://xml.resource.org/authoring/README.html. -->
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-17" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-madinas-use-cases-18" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
    <!-- xml2rfc v2v3 conversion 2.38.1 -->
    <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
@@ -23,7 +23,7 @@
       <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
       <title abbrev="RCM Use Cases">Randomized and Changing MAC Address: Context, Network Impacts, and Use Cases </title>
-      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-17" />
+      <seriesInfo name="Internet-Draft" value="draft-ietf-madinas-use-cases-18" />
       <!-- add 'role="editor"' below for the editors if appropriate -->
       <!-- Another author who claims to be an editor -->
       <author fullname="Jerome Henry" initials="J" surname="Henry">
@@ -73,7 +73,7 @@
          <t>To limit the privacy issues created by the association between a device, its traffic, its location, and its user in
          <xref target="IEEE_802"/> networks,
          client and client Operating System vendors have started implementing MAC address randomization. This technology is
-         particularly important in Wi-Fi <xref target="IEEE_802.11" /> networks due to the over-the-air nature and device mobility.
+         particularly important in Wi-Fi <xref target="IEEE_802.11" /> networks due to the over-the-air medium and device mobility.
          When such randomization
          happens, some in-network states may break, which may affect network connectivity and user experience.
          At the same time, devices may continue using other stable identifiers, defeating the MAC address randomization purposes.</t>
@@ -168,7 +168,7 @@
          Standard recognized that some devices (e.g., smart thermostats) may never change their attachment network 
          and will not need a globally unique MAC address to prevent address collision against any other 
          device in any other network. The U/L bit can be set to signal to the network that the MAC Address is intended
-         to be locally unique (not globally unique). The 802 Standard <xref target="IEEE_802"/>
+         to be locally unique (not globally unique). <xref target="IEEE_802"/>
          did not initially define the MAC Address allocation schema when the U/L bit is set to 1. It states the address must 
          be unique in a given broadcast domain (i.e., the space where the MAC addresses of devices are visible to one
          another).</t>
@@ -227,9 +227,7 @@
          same LAN implementing a MAC layer also expect each device to be associated with a MAC address that would
          persist over time. When a device changes
          its MAC address, other devices on the same LAN may fail to recognize that the same machine is attempting
-         to communicate with them. Additionally, upper protocol layers (e.g., application layer) have been designed
-         with the assumption that each node on the LAN using these services will have a MAC address that would
-         remain consistent over time. This type of MAC address is referred to as 'persistent' MAC address
+         to communicate with them. This type of MAC addresses is referred to as 'persistent' MAC address
          in this document. This
          assumption sometimes adds to the PII confusion, for example in the case of Authentication, Authorization,
          and Accounting (AAA) services <xref target="RFC3539"/> authenticating
@@ -326,13 +324,13 @@
                networks under their care. They often use the MAC address to represent an identified device.</li>
 
                <li>Network access providers: wireless access networks are often considered beyond the first 2 layers of
-               the OSI model. For example, several regulatory or legislative bodies can group all OSI layers into
-               their functional effect of allowing network communication between machines. In this context, entities
-               operating access networks can see their liability associated with the activity of devices communicating
-               through the networks that these entities operate. In other contexts, operators assign network
+               the OSI model. For example, law enforcement agency (e.g., FBI in the United States) may legally require 
+               the network access provider to 
+               identify communications from a subject. In this context, the
+               operating access networks need to identify the devices used by the subjects and cross-reference the 
+               data generated by the devices in the network. In other contexts, the operating access networks assign
                resources based on contractual conditions (e.g., fee, bandwidth fair share). In these scenarios,
-               these operators may attempt to identify the devices and the users of their networks. They can use the
-               MAC address to represent an identified device.</li>
+               the operators may use the MAC address to identify the devices and the users of their networks.</li>
 
                <li>Over-The-Wired internal (OTWi) observers: because the device wireless MAC address continues to be
                present over the wire if the infrastructure connection device (e.g., access point) functions as a layer-2 
@@ -345,7 +343,7 @@
 
                <li>Over-The-Wired external (OTWe) observers: beyond the broadcast domain, frame headers are removed
                by a routing device, and a new layer-2 header is added before the frame is transmitted to the next
-               segment. The personal device MAC address is not visible anymore unless a mechanism copies the MAC
+               segment. The device MAC address is not visible anymore unless a mechanism copies the MAC
                address into a field that can be read while the packet travels onto the next segment (e.g., pre-
                <xref target="RFC4941" /> and pre-<xref target="RFC7217" />
                IPv6 addresses built from the MAC address). Therefore, unless this last condition exists,
@@ -367,19 +365,22 @@
         at play in a network domain where a MAC address may be visible:</t>
 
          <ol spacing="normal" type="1">
-            <li>Full trust: there is environment where a personal device establishes a trust relationship and can share a persistent
-            device identity with the access network devices (e.g., access point and WLAN Controller), the services beyond the
-            access point in the layer-2 broadcast domain (e.g., DHCPv4, AAA), without fear that observers or network actors may
-            access PII that would not be shared willingly. The personal device (or its user) also has confidence that its
-            identity is not shared beyond the layer-2 broadcast domain boundary.</li>
+            <li>Full trust: there is environment where a device establishes a trust relationship, and the device 
+            can share its persistent
+            MAC address with the access network devices (e.g., access point and WLAN Controller). In this environment,
+            the network provides necessary security measurement to prevent observers or network actors from 
+            accessing PII. The device (or its user) also has confidence that its
+            MAC address is not shared beyond the layer-2 broadcast domain boundary.</li>
 
-            <li>Selective trust: in another environment, a device may selectively share a persistent identity with some
-            elements of the layer-2 broadcast domain but not others. That persistent identity may or may not be the same for different
-            services.</li>
+            <li>Selective trust: in another environment, depending of the pre-defined privacy policies, a device may 
+            decide to use one pseudo-persistent MAC address for a set of network elements and another pseudo-persistent 
+            MAC address for another set of network elements. Examples of privacy policies can be SSID and BSSID combination, 
+            a particular time-of-day, or a pre-set time duration.
+            </li>
 
-            <li>Zero trust: in another environment, a device may be unwilling to share any persistent identity with any local entity
-            reachable through the AP. It may generate a temporal identity to each of them. That temporal
-            identity may or may not be the same for different services.</li>
+            <li>Zero trust: in another environment, a device may randomize its MAC address with any local entity
+            reachable through the AP. It may generate a temporal MAC address to each of them. That temporal
+            MAC address may or may not be the same for different services.</li>
          </ol>
       </section>
 
@@ -390,43 +391,124 @@
          structure of common environments:</t>
         
         <ol spacing="normal" type="A">
-            <li>Residential settings under the control of the user: this is typical of a home network with Wi-Fi in the LAN and
-            Internet connection. In this environment, traffic over the Internet does not expose the MAC address of 
+            <li>Residential settings under the control of the user: this is a typical home network with Wi-Fi in the LAN and
+            Internet in the WAN.
+            In this environment, traffic over the Internet does not expose the MAC address of 
             the internal device if it is not copied to
             another field before routing happens. The wire segment within the broadcast domain is under the control of the user
-            and is therefore usually not at risk of hosting an eavesdropper. Full trust is typically established at this level 
-            among users and with the network elements. The device trusts the access point and all layer-2 domain 
-            entities beyond the access point. However, unless the user has full access control over the physical space 
+            and is usually not at risk of hosting an eavesdropper. Full trust is typically established at this level 
+            among users and with the network elements. Note that Full trust in this context is
+            referring to the MAC address persistency. It does not extend to full trust between applications or devices.
+            The device trusts the access point and all layer-2 domain entities beyond the access point,
             where the Wi-Fi transmissions can be detected, there is no guarantee that an eavesdropper will not observe
             the communications. As such, it is common to assume that, even in this environment, attackers may still be able
-            to monitor the unencrypted information such as MAC addresses.</li>
+            to monitor the unencrypted information such as MAC addresses. If a device decided to not fully trust the
+            network, it might apply any necessary policy to protect its identity. Most devices in the network only require 
+            simple connectivity so that the network services are simple. For network support, it is also simple. It is usually 
+            related to Internet connectivity.</li>
 
             <li>Managed residential settings: examples of this type of environments include shared living facilities
             and other collective environments where an operator manages the network for the residents. The OTA
-            exposure is similar to that of a home. A number of devices larger than in a standard home may be
-            present, and the operator may be requested to provide IT support to the residents. In this setting, the
-            operator may need to identify a device activity in real-time. It may also need to analyze logs
-            to understand a past reported issue. For both activities, a device identification associated with the
-            session is needed. Full trust is often established in this environment, at the scale of a series of a few
-            sessions, not because it is assumed that no eavesdropper would observe the network activity, but because it is a common
-            condition for the managed operations.</li>
+            exposure is similar to (A). The operator may be requested to provide IT support to the residents and may need to 
+            identify a device activity in real-time. It may also need to analyze logs. The infrastructure is shared and covers
+            a larger area than (A), 
+            residents may connect to the network from different locations. For example, they may regularly connect to the 
+            network from their own apartments.
+            They may occasionally connect to the network from common areas. The device may decide to use different pseudo-persistent 
+            MAC address as we described in <xref target="trust" />. As such, the trust degree is Selective trust. In this environment, 
+            the network services will be slightly more complex than (A). Network may be segmented by locations and multiple SSID. 
+            User's devices should be able to join the
+            network without pre-certification and pre-approval. In most cases, users only need simple connectivity; thus, 
+            network support will be slightly but not significantly more complicated than (A).</li>
 
             <li>Public guest networks: public hotspots in shopping malls, hotels, stores, train stations,
-            and airports are typical examples of this environment. Some guest network operators may be legally mandated to
-            identify devices or users while some guest network operators may be legally mandated to untrack devices or users. 
-            In this environment, trust is commonly not established with any element of the layer-2 broadcast domain 
-            (Zero trust model by default).</li>
+            and airports are typical examples of this environment. 
+            In this environment, trust is commonly not established with any element of the layer-2 broadcast domain. 
+            Users do not anticipate a public guest network using the MAC address information to identify their location and 
+            network activity. They do not trust the network and do not want the network
+            to memorize them permanently. The trust degree is Zero. Devices in this network should avoid using long-lived
+            MAC address to prevent fingerprinting. For example, the device may use a different MAC address every time
+            it attaches to a new Wi-Fi access point. Some guest network operators may legally abide to
+            identify devices. They should not use the MAC address for such function. Most users
+            connecting to public guest network only expect simple Internet connectivity services, so the network
+            services are simple. If users have issue to connect to the network or to access the Internet, they expect
+		      limited to no technical support. Thus, the network support level is low.</li>
             
-            <li>Enterprises with Bring-Your-Own-Device (BYOD): users may be provided with corporate devices or
-            may bring their own devices. The devices are not directly under the control of a corporate IT
-            team. Trust may be established as the device joins the network. Some enterprise models will mandate 
-            full trust. Others, consistent with the BYOD model, will allow selective trust.</li>
+            <li>Enterprises with Bring-Your-Own-Device (BYOD): 
+            this type of networks are similar to (B) except that the onboarding devices are subjected to 
+            pre-approval and pre-certification. The devices are usually personal devices and are not under the 
+            control of the corporate IT team. Compared to residential network, enterprise network usually
+            provides more sophisticated network services including but not
+            limited to application-based network policies and identity-based network policies. Change of MAC address may
+            interrupt network services if the services are based on MAC address. Thus, network operations will be more complex, 
+            so the network support level is high.</li>
                
-            <li>Managed enterprises: in this environment, users are typically provided with corporate devices,
-            and all connected devices are managed, for example, through a Mobile Device Management (MDM) profile
-            installed on the device. Full trust is created as the MDM profile is installed.</li>
+            <li>Managed enterprises: in this environment:
+            this type of networks are similar to (C). The main difference is the devices are owned and managed by 
+            the enterprise. Given the network and the devices are owned and managed by the enterprise, the trust 
+            degree is Full trust. Network
+            services and network support level are same as (D)
+            
+            </li>
 
          </ol>
+
+         <t><xref target="scenario_table" /> summarizes the environment in a table format.</t>
+
+         <table anchor="scenario_table" align="center">
+               <name>Use Cases</name>
+               <thead>
+                  <tr>
+                     <th align="center">Use Cases</th>
+                     <th align="center">Trust Degree</th>
+                     <th align="center">Network Admin</th>
+                     <th align="center">Network Services</th>
+                     <th align="center">Network Support Expectation</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td align="center">(A) Residential settings under the control of the user</td>
+                     <td align="center">Full trust</td>
+                     <td align="center">User</td>
+                     <td align="center">Simple</td>
+                     <td align="center">Low</td>
+                  </tr>
+                  <tr>
+                     <td align="center">(B) Managed residential settings</td>
+                     <td align="center">Selective trust</td>
+                     <td align="center">IT</td>
+                     <td align="center">Medium</td>
+                     <td align="center">Medium</td>
+                  </tr>
+                  <tr>
+                     <td align="center">(C) Public guest networks</td>
+                     <td align="center">Zero trust</td>
+                     <td align="center">ISP</td>
+                     <td align="center">Simple</td>
+                     <td align="center">Low</td>
+                  </tr>
+                  <tr>
+                     <td align="center">(D) Enterprises with Bring-Your-Own-Device (BYOD)</td>
+                     <td align="center">Selective trust</td>
+                     <td align="center">IT</td>
+                     <td align="center">Complex</td>
+                     <td align="center">High</td>
+                  </tr>
+                  <tr>
+                     <td align="center">(E) Managed enterprises</td>
+                     <td align="center">Full trust</td>
+                     <td align="center">IT</td>
+                     <td align="center">Complex</td>
+                     <td align="center">High</td>
+                  </tr>
+
+               </tbody>
+            </table>
+
+	    <t>Existing technical frameworks that address some of the requirements of the use cases listed above
+		    in <xref target="framework"/>.</t>
+
       </section>
       <section anchor="services" numbered="true" toc="default">
          <name>Network Services</name>
@@ -464,24 +546,30 @@
             right key to send encrypted packets to the device). In short, the entire context needs to be
             rebuilt, and a new session restarted. The time consumed by this procedure breaks any flow that
             needs continuity or short delay between packets on the device (e.g., real-time audio, video,
-            AR/VR, etc.) For example: the <xref target="IEEE_802.11i"/> Standard
-            recognizes that a device may leave the network and come back
-            after a short time window. As such, the standard suggests that the infrastructure should keep the
-            context for a device for a while after the device was last seen. MAC address randomization in this
-            context can cause resource exhaustion on the wireless infrastructure and the flush of contexts,
-            including for devices that are simply in temporal sleep mode.</t>
+            AR/VR, etc.). For example: <xref target="IEEE_802.11i"/>
+            recognizes that a device may leave and re-join the network
+            after a short time window.  As such, the standard suggests that the
+            infrastructure should keep the context for a device for a while after
+            the device was last seen. The device should maintain the same MAC address in such scenario.</t>
+
 
             <t>Some network equipment such as Multi-Layer routers and Wi-Fi Access Points which serve both 
             layer-2 and layer-3 in the same device rely on ARP <xref target="RFC826"/>, and NDP <xref target="RFC4861"/>, 
-            to build the MAC-to-IP table for packet forwarding. Aggressive MAC randomization from many devices in a short
-            time interval may cause the layer-2 switch to exhaust its resources, holding in memory
-            traffic for a device whose port location can no longer be found. As these infrastructure devices
-            also implement a cache (to remember the port position of each known device), to frequent randomized 
-            MAC address changes can cause resource exhaustion and the flush of older MAC addresses, including 
-            for devices that did not change their MAC to a new randomized one. For the RCM device, these 
-            effects translate into session discontinuity and return traffic losses.</t>
+            to build the MAC-to-IP table for packet forwarding. 
+            The size of the MAC address cache in the layer-2 switch is finite. 
+            If new entries are created
+            faster than the old entries flushed by the idle timer, it is possible to cause unintentional 
+            deny-of-service attack. For example, default timeout of MAC address cache in Linux is set to 300s.
+            Aggressive MAC randomization from many devices in a short
+            time interval (e.g., less than 300s) may cause the layer-2 switch to exhaust its resources, holding in memory
+            traffic for a device whose entry can no longer be found. For the RCM device, these 
+            effects translate into session discontinuity and disrupt the active sessions. The discontinuity impact
+            may vary. Real-time applications such as video conference may experience
+            short interruption while non-real-time applications such as video streaming may experience minimal or no impact.
+            The device should carefully balance when to change the MAC address after analyzing the nature of the running applications and its
+            privacy policy.</t>
 
-            <t>In wireless contexts, 802.1X <xref target="IEEE_802.1X"/> authenticators rely on the device and 
+            <t>In wireless contexts, <xref target="IEEE_802.1X"/> authenticators rely on the device and 
             user identity validation provided by an AAA server to change the interface from a blocking state to 
             a forwarding state. The MAC address is used to verify that the device is in the authorized list, 
             and to retrieve the associated key used to decrypt the
@@ -539,85 +627,6 @@
             network quarantine and disruption of operations.</t>
          </section>
 
-         <section numbered="true" toc="default">
-            <name>Use Cases</name>
-            <t><xref target="DevID" /> discusses different environments, different settings, and the expectations of
-            users and network operators. <xref target="scenario_table" /> summarizes the expected degree of trust, 
-            network admin responsibility, complexity of supported network services, 
-            and network support expectation from the user for the different use cases defined in <xref target="environment"/>.</t>
-
-            <table anchor="scenario_table" align="center">
-               <name>Use Cases</name>
-               <thead>
-                  <tr>
-                     <th align="center">Use Cases</th>
-                     <th align="center">Trust Degree</th>
-                     <th align="center">Network Admin</th>
-                     <th align="center">Network Services</th>
-                     <th align="center">Network Support Expectation</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td align="center">(A) Residential settings under the control of the user</td>
-                     <td align="center">Full trust</td>
-                     <td align="center">User</td>
-                     <td align="center">Medium</td>
-                     <td align="center">Low</td>
-                  </tr>
-                  <tr>
-                     <td align="center">(B) Managed residential settings</td>
-                     <td align="center">Selective trust</td>
-                     <td align="center">IT</td>
-                     <td align="center">Medium</td>
-                     <td align="center">Medium</td>
-                  </tr>
-                  <tr>
-                     <td align="center">(C) Public guest networks</td>
-                     <td align="center">Zero trust</td>
-                     <td align="center">ISP</td>
-                     <td align="center">Simple</td>
-                     <td align="center">Low</td>
-                  </tr>
-                  <tr>
-                     <td align="center">(D) Enterprises with Bring-Your-Own-Device (BYOD)</td>
-                     <td align="center">Selective trust</td>
-                     <td align="center">IT</td>
-                     <td align="center">Complex</td>
-                     <td align="center">Medium</td>
-                  </tr>
-                  <tr>
-                     <td align="center">(E) Managed enterprises</td>
-                     <td align="center">Full trust</td>
-                     <td align="center">IT</td>
-                     <td align="center">Complex</td>
-                     <td align="center">High</td>
-                  </tr>
-
-               </tbody>
-            </table>
-            <t>For example, a Home network is sometimes considered to be trusted and safe, where users
-            are not worried about other users (or the home network admin) seeing their MAC address.
-            Users expect a simple procedure to connect to their home network. All devices in the home
-            network often trust each other. The Home network can also include many IoT devices, which
-            need to be simple to onboard and manage. Home users typically expect the network operator
-            to protect the home network from external threats (i.e., attacks from the Internet). Home
-            users also typically expect certain policy features (e.g., Parental Control). Most home users
-            do not expect to need networking skills to manage their home network. Such an environment may
-            lead to full-trust conditions. Although trust may typically exist between allowed actors,
-            there is no guarantee that an eavesdropper isn't monitoring the traffic from outside
-            or a rogue IoT device isn't monitoring local traffic from within. The reality often limits
-            the effectiveness of trust in most home scenarios.</t>
-
-            <t>On the other end of the spectrum, Public Wi-Fi is often viewed as completely untrusted,
-            with users not expecting to trust other users or actors inside or
-            outside the layer-2 domain. Privacy is one of the major concerns for users. Most users
-            connecting to Public Wi-Fi only require simple Internet connectivity services and expect
-		      limited to no technical support.</t>
-
-	    <t>Existing technical frameworks that address some of the requirements of the use cases listed above
-		    in <xref target="framework"/>.</t>
-         </section>
       </section>
          <section anchor="IANA" numbered="true" toc="default">
             <name>IANA Considerations</name>
