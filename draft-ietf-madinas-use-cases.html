@@ -40,7 +40,7 @@
     wcwidth 0.2.13
     weasyprint 61.2
 -->
-<link href="/usr/src/app/tmp/9fb7925d-f763-4c63-b60b-90475c139823/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/5c909e49-fcb2-4bd0-b657-fbe5897c2072/draft-ietf-madinas-use-cases.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1657,7 +1657,7 @@ li > p:last-of-type:only-child {
         environment where the device operates, (2) the presence and nature of other devices in the
         environment, and (3) the type of network the device is communicating through. Consequently, a device
         can use an identifier (such as a MAC address) that can persist over time if trust with the
-        environment is established, or that can be temporal if an identifier is required
+        environment is established, or that can be temporary if an identifier is required
         for a service in an environment where trust has not been established. Note that trust is not binary.
         It is useful to distinguish what trust a personal device may establish with the different entities
         at play in a network domain where a MAC address may be visible:<a href="#section-4-1" class="pilcrow">¶</a></p>
@@ -1675,7 +1675,7 @@ li > p:last-of-type:only-child {
             a particular time-of-day, or a pre-set time duration.<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
         <li id="section-4-2.3">Zero trust: in another environment, a device may randomize its MAC address with any local entity
-            reachable through the AP. It may generate a temporal MAC address to each of them. That temporal
+            reachable through the AP. It may generate a temporary MAC address to each of them. That temporary
             MAC address may or may not be the same for different services.<a href="#section-4-2.3" class="pilcrow">¶</a>
 </li>
       </ol>
@@ -1881,8 +1881,8 @@ li > p:last-of-type:only-child {
             to fail to obtain a new IP address. Even if the RCM device releases the IP address before
             changing the MAC address, the DHCPv4 server typically holds the released IP address for a certain duration,
             in case the leaving MAC returns. As the DHCPv4 <span>[<a href="#RFC2131" class="cite xref">RFC2131</a>]</span> server cannot know if 
-            the release is due to a
-            temporal disconnection or a MAC randomization, the risk of scope address exhaustion exists even in cases
+            the release is due to a temporary
+             disconnection or a MAC randomization, the risk of scope address exhaustion exists even in cases
             where the IP address is released.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <p id="section-6.1-5">Network devices with self-assigned IPv6 addresses (e.g., with SLAAC defined in 
             <span>[<a href="#RFC4862" class="cite xref">RFC4862</a>]</span>) and devices using static IP addresses rely on mechanisms like Optimistic 

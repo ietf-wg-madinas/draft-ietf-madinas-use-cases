@@ -359,7 +359,7 @@
         environment where the device operates, (2) the presence and nature of other devices in the
         environment, and (3) the type of network the device is communicating through. Consequently, a device
         can use an identifier (such as a MAC address) that can persist over time if trust with the
-        environment is established, or that can be temporal if an identifier is required
+        environment is established, or that can be temporary if an identifier is required
         for a service in an environment where trust has not been established. Note that trust is not binary.
         It is useful to distinguish what trust a personal device may establish with the different entities
         at play in a network domain where a MAC address may be visible:</t>
@@ -379,7 +379,7 @@
             </li>
 
             <li>Zero trust: in another environment, a device may randomize its MAC address with any local entity
-            reachable through the AP. It may generate a temporal MAC address to each of them. That temporal
+            reachable through the AP. It may generate a temporary MAC address to each of them. That temporary
             MAC address may or may not be the same for different services.</li>
          </ol>
       </section>
@@ -584,8 +584,8 @@
             to fail to obtain a new IP address. Even if the RCM device releases the IP address before
             changing the MAC address, the DHCPv4 server typically holds the released IP address for a certain duration,
             in case the leaving MAC returns. As the DHCPv4 <xref target="RFC2131"/> server cannot know if 
-            the release is due to a
-            temporal disconnection or a MAC randomization, the risk of scope address exhaustion exists even in cases
+            the release is due to a temporary
+             disconnection or a MAC randomization, the risk of scope address exhaustion exists even in cases
             where the IP address is released.</t>
 
             <t>Network devices with self-assigned IPv6 addresses (e.g., with SLAAC defined in 

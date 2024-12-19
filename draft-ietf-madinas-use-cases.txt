@@ -494,7 +494,7 @@ Internet-Draft                RCM Use Cases                December 2024
    type of network the device is communicating through.  Consequently, a
    device can use an identifier (such as a MAC address) that can persist
    over time if trust with the environment is established, or that can
-   be temporal if an identifier is required for a service in an
+   be temporary if an identifier is required for a service in an
    environment where trust has not been established.  Note that trust is
    not binary.  It is useful to distinguish what trust a personal device
    may establish with the different entities at play in a network domain
@@ -527,8 +527,8 @@ Internet-Draft                RCM Use Cases                December 2024
 
    3.  Zero trust: in another environment, a device may randomize its
        MAC address with any local entity reachable through the AP.  It
-       may generate a temporal MAC address to each of them.  That
-       temporal MAC address may or may not be the same for different
+       may generate a temporary MAC address to each of them.  That
+       temporary MAC address may or may not be the same for different
        services.
 
 5.  Environment
@@ -774,7 +774,7 @@ Internet-Draft                RCM Use Cases                December 2024
    address, the DHCPv4 server typically holds the released IP address
    for a certain duration, in case the leaving MAC returns.  As the
    DHCPv4 [RFC2131] server cannot know if the release is due to a
-   temporal disconnection or a MAC randomization, the risk of scope
+   temporary disconnection or a MAC randomization, the risk of scope
    address exhaustion exists even in cases where the IP address is
    released.
 
